@@ -40,7 +40,8 @@ const ForgotPassword = () => {
                 setIsLoading(false);
                 router.push("/login");
             } else {
-                toast.error("Enter a corect email!");
+                const data = await response.json();
+                toast.error(data[0]);
                 setIsLoading(false);
             }
         } catch (error) {
@@ -58,8 +59,8 @@ const ForgotPassword = () => {
                     password reset request is safe with us
                 </p>
                 <p className="f1-message">
-                    Please enter your email address below. We'll send you a link
-                    to reset your password.
+                    Please enter your email address below. We&apos;ll send you a
+                    link to reset your password.
                 </p>
             </div>
 

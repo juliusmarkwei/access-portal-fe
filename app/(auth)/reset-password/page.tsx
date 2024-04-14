@@ -35,7 +35,6 @@ const ResetPassword = () => {
         preventDefault: () => void;
     }) => {
         e.preventDefault();
-        console.log(formData.password, token, uid);
         try {
             setIsLoading(true);
             if (formData.password !== formData.re_password) {
@@ -52,6 +51,7 @@ const ResetPassword = () => {
                     },
                     body: JSON.stringify({
                         new_password: formData.password,
+                        re_new_password: formData.re_password,
                         token: token,
                         uid: uid,
                     }),

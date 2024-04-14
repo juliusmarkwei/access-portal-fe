@@ -12,7 +12,7 @@ const baseURL = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
 const Login = () => {
     const [isLoading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
-        username: "",
+        email: "",
         password: "",
     });
 
@@ -25,7 +25,7 @@ const Login = () => {
     };
 
     const disableBtn = () => {
-        return formData.username === "" || formData.password === "";
+        return formData.email === "" || formData.password === "";
     };
 
     const handleLogin = async (e: { preventDefault: () => void }) => {
@@ -39,7 +39,7 @@ const Login = () => {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    username: formData.username,
+                    email: formData.email,
                     password: formData.password,
                 }),
             });
@@ -47,8 +47,8 @@ const Login = () => {
                 const data = await response.json();
                 Cookies.set("access_token", data.access);
                 Cookies.set("refresh_token", data.refresh);
-                toast.success("Login successful", { duration: 5000 });
-                route.push("/dashboard");
+                toast.success("Login successful", { duration: 4000 });
+                route.push("/");
                 setLoading(false);
             } else {
                 const data = await response.json();
@@ -64,15 +64,15 @@ const Login = () => {
     return (
         <main className="login-container">
             <div className="loginBox">
-                <h1 className="loginHeader">Sign in to SWIFT SEND</h1>
+                <h1 className="loginHeader">Sign in to ACCESS PORTAL</h1>
                 <form className="loginForm">
                     <input
                         required
                         type="text"
-                        name="username"
+                        name="email"
                         className="loginUsernameField"
-                        placeholder="Username"
-                        defaultValue={formData.username}
+                        placeholder="Email"
+                        defaultValue={formData.email}
                         onChange={handleonChange}
                     />
                     <input
@@ -86,7 +86,7 @@ const Login = () => {
                     />
 
                     <h4 className="forgotPassword">
-                        <Link href="/reset-password">
+                        <Link href="/forget-password">
                             Forgot your password?
                         </Link>
                     </h4>
