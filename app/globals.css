@@ -1,3 +1,344 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.forgetPassword-container {
+    display: flex;
+    flex-direction: column;
+    padding: 40px 20px 20px 20px;
+    align-items: center;
+}
+
+.ForgotPasswordheading {
+    font-size: 2.2rem;
+    color: hsl(30, 100%, 52%);
+    margin-bottom: 20px;
+    padding: 50px;
+}
+
+.message-container {
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.f1-message {
+    font-size: 1.1rem;
+    color: hsl(0, 0%, 10%);
+    margin-bottom: 20px;
+}
+
+.forgetPasswordForm {
+    margin-top: 40px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.f1-email {
+    position: absolute;
+    left: -9999px;
+}
+
+.f1-input {
+    width: 45%;
+    height: 55px;
+    margin-bottom: 20px;
+    border: 1px solid hsl(0, 0%, 80%);
+    border-radius: 5px;
+    padding: 0 10px;
+}
+
+.f1-button {
+    width: 250px;
+    height: 55px;
+    background-color: hsl(30, 100%, 52%);
+    color: white;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.f1-button:hover {
+    background-color: hsl(30, 100%, 42%);
+    transition: 0.3s ease;
+}
+
+.login-container {
+    display: flex;
+}
+
+.loginBox {
+    width: 60%;
+    height: 100vh;
+    background-color: antiquewhite;
+}
+
+.loginBox .loginHeader {
+    width: 100%;
+    height: 200px;
+    font-size: 2rem;
+    text-align: center;
+    padding-top: 70px;
+    color: hsl(30, 100%, 52%);
+}
+
+.loginBox .loginForm {
+    width: 100%;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginUsernameField,
+.loginPasswordField {
+    width: 50%;
+    height: 40px;
+    margin-bottom: 20px;
+    border: 1px solid hsl(0, 0%, 80%);
+    border-radius: 5px;
+    padding: 0 10px;
+}
+
+.forgotPassword {
+    width: 50%;
+    height: 40px;
+    margin-bottom: 20px;
+    text-align: right;
+    text-decoration: underline;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.forgotPassword:hover {
+    color: hsl(0, 0%, 20%);
+}
+
+.signUpButton-Loginpage,
+.signInButton-Loginpage {
+    width: 200px;
+    height: 55px;
+    background-color: hsl(30, 100%, 52%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transform: 0.5s ease;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+}
+
+.signUpButton-Loginpage:hover,
+.signInButton-Loginpage:hover {
+    background-color: hsl(30, 100%, 42%);
+}
+
+.login-signUpBox {
+    width: 40%;
+    height: 100vh;
+    padding: 0 20px 0 20px;
+    text-align: center;
+    background-color: rgb(255, 255, 255);
+}
+
+.login-signUpBox h1 {
+    font-size: 2.5rem;
+    padding-top: 150px;
+    margin: 30px;
+    color: hsl(30, 100%, 52%);
+}
+
+.login-signUpBox p {
+    padding: 20px;
+    padding-bottom: 40px;
+    font-size: 1.2rem;
+}
+
+.resetPassword-container {
+    display: flex;
+    flex-direction: column;
+    padding: 40px 20px 20px 20px;
+    align-items: center;
+    border-radius: 5px;
+    border-radius: 1px solid hsl(0, 0%, 80%);
+}
+
+.headingResetPassword {
+    font-size: 2.4rem;
+    color: hsl(30, 100%, 52%);
+    margin-bottom: 80px;
+    padding: 20px;
+}
+
+.messageResetPassword {
+    font-size: 1.2rem;
+    margin-bottom: 50px;
+    width: 50%;
+    text-align: center;
+}
+
+.resetPasswordForm {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.passwordInput {
+    width: 40%;
+    height: 55px;
+    margin-bottom: 20px;
+    border: 1px solid hsl(0, 0%, 80%);
+    border-radius: 5px;
+    padding: 0 10px;
+    font-size: 1rem;
+}
+
+.changePasswrdButton {
+    width: 250px;
+    height: 55px;
+    background-color: hsl(30, 100%, 52%);
+    color: white;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.changePasswrdButton:hover {
+    background-color: hsl(30, 100%, 42%);
+}
+
+.passwordLabel {
+    position: absolute;
+    left: -9999px;
+}
+
+.signup-container {
+    display: flex;
+}
+
+.signUpBox {
+    width: 60%;
+    height: 100vh;
+    padding: 0 20px 0 20px;
+    background-color: antiquewhite;
+}
+
+.signUpBox .signUpHeader {
+    width: auto;
+    height: 30px;
+    font-size: 2rem;
+    text-align: center;
+    padding-top: 80px;
+    color: hsl(30, 100%, 52%);
+}
+
+.signUpBox .signUpForm {
+    width: 100%;
+    height: 85vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.signUpEmailField,
+.signUpFirstNameField,
+.signUpLastNameField,
+.signUpPhoneField,
+.signUpPasswordField,
+.signUpUsernameField {
+    width: 50%;
+    height: 45px;
+    margin-bottom: 15px;
+    border: 1px solid hsl(0, 0%, 80%);
+    border-radius: 5px;
+    padding: 0 10px;
+    font-size: 1rem;
+}
+
+.signInButton-SignUpPage,
+.signUpButton-SignUpPage {
+    width: 200px;
+    height: 55px;
+    background-color: hsl(30, 100%, 52%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.signUpButton-SignUpPage {
+    margin-top: 40px;
+}
+
+.signInButton-SignUpPage:hover,
+.signUpButton-SignUpPage:hover {
+    background-color: hsl(30, 100%, 42%);
+}
+
+.signInBox {
+    width: 40%;
+    height: 100vh;
+    padding: 0 20px 0 20px;
+    text-align: center;
+    background-color: rgb(255, 255, 255);
+}
+
+.signInBox h1 {
+    font-size: 2.5rem;
+    padding-top: 150px;
+    margin: 30px;
+    color: hsl(30, 100%, 52%);
+}
+
+.signInBox p {
+    padding: 20px;
+    padding-bottom: 40px;
+    font-size: 1.2rem;
+}
+
+.NavBar {
+    display: flex;
+    justify-content: flex-end; /* Align items to the right */
+    align-items: center;
+    width: 80%;
+    height: 10vh;
+    background-color: antiquewhite;
+    margin-left: auto; /* This will push the container to the right */
+    margin-right: 100px; /* Add margin to separate from the right edge */
+}
+
+.imageNavBar {
+    width: 30px;
+    height: 30px;
+}
+
+.NavBar > .left-items > input {
+    padding: 20px;
+    height: 40px;
+    width: 300px;
+    border-radius: 5px;
+}
