@@ -3,6 +3,8 @@
 import { useSearchParams, useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { useEffect } from "react";
+import shieldImage from "@/public/shield.png";
+import Image from "next/image";
 
 const baseUrl = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
 
@@ -13,11 +15,12 @@ const UserActivate = () => {
     const router = useRouter();
 
     useEffect(() => {
-        // activateAccount();
+        activateAccount();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const activateAccount = async () => {
+        console.log(`${baseUrl}/auth/user/activate/`);
         try {
             const res = await fetch(`${baseUrl}/auth/user/activate/`, {
                 method: "POST",
@@ -41,13 +44,29 @@ const UserActivate = () => {
     };
     return (
         <>
-            <div className="">
-                <video width={300} height={300} autoPlay loop>
+            <div className="flex flex-col justify-center items-center m-20">
+                {/* <video width={300} height={300} autoPlay loop>
                     <source
-                        src="https://cdn-icons-mp4.flaticon.com/512/6569/6569127.mp4"
+                        src={}
                         type="video/mp4"
                     />
-                </video>
+                </video> */}
+                <Image
+                    src={shieldImage.src}
+                    alt="shield"
+                    width={300}
+                    height={300}
+                />
+                <h1 className="pt-8 font-bold text-2xl font-serif text-teal-500">
+                    Congratulations, your account has been activated!
+                </h1>
+                <button
+                    type="button"
+                    onClick={() => router.push("/login")}
+                    className="h-14 w-32 rounded mt-8 bg-teal-700 hover:bg-teal-800 text-white font-medium"
+                >
+                    LOGIN
+                </button>
             </div>
         </>
     );
