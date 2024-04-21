@@ -11,11 +11,9 @@ const SignUp = () => {
     const [isLoading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
         email: "",
-        firstName: "",
-        lastName: "",
+        fullName: "",
         phone: "",
         password: "",
-        username: "",
     });
     const route = useRouter();
 
@@ -36,11 +34,9 @@ const SignUp = () => {
                 },
                 body: JSON.stringify({
                     email: formData.email,
-                    first_name: formData.firstName,
-                    last_name: formData.lastName,
+                    full_name: formData.fullName,
                     phone: formData.phone,
                     password: formData.password,
-                    username: formData.username,
                 }),
             });
             if (response.ok) {
@@ -63,10 +59,8 @@ const SignUp = () => {
         return (
             formData.email === "" ||
             formData.password === "" ||
-            formData.firstName === "" ||
-            formData.lastName === "" ||
-            formData.phone === "" ||
-            formData.username === ""
+            formData.fullName === "" ||
+            formData.phone === ""
         );
     };
 
@@ -108,21 +102,13 @@ const SignUp = () => {
                     <input
                         type="text"
                         className="signUpFirstNameField"
-                        placeholder="First Name"
+                        placeholder="Full Name"
                         required
-                        value={formData.firstName}
+                        value={formData.fullName}
                         onChange={handleonChange}
-                        name="firstName"
+                        name="fullName"
                     />
-                    <input
-                        type="text"
-                        className="signUpLastNameField"
-                        placeholder="Last Name"
-                        required
-                        value={formData.lastName}
-                        onChange={handleonChange}
-                        name="lastName"
-                    />
+
                     <input
                         type="text"
                         className="signUpPhoneField"
@@ -141,15 +127,7 @@ const SignUp = () => {
                         onChange={handleonChange}
                         name="password"
                     />
-                    <input
-                        type="text"
-                        className="signUpUsernameField"
-                        placeholder="Username"
-                        required
-                        value={formData.username}
-                        onChange={handleonChange}
-                        name="username"
-                    />
+
                     {isLoading ? (
                         <span className="loading loading-spinner loading-md"></span>
                     ) : (
