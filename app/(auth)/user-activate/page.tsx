@@ -3,7 +3,7 @@
 import { useSearchParams, useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { useEffect } from "react";
-import shieldImage from "@/public/shield.png";
+import shieldImage from "@/public/shield.gif";
 import Image from "next/image";
 
 const baseUrl = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;

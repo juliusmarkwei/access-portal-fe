@@ -14,6 +14,7 @@ const SignUp = () => {
         fullName: "",
         phone: "",
         password: "",
+        re_password: "",
     });
     const route = useRouter();
 
@@ -37,6 +38,7 @@ const SignUp = () => {
                     full_name: formData.fullName,
                     phone: formData.phone,
                     password: formData.password,
+                    re_password: formData.re_password,
                 }),
             });
             if (response.ok) {
@@ -59,6 +61,7 @@ const SignUp = () => {
         return (
             formData.email === "" ||
             formData.password === "" ||
+            formData.re_password === "" ||
             formData.fullName === "" ||
             formData.phone === ""
         );
@@ -126,6 +129,15 @@ const SignUp = () => {
                         value={formData.password}
                         onChange={handleonChange}
                         name="password"
+                    />
+                    <input
+                        type="re_password"
+                        className="signUpPasswordField"
+                        placeholder="Retype Password"
+                        required
+                        value={formData.re_password}
+                        onChange={handleonChange}
+                        name="re_password"
                     />
 
                     {isLoading ? (
