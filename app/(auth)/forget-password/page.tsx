@@ -70,7 +70,7 @@ const ForgotPassword = () => {
             >
                 <label className="f1-email">Email</label>
                 <input
-                    className="f1-input"
+                    className="f1-input focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
                     type="email"
                     placeholder="Enter your email"
                     required

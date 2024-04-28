@@ -85,7 +85,7 @@ const ResetPassword = () => {
             <form className="resetPasswordForm">
                 <label className="passwordLabel">New Password</label>
                 <input
-                    className="passwordInput"
+                    className="passwordInput focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
                     type="password"
                     placeholder="Enter new password"
                     required
@@ -96,7 +96,7 @@ const ResetPassword = () => {
                 <br />
                 <label className="passwordLabel">Confirm Password</label>
                 <input
-                    className="passwordInput"
+                    className="passwordInput focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
                     type="password"
                     onChange={handleonChange}
                     name="re_password"

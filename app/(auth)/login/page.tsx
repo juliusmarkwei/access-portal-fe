@@ -70,7 +70,7 @@ const Login = () => {
                         required
                         type="text"
                         name="email"
-                        className="loginUsernameField"
+                        className="loginUsernameField focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
                         placeholder="Email"
                         defaultValue={formData.email}
                         onChange={handleonChange}
@@ -79,18 +79,16 @@ const Login = () => {
                         required
                         type="password"
                         name="password"
-                        className="loginPasswordField"
+                        className="loginPasswordField focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
                         placeholder="Password"
                         defaultValue={formData.password}
                         onChange={handleonChange}
                     />
-
                     <h4 className="forgotPassword">
                         <Link href="/forget-password">
                             Forgot your password?
                         </Link>
                     </h4>
-
                     <button
                         disabled={disableBtn() || isLoading}
                         onClick={handleLogin}
@@ -102,16 +100,18 @@ const Login = () => {
                         }`}
                     >
                         {isLoading ? (
-                            <div className="flex items-center justify-center">
-                                <span className="loading loading-spinner loading-md"></span>
-                            </div>
+                            <TailSpin
+                                color="white"
+                                width={50}
+                                radius={5}
+                                height={40}
+                            />
                         ) : (
                             "SIGN IN"
                         )}
                     </button>
                 </form>
             </div>
-
             <div className="login-signUpBox">
                 <main>
                     <h1 className="helloText">Hello, Friend!</h1>
@@ -120,7 +120,7 @@ const Login = () => {
                     <button
                         onClick={() => route.push("/signup")}
                         disabled={isLoading}
-                        className="signUpButton-Loginpage"
+                        className="signUpButton-Loginpage ml-[30%]"
                     >
                         SIGN UP
                     </button>

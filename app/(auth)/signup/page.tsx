@@ -18,7 +18,7 @@ const SignUp = () => {
     });
     const route = useRouter();
 
-    const handleonChange = (e: { target: { name: any; value: any } }) => {
+    const handleOnChange = (e: { target: { name: any; value: any } }) => {
         const name = e.target.name;
         const value = e.target.value;
         setFormData((prev) => ({ ...prev, [name]: value }));
@@ -42,13 +42,15 @@ const SignUp = () => {
                 }),
             });
             if (response.ok) {
-                await response.json();
-                toast.success("Account crated successful", { duration: 5000 });
+                const data = await response.json();
+                toast.success(data.message, {
+                    duration: 5000,
+                });
                 route.push("/login");
                 setLoading(false);
             } else {
                 const data = await response.json();
-                toast.error(data.detail, { duration: 5000 });
+                toast.error(data.email, { duration: 5000 });
                 setLoading(false);
             }
         } catch (error) {
@@ -80,7 +82,7 @@ const SignUp = () => {
                     <button
                         onClick={() => route.push("/login")}
                         disabled={isLoading}
-                        className="signInButton-SignUpPage"
+                        className="signInButton-SignUpPage ml-[30%]"
                     >
                         SIGN IN
                     </button>
@@ -95,72 +97,67 @@ const SignUp = () => {
                 >
                     <input
                         type="text"
-                        className="signUpEmailField"
+                        className="signUpEmailField focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
                         placeholder="Email"
                         required
                         value={formData.email}
-                        onChange={handleonChange}
+                        onChange={handleOnChange}
                         name="email"
                     />
                     <input
                         type="text"
-                        className="signUpFirstNameField"
+                        className="signUpFirstNameField focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
                         placeholder="Full Name"
                         required
                         value={formData.fullName}
-                        onChange={handleonChange}
+                        onChange={handleOnChange}
                         name="fullName"
                     />
 
                     <input
                         type="text"
-                        className="signUpPhoneField"
+                        className="signUpPhoneField focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
                         placeholder="Phone"
                         required
                         value={formData.phone}
-                        onChange={handleonChange}
+                        onChange={handleOnChange}
                         name="phone"
                     />
                     <input
                         type="password"
-                        className="signUpPasswordField"
+                        className="signUpPasswordField focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
                         placeholder="Password"
                         required
                         value={formData.password}
-                        onChange={handleonChange}
+                        onChange={handleOnChange}
                         name="password"
                     />
                     <input
-                        type="re_password"
-                        className="signUpPasswordField"
-                        placeholder="Retype Password"
+                        type="password"
+                        className="signUpPasswordField focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
+                        placeholder="Repeat password"
                         required
                         value={formData.re_password}
-                        onChange={handleonChange}
+                        onChange={handleOnChange}
                         name="re_password"
                     />
-
-                    {isLoading ? (
-                        <span className="loading loading-spinner loading-md"></span>
-                    ) : (
-                        <button
-                            disabled={disableBtn() || isLoading}
-                            onClick={handleSignUp}
-                            type="submit"
-                            className="signUpButton-SignUpPage"
-                        >
-                            {isLoading ? (
-                                <TailSpin
-                                    color="white"
-                                    width={50}
-                                    radius={5}
-                                    height={40}
-                                />
-                            ) : (
-                                "SIGN UP"
-                            )}
-                        </button>
-                    )}
+                    <button
+                        disabled={disableBtn() || isLoading}
+                        onClick={handleSignUp}
+                        type="submit"
+                        className="signUpButton-SignUpPage"
+                    >
+                        {isLoading ? (
+                            <TailSpin
+                                color="white"
+                                width={50}
+                                radius={5}
+                                height={40}
+                            />
+                        ) : (
+                            "SIGN UP"
+                        )}
+                    </button>
                 </form>
             </div>
         </main>
