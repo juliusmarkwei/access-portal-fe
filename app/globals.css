@@ -17,7 +17,7 @@
 
 .ForgotPasswordheading {
     font-size: 2.2rem;
-    color: hsl(30, 100%, 52%);
+    color: #8832cd;
     margin-bottom: 20px;
     padding: 50px;
 }
@@ -60,7 +60,7 @@
 .f1-button {
     width: 250px;
     height: 55px;
-    background-color: hsl(30, 100%, 52%);
+    background-color: #8832cd;
     color: white;
     font-size: 1.2rem;
     border: none;
@@ -73,8 +73,8 @@
 }
 
 .f1-button:hover {
-    background-color: hsl(30, 100%, 42%);
-    transition: 0.3s ease;
+    background-color: #6106ac;
+    transition: 0.5s ease;
 }
 
 .login-container {
@@ -84,7 +84,7 @@
 .loginBox {
     width: 60%;
     height: 100vh;
-    background-color: antiquewhite;
+    background-color: #edddfb;
 }
 
 .loginBox .loginHeader {
@@ -93,7 +93,7 @@
     font-size: 2rem;
     text-align: center;
     padding-top: 70px;
-    color: hsl(30, 100%, 52%);
+    color: #8832cd;
 }
 
 .loginBox .loginForm {
@@ -120,33 +120,34 @@
     height: 40px;
     margin-bottom: 20px;
     text-align: right;
-    text-decoration: underline;
+    text-decoration: none;
     font-size: 1rem;
     cursor: pointer;
 }
 
 .forgotPassword:hover {
     color: hsl(0, 0%, 20%);
+    text-decoration: underline;
 }
 
 .signUpButton-Loginpage,
 .signInButton-Loginpage {
     width: 200px;
     height: 55px;
-    background-color: hsl(30, 100%, 52%);
+    background-color: #8832cd;
     color: white;
     border: none;
     border-radius: 8px;
     cursor: pointer;
     transform: 0.5s ease;
-    /* display: flex;
+    display: flex;
     justify-content: center;
-    align-items: center; */
+    align-items: center;
 }
 
 .signUpButton-Loginpage:hover,
 .signInButton-Loginpage:hover {
-    background-color: hsl(30, 100%, 42%);
+    background-color: #6106ac;
 }
 
 .login-signUpBox {
@@ -161,7 +162,7 @@
     font-size: 2.5rem;
     padding-top: 150px;
     margin: 30px;
-    color: hsl(30, 100%, 52%);
+    color: #8832cd;
 }
 
 .login-signUpBox p {
@@ -181,7 +182,7 @@
 
 .headingResetPassword {
     font-size: 2.4rem;
-    color: hsl(30, 100%, 52%);
+    color: #8832cd;
     margin-bottom: 80px;
     padding: 20px;
 }
@@ -214,7 +215,7 @@
 .changePasswrdButton {
     width: 250px;
     height: 55px;
-    background-color: hsl(30, 100%, 52%);
+    background-color: #8832cd;
     color: white;
     font-size: 1.2rem;
     border: none;
@@ -227,7 +228,7 @@
 }
 
 .changePasswrdButton:hover {
-    background-color: hsl(30, 100%, 42%);
+    background-color: #6106ac;
 }
 
 .passwordLabel {
@@ -243,7 +244,7 @@
     width: 60%;
     height: 100vh;
     padding: 0 20px 0 20px;
-    background-color: antiquewhite;
+    background-color: #edddfb;
 }
 
 .signUpBox .signUpHeader {
@@ -252,7 +253,7 @@
     font-size: 2rem;
     text-align: center;
     padding-top: 80px;
-    color: hsl(30, 100%, 52%);
+    color: #8832cd;
 }
 
 .signUpBox .signUpForm {
@@ -283,11 +284,15 @@
 .signUpButton-SignUpPage {
     width: 200px;
     height: 55px;
-    background-color: hsl(30, 100%, 52%);
+    background-color: #8832cd;
     color: white;
     border: none;
     border-radius: 8px;
     cursor: pointer;
+    transform: 0.5s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .signUpButton-SignUpPage {
@@ -296,7 +301,7 @@
 
 .signInButton-SignUpPage:hover,
 .signUpButton-SignUpPage:hover {
-    background-color: hsl(30, 100%, 42%);
+    background-color: #6106ac;
 }
 
 .signInBox {
@@ -311,7 +316,7 @@
     font-size: 2.5rem;
     padding-top: 150px;
     margin: 30px;
-    color: hsl(30, 100%, 52%);
+    color: #8832cd;
 }
 
 .signInBox p {
@@ -326,7 +331,7 @@
     align-items: center;
     width: 80%;
     height: 10vh;
-    background-color: antiquewhite;
+    background-color: #edddfb;
     margin-left: auto; /* This will push the container to the right */
     margin-right: 100px; /* Add margin to separate from the right edge */
 }

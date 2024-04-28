@@ -24,6 +24,7 @@ export default withAuth(
             "/signup",
             "/forget-password",
             "/reset-password",
+            "/user-activate",
         ];
 
         const isAccessingSensitiveRoutesAfterLogin =
