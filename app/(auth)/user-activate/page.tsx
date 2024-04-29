@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
 import shieldImage from "@/public/shield.gif";
 import Spinner from "@/public/Spinner@1x-1.0s-200px-200px.svg";
+import activationFailed from "@/public/activation failed.png";
 import Image from "next/image";
 
 const baseUrl = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
@@ -61,8 +62,7 @@ const UserActivate = () => {
                         height={200}
                     />
                 </div>
-            ) : (
-                // <h1>Hello</h1>
+            ) : accountActicated ? (
                 <div className="flex flex-col justify-center items-center m-20">
                     <Image
                         src={shieldImage.src}
@@ -79,6 +79,25 @@ const UserActivate = () => {
                         className="h-14 w-32 rounded mt-8 bg-teal-700 hover:bg-teal-800 text-white font-medium"
                     >
                         LOGIN
+                    </button>
+                </div>
+            ) : (
+                <div className="flex flex-col justify-center items-center min-h-screen">
+                    <Image
+                        src={activationFailed}
+                        alt="activation failed"
+                        width={300}
+                        height={300}
+                    />
+
+                    <h1 className="pt-8 font-bold text-2xl font-serif text-purple-500">
+                        Account activation failed!
+                    </h1>
+                    <button
+                        onClick={() => router.push("resend-activation")}
+                        className="p-5 mt-4 text-white bg-[#8832cd] rounded-md hover:bg-[#6106ac]"
+                    >
+                        Resend Activation
                     </button>
                 </div>
             )}
