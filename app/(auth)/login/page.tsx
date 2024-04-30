@@ -30,7 +30,6 @@ const Login = () => {
 
     const handleLogin = async (e: { preventDefault: () => void }) => {
         e.preventDefault();
-        setLoading(true);
         try {
             setLoading(true);
             const response = await fetch(`${baseURL}/auth/login/`, {
