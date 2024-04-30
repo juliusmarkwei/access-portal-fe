@@ -11,8 +11,7 @@ const ResendActivation = () => {
     const [email, setEmail] = useState<string>("");
     const router = useRouter();
 
-    const handleOnChange = (e: { target: { name: any; value: any } }) => {
-        const name = e.target.name;
+    const handleOnChange = (e: { target: { value: any } }) => {
         const value = e.target.value;
         setEmail((prev) => (prev = value));
     };
@@ -79,7 +78,6 @@ const ResendActivation = () => {
                             type="email"
                             placeholder="Email"
                             value={email}
-                            name="email"
                             className="h-12 w-80 border-2 border-[#8832cd] rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-[#8832cd] focus:border-transparent"
                         />
                     </div>
