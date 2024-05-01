@@ -8,8 +8,8 @@ interface LogoutProps {
 const Logout = ({ handleLogout }: LogoutProps) => {
     let full_name = Cookies.get("hg63_#6y0") as string;
     let email = Cookies.get("bty3_35=") as string;
-    full_name = JSON.parse(full_name);
-    email = JSON.parse(email);
+    full_name = "John Snow";
+    email = "eteucamo@vasudzom.ni";
 
     return (
         <li className="-mx-6 mt-auto flex items-center">
@@ -27,9 +27,11 @@ const Logout = ({ handleLogout }: LogoutProps) => {
                 <span className="sr-only">Your profile</span>
 
                 <div className="flex flex-col">
-                    <span arial-hidden="true">{full_name}</span>
+                    <span className="text-zinc-100" arial-hidden="true">
+                        {full_name}
+                    </span>
                     <span
-                        className="text-sx text-zinc-400 w-32 overflow-ellipsis truncate"
+                        className="text-sx text-zinc-100 w-32 overflow-ellipsis truncate"
                         arial-hidden="true"
                     >
                         {email}
@@ -43,7 +45,7 @@ const Logout = ({ handleLogout }: LogoutProps) => {
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="currentColor"
-                    className="w-6 h-6 hover:cursor-pointer mr-3"
+                    className="w-6 h-6 hover:cursor-pointer mr-3 text-[#46efa9]"
                 >
                     <path
                         strokeLinecap="round"
