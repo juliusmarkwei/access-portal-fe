@@ -58,24 +58,27 @@ const Layout = ({ children }: LayoutProps) => {
             <div className="md:hidden">
                 {/* <MobileChatLayout friends={friends} session={session} sidebarOptions={sidebarOptions} unseenRequestCount={unseenRequestCount} /> */}
             </div>
-            <div className="hidden md:flex h-full w-full max-w-72 grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-[#edddfb] px-6">
+            <div className="hidden md:flex h-full w-full max-w-72 grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-[#121b33] px-6">
                 <nav className="flex flex-1 flex-col">
-                    <ul role="list" className="flex flex-1 flex-col gap-y-7">
+                    <ul role="list" className="flex flex-1 flex-col gap-y-9">
                         <li role="list">
                             {/* <SidebarChatList sessionId={session.user.id} friends={friends} /> */}
                         </li>
                         <li>
-                            <div className="text-xs font-semibold leading-6 text-[#8832cd]">
+                            <div className="text-xs font-semibold leading-6 mb-8 text-[#ffffff]">
                                 Overview
                             </div>
 
-                            <ul role="list" className="-mx-2 mt-2 space-y-1">
+                            <ul
+                                role="list"
+                                className="flex flex-col justify-between -mx-2 space-y-4"
+                            >
                                 <Link
                                     href="/dashboard"
                                     className={`${
                                         _dashboard
-                                            ? "bg-[#8832cd] p-3 text-white"
-                                            : "text-[#8832cd] hover:bg-[#b46fec] hover:text-white"
+                                            ? "bg-[#46efa9] border-[3px] border-[#46efa9] text-white"
+                                            : "text-[#46efa9] border-[3px] border-[#46efa9] hover:text-white hover:bg-[#46efa9]"
                                     }  flex items-center gap-x-2 px-2 py-2 rounded-md text-sm font-semibold leading-6`}
                                 >
                                     Dashboard
@@ -84,9 +87,9 @@ const Layout = ({ children }: LayoutProps) => {
                                     href="/dashboard/generate-key"
                                     className={`${
                                         _generateKey
-                                            ? "bg-[#8832cd] p-3 text-white"
-                                            : "text-[#8832cd] hover:bg-[#b46fec] hover:text-white"
-                                    } flex items-center gap-x-2 px-2 py-2 rounded-md text-sm font-semibold leading-6`}
+                                            ? "bg-[#46efa9] border-[3px] border-[#46efa9] text-white"
+                                            : "text-[#46efa9] border-[3px] border-[#46efa9] hover:text-white hover:bg-[#46efa9]"
+                                    } flex items-center gap-x-2 px-2 py-2 mb-4 rounded-md text-sm font-semibold leading-6`}
                                 >
                                     Generate Key
                                 </Link>
@@ -94,8 +97,8 @@ const Layout = ({ children }: LayoutProps) => {
                                     href="/dashboard/manage-keys"
                                     className={`${
                                         _manageKeys
-                                            ? "bg-[#8832cd] p-3 text-white"
-                                            : "text-[#8832cd] hover:bg-[#b46fec] hover:text-white"
+                                            ? "bg-[#46efa9] border-[3px] border-[#46efa9] text-white"
+                                            : "text-[#46efa9] border-[3px] border-[#46efa9] hover:text-white hover:bg-[#46efa9]"
                                     } flex items-center gap-x-2 px-2 py-2 rounded-md text-sm font-semibold leading-6`}
                                 >
                                     Manage Keys
@@ -103,7 +106,7 @@ const Layout = ({ children }: LayoutProps) => {
                             </ul>
                         </li>
 
-                        {/* <Logout handleLogout={handleLogout} /> */}
+                        <Logout handleLogout={handleLogout} />
                     </ul>
                 </nav>
             </div>
