@@ -1,7 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-        domains: ["cdn-icons-mp4.flaticon.com", "imgs.search.brave.com"],
+        remotePatterns: [
+            { protocol: "https", hostname: "cdn-icons-mp4.flaticon.com" },
+            { protocol: "https", hostname: "imgs.search.brave.com" },
+        ],
     },
     reactStrictMode: false,
 };

@@ -60,10 +60,10 @@ const Layout = ({ children }: LayoutProps) => {
             </div>
             <div className="hidden md:flex h-full w-full max-w-72 grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-[#121b33] px-6">
                 <nav className="flex flex-1 flex-col">
-                    <ul role="list" className="flex flex-1 flex-col gap-y-9">
-                        <li role="list">
-                            {/* <SidebarChatList sessionId={session.user.id} friends={friends} /> */}
-                        </li>
+                    <ul
+                        role="list"
+                        className="flex flex-1 flex-col gap-y-9 mt-12"
+                    >
                         <li>
                             <div className="text-xs font-semibold leading-6 mb-8 text-[#ffffff]">
                                 Overview
@@ -111,7 +111,7 @@ const Layout = ({ children }: LayoutProps) => {
                 </nav>
             </div>
 
-            <aside className="max-h-screen container py-16 md:py-12 w-full">
+            <aside className="h-[100vh] container pt-16 md:pt-12 w-full">
                 {children}
             </aside>
         </div>
