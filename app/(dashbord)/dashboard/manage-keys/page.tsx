@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
+import Footer from "@/app/components/Footer";
 
 const baseUrl = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
 
@@ -49,17 +50,23 @@ const ManageKeys = () => {
             setIsLoading(false);
         }
     };
+
+    const handelCopied = () => {
+        toast.success("Key copied", { duration: 4000 });
+    };
+
+    const handleAction = () => {};
     return (
-        <div className="container py-12 px-8">
+        <div className="container pt-12 px-8 flex flex-col max-h-screen">
             <div className="flex flex-row font-bold text-3xl text-[#393b3f]">
                 Manage Keys
             </div>
             <hr className="mt-3 border-b-2 border-[#2f2f37]" />
-            <main className="mt-10 w-full h-full">
+            <main className="h-[60vh] flex-grow">
                 {isLoading ? (
                     <progress className="progress w-56"></progress>
                 ) : (
-                    <div className="overflow-x-auto">
+                    <div className="overflow-x-auto mt-5">
                         <table className="table">
                             {/* head */}
                             <thead>
@@ -70,6 +77,7 @@ const ManageKeys = () => {
                                     <th>Status</th>
                                     <th>Procurement Date</th>
                                     <th>Expiry Date</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -85,11 +93,43 @@ const ManageKeys = () => {
                                                         className={`${
                                                             key.status ===
                                                             "inactive"
+                                                                ? "cursor-copy"
+                                                                : key.status ===
+                                                                  "inactive"
                                                                 ? ""
-                                                                : "cursor-not-allowed"
-                                                        } border-[1px] bg-gray-200 border-[#d7d1d1] rounded-lg px-2 py-1`}
+                                                                : "cursor-not-allowed stroke-black"
+                                                        } border-[1px] bg-gray-200 border-[#d7d1d1] rounded-lg px-2 py-1 relative inline-block group`}
                                                     >
                                                         {key.key}
+                                                        {key.status ===
+                                                        "inactive" ? (
+                                                            <span
+                                                                className="group-hover:opacity-100 absolute right-0 top-1/2 transform -translate-y-1/2 opacity-0 transition-opacity duration-300 hover:h-6 ease-in"
+                                                                onClick={
+                                                                    handelCopied
+                                                                }
+                                                            >
+                                                                <svg
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                    viewBox="0 0 24 24"
+                                                                    fill="currentColor"
+                                                                    className="w-6 h-5"
+                                                                >
+                                                                    <path
+                                                                        fill-rule="evenodd"
+                                                                        d="M7.502 6h7.128A3.375 3.375 0 0 1 18 9.375v9.375a3 3 0 0 0 3-3V6.108c0-1.505-1.125-2.811-2.664-2.94a48.972 48.972 0 0 0-.673-.05A3 3 0 0 0 15 1.5h-1.5a3 3 0 0 0-2.663 1.618c-.225.015-.45.032-.673.05C8.662 3.295 7.554 4.542 7.502 6ZM13.5 3A1.5 1.5 0 0 0 12 4.5h4.5A1.5 1.5 0 0 0 15 3h-1.5Z"
+                                                                        clip-rule="evenodd"
+                                                                    />
+                                                                    <path
+                                                                        fill-rule="evenodd"
+                                                                        d="M3 9.375C3 8.339 3.84 7.5 4.875 7.5h9.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875 0 0 1 3 20.625V9.375ZM6 12a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75H6.75a.75.75 0 0 1-.75-.75V12Zm2.25 0a.75.75 0 0 1 .75-.75h3.75a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75ZM6 15a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75H6.75a.75.75 0 0 1-.75-.75V15Zm2.25 0a.75.75 0 0 1 .75-.75h3.75a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75ZM6 18a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75H6.75a.75.75 0 0 1-.75-.75V18Zm2.25 0a.75.75 0 0 1 .75-.75h3.75a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75Z"
+                                                                        clip-rule="evenodd"
+                                                                    />
+                                                                </svg>
+                                                            </span>
+                                                        ) : (
+                                                            ""
+                                                        )}
                                                     </span>
                                                 </td>
                                                 <td>
@@ -113,6 +153,21 @@ const ManageKeys = () => {
                                                         ? key.expiry_date
                                                         : "---"}
                                                 </td>
+                                                <td>
+                                                    <svg
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        viewBox="0 0 24 24"
+                                                        fill="currentColor"
+                                                        className="w-6 h-6"
+                                                        onClick={handleAction}
+                                                    >
+                                                        <path
+                                                            fill-rule="evenodd"
+                                                            d="M10.5 6a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Zm0 6a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Zm0 6a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Z"
+                                                            clip-rule="evenodd"
+                                                        />
+                                                    </svg>
+                                                </td>
                                             </tr>
                                         </React.Fragment>
                                     ))}
@@ -121,6 +176,7 @@ const ManageKeys = () => {
                     </div>
                 )}
             </main>
+            <Footer />
         </div>
     );
 };
