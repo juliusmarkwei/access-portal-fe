@@ -25,6 +25,7 @@ export default withAuth(
             "/forget-password",
             "/reset-password",
             "/user-activate",
+            "/reset-activation",
         ];
 
         const isAccessingSensitiveRoutesAfterLogin =
@@ -34,12 +35,12 @@ export default withAuth(
             return NextResponse.redirect(new URL("/login", req.url));
         }
 
-        // if (pathname == "/") {
-        //     return NextResponse.redirect(new URL("/", req.url));
-        // }
+        if (pathname == "/") {
+            return NextResponse.redirect(new URL("/dashboard", req.url));
+        }
 
         if (isAuth && isAccessingSensitiveRoutesAfterLogin) {
-            return NextResponse.redirect(new URL("/", req.url));
+            return NextResponse.redirect(new URL("/dashboard", req.url));
         }
     },
     {
@@ -52,5 +53,12 @@ export default withAuth(
 );
 
 export const config = {
-    matcher: ["/", "/login", "/signup", "/forget-password", "/reset-password"],
+    matcher: [
+        "/",
+        "/login",
+        "/signup",
+        "/forget-password",
+        "/reset-password",
+        "/reset-activation",
+    ],
 };
