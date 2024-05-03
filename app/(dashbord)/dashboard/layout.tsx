@@ -18,11 +18,11 @@ const baseUrl = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
 const Layout = ({ children }: LayoutProps) => {
     const router = useRouter();
 
-    // useLayoutEffect(() => {
-    //     const checkuserdata = Cookies.get("_se7_wer_") as string;
-    //     if (!checkuserdata) getUserData();
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, []);
+    useLayoutEffect(() => {
+        const checkuserdata = Cookies.get("_se7_wer_") as string;
+        if (!checkuserdata) getUserData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const handleLogout = () => {
         Cookies.remove("access_token");

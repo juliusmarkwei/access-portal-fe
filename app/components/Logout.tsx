@@ -8,8 +8,8 @@ interface LogoutProps {
 const Logout = ({ handleLogout }: LogoutProps) => {
     let full_name = Cookies.get("hg63_#6y0") as string;
     let email = Cookies.get("bty3_35=") as string;
-    full_name = "John Snow";
-    email = "eteucamo@vasudzom.ni";
+    full_name = Cookies.get("hg63_#6y0") as string;
+    email = Cookies.get("bty3_35=") as string;
 
     return (
         <li className="-mx-6 mt-auto flex items-center">
@@ -28,13 +28,13 @@ const Logout = ({ handleLogout }: LogoutProps) => {
 
                 <div className="flex flex-col">
                     <span className="text-zinc-100" arial-hidden="true">
-                        {full_name}
+                        {JSON.parse(full_name)}
                     </span>
                     <span
                         className="text-sx text-zinc-100 w-32 overflow-ellipsis truncate"
                         arial-hidden="true"
                     >
-                        {email}
+                        {JSON.parse(email)}
                     </span>
                 </div>
             </div>
