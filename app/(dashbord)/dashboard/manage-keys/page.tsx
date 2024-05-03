@@ -62,8 +62,14 @@ const ManageKeys = () => {
             <hr className="mt-3 border-b-2 border-[#2f2f37]" />
             <main className="h-[60vh] flex-grow">
                 {isLoading ? (
-                    <progress className="progress w-56"></progress>
+                    <div className="flex flex-col gap-4 w-full justify-center items-center mt-10 p-2">
+                        <div className="skeleton h-8 w-full border-teal-700 bg-[#121b33]"></div>
+                        <div className="skeleton h-8 w-full border-teal-700 bg-[#121b33]"></div>
+                        <div className="skeleton h-8 w-full border-teal-700 bg-[#121b33]"></div>
+                        <div className="skeleton h-8 w-full border-teal-700 bg-[#121b33]"></div>
+                    </div>
                 ) : (
+                    // <span className="loading loading-spinner loading-lg flex justify-center items-center text-[#32ffa9] mt-10 border-[5px] border-[#32ffa9] p-2"></span>
                     <div className="overflow-x-auto mt-5">
                         <table className="table">
                             {/* head */}
@@ -199,6 +205,13 @@ const ManageKeys = () => {
                                             </tr>
                                         </React.Fragment>
                                     ))}
+                                {keys && keys.length === 0 && (
+                                    <tr>
+                                        <td colSpan={7} className="text-center">
+                                            No keys available
+                                        </td>
+                                    </tr>
+                                )}
                             </tbody>
                         </table>
                     </div>
