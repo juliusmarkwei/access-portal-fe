@@ -18,10 +18,7 @@ const GenerateKey = () => {
         validity_duration_days: "",
     });
     const [isLoading, setIsLoading] = useState(false);
-    const [accessKeyData, setAccessKeyData] = useState({});
     const access_token = Cookies.get("access_token");
-    const [isAccessKeyCreatedModal, setIsAccessKeyCreatedModal] =
-        useState(false);
 
     const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const name = e.target.name;
@@ -29,19 +26,19 @@ const GenerateKey = () => {
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
-    // const showKeyCreatedModal = () => {
-    //     const modal = document.getElementById(
-    //         "my_modal_8"
-    //     ) as HTMLDialogElement;
-    //     if (modal) {
-    //         console.log(modal);
-    //         modal.showModal();
-    //     }
-    // };
+    const showKeyCreatedModal = () => {
+        const modal = document.getElementById(
+            "my_modal_1"
+        ) as HTMLDialogElement;
+        if (modal) {
+            modal.showModal();
+        }
+    };
 
     const createAccessKey = async (e: React.MouseEvent) => {
         e.preventDefault();
         setIsLoading(true);
+
         try {
             const response = await fetch(`${baseUrl}/access-key/`, {
                 method: "POST",
@@ -55,14 +52,13 @@ const GenerateKey = () => {
                 }),
             });
             if (response.ok) {
-                const data = await response.json();
-                setAccessKeyData(data);
                 setFormData({ key_tag: "", validity_duration_days: "" });
                 setIsLoading(false);
-                // showKeyCreatedModal();
+                showKeyCreatedModal();
             } else {
                 const data = await response.json();
                 toast.error(data.error, { duration: 4000 });
+                setFormData({ key_tag: "", validity_duration_days: "" });
                 setIsLoading(false);
             }
         } catch (error) {
@@ -180,26 +176,25 @@ const GenerateKey = () => {
                 </main>
             </div>
             <Footer />
-            {isAccessKeyCreatedModal && (
-                <Modal
-                    isModalOpen={isAccessKeyCreatedModal}
-                    setIsModalOpen={setIsAccessKeyCreatedModal}
-                >
-                    <div className="modal" role="dialog" id="my_modal_8">
-                        <div className="modal-box">
-                            <h3 className="font-bold text-lg">Hello!</h3>
-                            <p className="py-4">
-                                This modal works with anchor links
-                            </p>
-                            <div className="modal-action">
-                                <a href="#" className="btn">
-                                    Yay!
-                                </a>
-                            </div>
-                        </div>
+
+            <dialog id="my_modal_1" className="modal">
+                <div className="modal-box">
+                    <h3 className="font-bold text-lg mb-4">
+                        Access Key Created
+                    </h3>
+                    <p className="mb-4">
+                        Your access key has been successfully created. Please
+                        wait for an admin to activate it. Once activated,
+                        you&apos;ll be notified via email.
+                    </p>
+                    <div className="modal-action">
+                        <form method="dialog">
+                            {/* if there is a button in form, it will close the modal */}
+                            <button className="btn">Close</button>
+                        </form>
                     </div>
-                </Modal>
-            )}
+                </div>
+            </dialog>
         </>
     );
 };
