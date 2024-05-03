@@ -104,7 +104,7 @@ const ManageKeys = () => {
                                                         {key.status ===
                                                         "active" ? (
                                                             <span
-                                                                className="group-hover:opacity-100 absolute right-0 top-1/2 transform -translate-y-1/2 opacity-0 transition-opacity duration-500"
+                                                                className="group-hover:opacity-100 absolute right-0 top-1/2 transform -translate-y-1/2 opacity-0 transition-opacity duration-500 bg-green-400 h-7 pt-1 rounded-md"
                                                                 onClick={() =>
                                                                     handelCopied(
                                                                         key.key
