@@ -8,7 +8,7 @@ import Spinner from "@/public/Spinner@1x-1.0s-200px-200px.svg";
 import activationFailed from "@/public/activation failed.png";
 import Image from "next/image";
 
-const baseUrl = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
+const baseURL = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
 
 const UserActivate = () => {
     const searchParams = useSearchParams();
@@ -21,7 +21,7 @@ const UserActivate = () => {
     const activateAccount = async () => {
         setIsLoading(true);
         try {
-            const res = await fetch(`${baseUrl}/auth/user/activate/`, {
+            const res = await fetch(`${baseURL}/auth/user/activate/`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -44,7 +44,6 @@ const UserActivate = () => {
             setIsLoading(false);
             setAccountActicated(false);
         }
-        console.log(isLoading);
     };
 
     useEffect(() => {
