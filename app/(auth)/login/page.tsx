@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 import { TailSpin } from "react-loader-spinner";
@@ -28,6 +28,21 @@ const Login = () => {
         return formData.email === "" || formData.password === "";
     };
 
+    const getUserData = async (accessToken: string) => {
+        const response = await fetch(`${baseURL}/auth/users/me/`, {
+            method: "GET",
+            headers: {
+                Authorization: `JWT ${accessToken}`,
+            },
+        });
+        if (response.ok) {
+            Cookies.set("_se7_wer_", "true");
+            const data = await response.json();
+            Cookies.set("hg63_#6y0", JSON.stringify(data.full_name));
+            Cookies.set("bty3_35=", JSON.stringify(data.email));
+        }
+    };
+
     const handleLogin = async (e: { preventDefault: () => void }) => {
         e.preventDefault();
         try {
@@ -46,6 +61,8 @@ const Login = () => {
                 const data = await response.json();
                 Cookies.set("access_token", data.access);
                 Cookies.set("refresh_token", data.refresh);
+                const checkuserdata = Cookies.get("_se7_wer_") as string;
+                if (!checkuserdata) await getUserData(data.access);
                 toast.success("Login successful", { duration: 4000 });
                 route.push("/");
                 setLoading(false);
