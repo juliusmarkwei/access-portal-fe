@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
-const baseUrl = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
+const baseURL = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
 
 const ResendActivation = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -21,7 +21,7 @@ const ResendActivation = () => {
         setIsLoading(true);
         try {
             const response = await fetch(
-                `${baseUrl}/auth/user/resend_activation/`,
+                `${baseURL}/auth/user/resend_activation/`,
                 {
                     method: "POST",
                     headers: {
