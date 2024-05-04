@@ -6,15 +6,13 @@ export default withAuth(
     async function middleware(req) {
         const pathname = req.nextUrl.pathname;
 
-        const isAuth = req.cookies.get("refresh_token");
+        const isAuth = req.cookies.get("access_token");
 
         const sensitiveRoutes = [
             "/",
             "/dashboard",
-            "/dashboard/contact",
-            "/dashboard/sms",
-            "/dashboard/sms-logs",
-            "/dashboard/templates",
+            "/dashboard/generate-key",
+            "/dashboard/manage-key",
         ];
 
         const isAccessingSensitiveRoute = sensitiveRoutes.includes(pathname);
@@ -60,5 +58,9 @@ export const config = {
         "/forget-password",
         "/reset-password",
         "/reset-activation",
+        "/user-activate",
+        "/dashboard",
+        "/dashboard/generate-key",
+        "/dashboard/manage-key",
     ],
 };
