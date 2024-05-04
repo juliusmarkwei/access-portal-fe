@@ -347,3 +347,19 @@
     width: 300px;
     border-radius: 5px;
 }
+
+/* Key Status Display Animation */
+@keyframes pulse-grow {
+    0% {
+        box-shadow: 0 0 10px rgba(0, 255, 0, 0.7);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(0, 255, 0, 0.7);
+        transform: scale(1.1);
+    }
+    100% {
+        box-shadow: 0 0 10px rgba(0, 255, 0, 0.7);
+        transform: scale(1);
+    }
+}
