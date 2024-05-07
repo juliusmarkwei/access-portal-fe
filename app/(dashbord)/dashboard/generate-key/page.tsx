@@ -80,8 +80,8 @@ const GenerateKey = () => {
                 isLoading={_isLoading}
                 setIsLoading={_setIsLoading}
             />
-            <div className="container py-12 px-8 mt-[30px] flex flex-col max-h-screen">
-                <main className="h-[60vh] flex-grow">
+            <div className="container py-12 px-8 mt-[30px] flex flex-col h-[76dvh]">
+                <main className="h-[60vh]">
                     <div className="flex flex-row font-bold text-3xl text-[#393b3f]">
                         Generate Key
                     </div>
