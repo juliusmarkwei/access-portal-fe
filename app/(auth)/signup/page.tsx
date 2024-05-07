@@ -97,7 +97,7 @@ const SignUp = () => {
                 >
                     <input
                         type="text"
-                        className="signUpEmailField focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
+                        className="signUpEmailField focus:border-[#06b96f] focus:outline-none focus:ring-1 focus:ring-border-[#06b96f]"
                         placeholder="Email"
                         required
                         value={formData.email}
@@ -106,7 +106,7 @@ const SignUp = () => {
                     />
                     <input
                         type="text"
-                        className="signUpFirstNameField focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
+                        className="signUpFirstNameField focus:border-[#06b96f] focus:outline-none focus:ring-1 focus:ring-[#06b96f]"
                         placeholder="Full Name"
                         required
                         value={formData.fullName}
@@ -116,7 +116,7 @@ const SignUp = () => {
 
                     <input
                         type="text"
-                        className="signUpPhoneField focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
+                        className="signUpPhoneField focus:border-[#06b96f] focus:outline-none focus:ring-1 focus:ring-[#06b96f]"
                         placeholder="Phone"
                         required
                         value={formData.phone}
@@ -125,7 +125,7 @@ const SignUp = () => {
                     />
                     <input
                         type="password"
-                        className="signUpPasswordField focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
+                        className="signUpPasswordField focus:border-[#06b96f] focus:outline-none focus:ring-1 focus:ring-[#06b96f]"
                         placeholder="Password"
                         required
                         value={formData.password}
@@ -134,7 +134,7 @@ const SignUp = () => {
                     />
                     <input
                         type="password"
-                        className="signUpPasswordField focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
+                        className="signUpPasswordField focus:border-[#06b96f] focus:outline-none focus:ring-1 focus:ring-[#06b96f]"
                         placeholder="Repeat password"
                         required
                         value={formData.re_password}

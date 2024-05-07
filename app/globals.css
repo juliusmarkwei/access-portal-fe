@@ -17,7 +17,7 @@
 
 .ForgotPasswordheading {
     font-size: 2.2rem;
-    color: #8832cd;
+    color: #121b33;
     margin-bottom: 20px;
     padding: 50px;
 }
@@ -52,7 +52,7 @@
     width: 45%;
     height: 55px;
     margin-bottom: 20px;
-    border: 1px solid hsl(0, 0%, 80%);
+    border: 1px solid #06b96f;
     border-radius: 5px;
     padding: 0 10px;
 }
@@ -60,7 +60,7 @@
 .f1-button {
     width: 250px;
     height: 55px;
-    background-color: #8832cd;
+    background-color: #06b96f;
     color: white;
     font-size: 1.2rem;
     border: none;
@@ -73,7 +73,7 @@
 }
 
 .f1-button:hover {
-    background-color: #6106ac;
+    background-color: #00ff95;
     transition: 0.5s ease;
 }
 
@@ -84,7 +84,7 @@
 .loginBox {
     width: 60%;
     height: 100vh;
-    background-color: #edddfb;
+    background-color: #121b33;
 }
 
 .loginBox .loginHeader {
@@ -93,7 +93,7 @@
     font-size: 2rem;
     text-align: center;
     padding-top: 70px;
-    color: #8832cd;
+    color: #ffffff;
 }
 
 .loginBox .loginForm {
@@ -110,7 +110,7 @@
     width: 50%;
     height: 40px;
     margin-bottom: 20px;
-    border: 1px solid hsl(0, 0%, 80%);
+    border: 1px solid #06b96f;
     border-radius: 5px;
     padding: 0 10px;
 }
@@ -119,6 +119,7 @@
     width: 50%;
     height: 40px;
     margin-bottom: 20px;
+    color: #06b96f;
     text-align: right;
     text-decoration: none;
     font-size: 1rem;
@@ -126,7 +127,7 @@
 }
 
 .forgotPassword:hover {
-    color: hsl(0, 0%, 20%);
+    color: #00ff95;
     text-decoration: underline;
 }
 
@@ -134,7 +135,7 @@
 .signInButton-Loginpage {
     width: 200px;
     height: 55px;
-    background-color: #8832cd;
+    background-color: #06b96f;
     color: white;
     border: none;
     border-radius: 8px;
@@ -147,7 +148,7 @@
 
 .signUpButton-Loginpage:hover,
 .signInButton-Loginpage:hover {
-    background-color: #6106ac;
+    background-color: #00ff95;
 }
 
 .login-signUpBox {
@@ -162,7 +163,7 @@
     font-size: 2.5rem;
     padding-top: 150px;
     margin: 30px;
-    color: #8832cd;
+    color: #121b33;
 }
 
 .login-signUpBox p {
@@ -177,13 +178,13 @@
     padding: 40px 20px 20px 20px;
     align-items: center;
     border-radius: 5px;
-    border-radius: 1px solid hsl(0, 0%, 80%);
+    /* border-radius: 1px solid hsl(0, 0%, 80%); */
 }
 
 .headingResetPassword {
     font-size: 2.4rem;
-    color: #8832cd;
-    margin-bottom: 80px;
+    color: #06b96f;
+    margin-bottom: 60px;
     padding: 20px;
 }
 
@@ -206,7 +207,7 @@
     width: 40%;
     height: 55px;
     margin-bottom: 20px;
-    border: 1px solid hsl(0, 0%, 80%);
+    border: 1px solid #06b96f;
     border-radius: 5px;
     padding: 0 10px;
     font-size: 1rem;
@@ -215,7 +216,7 @@
 .changePasswrdButton {
     width: 250px;
     height: 55px;
-    background-color: #8832cd;
+    background-color: #06b96f;
     color: white;
     font-size: 1.2rem;
     border: none;
@@ -228,7 +229,7 @@
 }
 
 .changePasswrdButton:hover {
-    background-color: #6106ac;
+    background-color: #00ff95;
 }
 
 .passwordLabel {
@@ -244,7 +245,7 @@
     width: 60%;
     height: 100vh;
     padding: 0 20px 0 20px;
-    background-color: #edddfb;
+    background-color: #121b33;
 }
 
 .signUpBox .signUpHeader {
@@ -253,7 +254,7 @@
     font-size: 2rem;
     text-align: center;
     padding-top: 80px;
-    color: #8832cd;
+    color: #ffffff;
 }
 
 .signUpBox .signUpForm {
@@ -274,7 +275,7 @@
     width: 50%;
     height: 45px;
     margin-bottom: 15px;
-    border: 1px solid hsl(0, 0%, 80%);
+    border: 1px solid #06b96f;
     border-radius: 5px;
     padding: 0 10px;
     font-size: 1rem;
@@ -284,7 +285,7 @@
 .signUpButton-SignUpPage {
     width: 200px;
     height: 55px;
-    background-color: #8832cd;
+    background-color: #06b96f;
     color: white;
     border: none;
     border-radius: 8px;
@@ -301,7 +302,7 @@
 
 .signInButton-SignUpPage:hover,
 .signUpButton-SignUpPage:hover {
-    background-color: #6106ac;
+    background-color: #00ff95;
 }
 
 .signInBox {
@@ -316,7 +317,7 @@
     font-size: 2.5rem;
     padding-top: 150px;
     margin: 30px;
-    color: #8832cd;
+    color: #121b33;
 }
 
 .signInBox p {

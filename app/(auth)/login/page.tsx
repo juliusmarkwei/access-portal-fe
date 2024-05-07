@@ -86,7 +86,7 @@ const Login = () => {
                         required
                         type="text"
                         name="email"
-                        className="loginUsernameField focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
+                        className="loginUsernameField focus:border-[#06b96f] focus:outline-none focus:ring-1 focus:ring-[#06b96f]"
                         placeholder="Email"
                         defaultValue={formData.email}
                         onChange={handleonChange}
@@ -95,7 +95,7 @@ const Login = () => {
                         required
                         type="password"
                         name="password"
-                        className="loginPasswordField focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
+                        className="loginPasswordField focus:border-[#06b96f] focus:outline-none focus:ring-1 focus:ring-[#06b96f]"
                         placeholder="Password"
                         defaultValue={formData.password}
                         onChange={handleonChange}

@@ -76,8 +76,8 @@ const Layout = ({ children }: LayoutProps) => {
                                     href="/dashboard"
                                     className={`${
                                         _dashboard
-                                            ? "bg-[#46efa9] border-[3px] border-[#46efa9] text-white"
-                                            : "text-[#46efa9] border-[3px] border-[#46efa9] hover:text-white hover:bg-[#46efa9]"
+                                            ? "bg-[#06b96f] border-[3px] border-[#06b96f] text-white"
+                                            : "text-[#06b96f] border-[3px] border-[#06b96f] hover:text-white hover:bg-[#06b96f]"
                                     }  flex items-center gap-x-2 px-2 py-2 rounded-md text-sm font-semibold leading-6`}
                                 >
                                     <svg
@@ -95,8 +95,8 @@ const Layout = ({ children }: LayoutProps) => {
                                     href="/dashboard/generate-key"
                                     className={`${
                                         _generateKey
-                                            ? "bg-[#46efa9] border-[3px] border-[#46efa9] text-white"
-                                            : "text-[#46efa9] border-[3px] border-[#46efa9] hover:text-white hover:bg-[#46efa9]"
+                                            ? "bg-[#06b96f] border-[3px] border-[#06b96f] text-white"
+                                            : "text-[#06b96f] border-[3px] border-[#06b96f] hover:text-white hover:bg-[#06b96f]"
                                     } flex items-center gap-x-2 px-2 py-2 mb-4 rounded-md text-sm font-semibold leading-6`}
                                 >
                                     <svg
@@ -117,8 +117,8 @@ const Layout = ({ children }: LayoutProps) => {
                                     href="/dashboard/manage-keys"
                                     className={`${
                                         _manageKeys
-                                            ? "bg-[#46efa9] border-[3px] border-[#46efa9] text-white"
-                                            : "text-[#46efa9] border-[3px] border-[#46efa9] hover:text-white hover:bg-[#46efa9]"
+                                            ? "bg-[#06b96f] border-[3px] border-[#06b96f] text-white"
+                                            : "text-[#06b96f] border-[3px] border-[#06b96f] hover:text-white hover:bg-[#06b96f]"
                                     } flex items-center gap-x-2 px-2 py-2 rounded-md text-sm font-semibold leading-6`}
                                 >
                                     <svg

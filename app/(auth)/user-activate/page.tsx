@@ -81,7 +81,7 @@ const UserActivate = () => {
                     </button>
                 </div>
             ) : (
-                <div className="flex flex-col justify-center items-center min-h-screen">
+                <div className="flex flex-col gap-5 justify-center items-center min-h-screen">
                     <Image
                         src={activationFailed}
                         alt="activation failed"
@@ -89,12 +89,12 @@ const UserActivate = () => {
                         height={300}
                     />
 
-                    <h1 className="pt-8 font-bold text-2xl font-serif text-purple-500">
+                    <h1 className="pt-8 font-bold text-[2rem] font-serif text-[#121b33]">
                         Account activation failed!
                     </h1>
                     <button
                         onClick={() => router.push("resend-activation")}
-                        className="p-5 mt-4 text-white bg-[#8832cd] rounded-md hover:bg-[#6106ac]"
+                        className="p-5 mt-4 text-white bg-[#06b96f] rounded-md hover:bg-[#00ff95]"
                     >
                         Resend Activation
                     </button>
