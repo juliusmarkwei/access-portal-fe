@@ -3,16 +3,28 @@ import { useState, useEffect } from "react";
 
 const SearchUI = () => {
     const [searchQuery, setSearchQuery] = useState("");
-    const { keys, setKeys } = useAppContext();
+    const { keys, setFilteredKeys } = useAppContext();
 
     const handleSearchQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
         const updatedSearchQuery = e.target.value;
         setSearchQuery(updatedSearchQuery);
-        const filteredKeys = keys?.filter((key) =>
-            key.key_tag.toLowerCase().includes(updatedSearchQuery.toLowerCase())
-        );
-        setKeys(filteredKeys || []);
+
+        // Filter the keys based on the search query and update filteredKeys in context
+        if (keys) {
+            const filteredKeys = keys.filter((key: any) =>
+                key.key_tag
+                    .toLowerCase()
+                    .includes(updatedSearchQuery.toLowerCase())
+            );
+            setFilteredKeys(filteredKeys);
+        }
     };
+    useEffect(() => {
+        if (searchQuery === "") {
+            setFilteredKeys(keys);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [searchQuery, keys]);
 
     return (
         <>
