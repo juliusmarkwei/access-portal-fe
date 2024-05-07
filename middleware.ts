@@ -12,7 +12,7 @@ export default withAuth(
             "/",
             "/dashboard",
             "/dashboard/generate-key",
-            "/dashboard/manage-key",
+            "/dashboard/manage-keys",
         ];
 
         const isAccessingSensitiveRoute = sensitiveRoutes.includes(pathname);
@@ -61,6 +61,6 @@ export const config = {
         "/user-activate",
         "/dashboard",
         "/dashboard/generate-key",
-        "/dashboard/manage-key",
+        "/dashboard/manage-keys",
     ],
 };
