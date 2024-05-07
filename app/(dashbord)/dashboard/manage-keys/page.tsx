@@ -20,15 +20,32 @@ interface KeysType {
 
 const ManageKeys = () => {
     const [isLoading, setIsLoading] = useState(false);
-    // const [keys, setKeys] = useState<KeysType[]>();
     const accessToken = Cookies.get("access_token");
     const [swicthCopiedImage, setSwicthCopiedImage] = useState(false);
     const { keys, setKeys } = useAppContext();
     const [showOptions, setShowOptions] = useState(false);
+    const { filteredKeys } = useAppContext();
+    const [selectedkeyTag, setSelectedKeyTag] = useState("");
 
     const handleImageClick = (keyTag: string) => {
-        setShowOptions(!showOptions);
+        setSelectedKeyTag(keyTag);
     };
+
+    useEffect(() => {
+        const handleClickOutside = (e: MouseEvent) => {
+            if (!(e.target instanceof HTMLElement && e.target.closest("td"))) {
+                selectedkeyTag && setSelectedKeyTag("");
+            }
+        };
+
+        document.addEventListener("click", handleClickOutside);
+
+        // Cleanup function to remove event listener when component unmounts
+        return () => {
+            document.removeEventListener("click", handleClickOutside);
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     useEffect(() => {
         loadKeys();
@@ -76,12 +93,12 @@ const ManageKeys = () => {
                 SearchUI={SearchUI}
                 setIsLoading={setIsLoading}
             />
-            <div className="container pt-12 px-8 flex flex-col max-h-screen ">
+            <div className="container pt-12 px-8 flex flex-col max-h-[90dvh] ">
                 <div className="flex flex-row font-bold text-3xl text-[#393b3f]">
                     Manage Keys
                 </div>
                 <hr className="mt-3 border-b-2 border-[#2f2f37]" />
-                <main className="h-[60vh] flex-grow">
+                <main className="h-[70dvh] ">
                     {isLoading ? (
                         <div className="flex flex-col gap-4 w-full justify-center items-center mt-10 p-2">
                             <div className="skeleton h-8 w-full border-teal-700 bg-[#121b33]"></div>
@@ -91,8 +108,8 @@ const ManageKeys = () => {
                         </div>
                     ) : (
                         // <span className="loading loading-spinner loading-lg flex justify-center items-center text-[#32ffa9] mt-10 border-[5px] border-[#32ffa9] p-2"></span>
-                        <div className="overflow-x-auto mt-5">
-                            <table className="table">
+                        <div className="overflow-x-auto h-[60dvh]">
+                            <table className="table ">
                                 {/* head */}
                                 <thead>
                                     <tr>
@@ -107,127 +124,141 @@ const ManageKeys = () => {
                                 </thead>
                                 <tbody>
                                     {/* row 1 */}
-                                    {keys &&
-                                        keys.map((key: any, index: number) => (
-                                            <React.Fragment key={index}>
-                                                <tr>
-                                                    <th>{index + 1}</th>
-                                                    <td>{key.key_tag}</td>
-                                                    <td>
-                                                        <span
-                                                            className={`${
-                                                                key.status ===
-                                                                "active"
-                                                                    ? "cursor-copy"
-                                                                    : "cursor-not-allowed"
-                                                            } border-[1px] bg-gray-200 border-[#d7d1d1] rounded-lg px-2 py-1 relative inline-block group`}
-                                                        >
-                                                            {key.key.length > 14
-                                                                ? key.key.slice(
-                                                                      0,
-                                                                      10
-                                                                  ) + "..."
-                                                                : key.key}
-                                                            {key.status ===
-                                                            "active" ? (
-                                                                <span
-                                                                    className="group-hover:opacity-100 absolute right-0 top-1/2 transform -translate-y-1/2 opacity-0 transition-opacity duration-500 bg-green-400 h-7 pt-1 rounded-md"
-                                                                    onClick={() =>
-                                                                        handelCopied(
-                                                                            key.key
-                                                                        )
-                                                                    }
-                                                                >
-                                                                    {swicthCopiedImage ? (
-                                                                        <svg
-                                                                            xmlns="http://www.w3.org/2000/svg"
-                                                                            viewBox="0 0 24 24"
-                                                                            fill="currentColor"
-                                                                            className="w-6 h-5"
-                                                                        >
-                                                                            <path
-                                                                                fill-rule="evenodd"
-                                                                                d="M7.502 6h7.128A3.375 3.375 0 0 1 18 9.375v9.375a3 3 0 0 0 3-3V6.108c0-1.505-1.125-2.811-2.664-2.94a48.972 48.972 0 0 0-.673-.05A3 3 0 0 0 15 1.5h-1.5a3 3 0 0 0-2.663 1.618c-.225.015-.45.032-.673.05C8.662 3.295 7.554 4.542 7.502 6ZM13.5 3A1.5 1.5 0 0 0 12 4.5h4.5A1.5 1.5 0 0 0 15 3h-1.5Z"
-                                                                                clip-rule="evenodd"
-                                                                            />
-                                                                            <path
-                                                                                fill-rule="evenodd"
-                                                                                d="M3 9.375C3 8.339 3.84 7.5 4.875 7.5h9.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875 0 0 1 3 20.625V9.375Zm9.586 4.594a.75.75 0 0 0-1.172-.938l-2.476 3.096-.908-.907a.75.75 0 0 0-1.06 1.06l1.5 1.5a.75.75 0 0 0 1.116-.062l3-3.75Z"
-                                                                                clip-rule="evenodd"
-                                                                            />
-                                                                        </svg>
-                                                                    ) : (
-                                                                        <svg
-                                                                            xmlns="http://www.w3.org/2000/svg"
-                                                                            viewBox="0 0 24 24"
-                                                                            fill="currentColor"
-                                                                            className="w-6 h-5"
-                                                                        >
-                                                                            <path
-                                                                                fill-rule="evenodd"
-                                                                                d="M7.502 6h7.128A3.375 3.375 0 0 1 18 9.375v9.375a3 3 0 0 0 3-3V6.108c0-1.505-1.125-2.811-2.664-2.94a48.972 48.972 0 0 0-.673-.05A3 3 0 0 0 15 1.5h-1.5a3 3 0 0 0-2.663 1.618c-.225.015-.45.032-.673.05C8.662 3.295 7.554 4.542 7.502 6ZM13.5 3A1.5 1.5 0 0 0 12 4.5h4.5A1.5 1.5 0 0 0 15 3h-1.5Z"
-                                                                                clip-rule="evenodd"
-                                                                            />
-                                                                            <path
-                                                                                fill-rule="evenodd"
-                                                                                d="M3 9.375C3 8.339 3.84 7.5 4.875 7.5h9.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875 0 0 1 3 20.625V9.375ZM6 12a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75H6.75a.75.75 0 0 1-.75-.75V12Zm2.25 0a.75.75 0 0 1 .75-.75h3.75a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75ZM6 15a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75H6.75a.75.75 0 0 1-.75-.75V15Zm2.25 0a.75.75 0 0 1 .75-.75h3.75a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75ZM6 18a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75H6.75a.75.75 0 0 1-.75-.75V18Zm2.25 0a.75.75 0 0 1 .75-.75h3.75a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75Z"
-                                                                                clip-rule="evenodd"
-                                                                            />
-                                                                        </svg>
-                                                                    )}
-                                                                </span>
-                                                            ) : (
-                                                                ""
+                                    {filteredKeys &&
+                                        filteredKeys.map(
+                                            (key: any, index: number) => (
+                                                <React.Fragment key={index}>
+                                                    <tr>
+                                                        <th>{index + 1}</th>
+                                                        <td>{key.key_tag}</td>
+                                                        <td>
+                                                            <span
+                                                                className={`${
+                                                                    key.status ===
+                                                                    "active"
+                                                                        ? "cursor-copy"
+                                                                        : "cursor-not-allowed"
+                                                                } border-[1px] bg-gray-200 border-[#d7d1d1] rounded-lg px-2 py-1 relative inline-block group`}
+                                                            >
+                                                                {key.key
+                                                                    .length > 14
+                                                                    ? key.key.slice(
+                                                                          0,
+                                                                          10
+                                                                      ) + "..."
+                                                                    : key.key}
+                                                                {key.status ===
+                                                                "active" ? (
+                                                                    <span
+                                                                        className="group-hover:opacity-100 absolute right-0 top-1/2 transform -translate-y-1/2 opacity-0 transition-opacity duration-500 bg-green-400 h-7 pt-1 rounded-md"
+                                                                        onClick={() =>
+                                                                            handelCopied(
+                                                                                key.key
+                                                                            )
+                                                                        }
+                                                                    >
+                                                                        {swicthCopiedImage ? (
+                                                                            <svg
+                                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                                viewBox="0 0 24 24"
+                                                                                fill="currentColor"
+                                                                                className="w-6 h-5"
+                                                                            >
+                                                                                <path
+                                                                                    fill-rule="evenodd"
+                                                                                    d="M7.502 6h7.128A3.375 3.375 0 0 1 18 9.375v9.375a3 3 0 0 0 3-3V6.108c0-1.505-1.125-2.811-2.664-2.94a48.972 48.972 0 0 0-.673-.05A3 3 0 0 0 15 1.5h-1.5a3 3 0 0 0-2.663 1.618c-.225.015-.45.032-.673.05C8.662 3.295 7.554 4.542 7.502 6ZM13.5 3A1.5 1.5 0 0 0 12 4.5h4.5A1.5 1.5 0 0 0 15 3h-1.5Z"
+                                                                                    clip-rule="evenodd"
+                                                                                />
+                                                                                <path
+                                                                                    fill-rule="evenodd"
+                                                                                    d="M3 9.375C3 8.339 3.84 7.5 4.875 7.5h9.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875 0 0 1 3 20.625V9.375Zm9.586 4.594a.75.75 0 0 0-1.172-.938l-2.476 3.096-.908-.907a.75.75 0 0 0-1.06 1.06l1.5 1.5a.75.75 0 0 0 1.116-.062l3-3.75Z"
+                                                                                    clip-rule="evenodd"
+                                                                                />
+                                                                            </svg>
+                                                                        ) : (
+                                                                            <svg
+                                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                                viewBox="0 0 24 24"
+                                                                                fill="currentColor"
+                                                                                className="w-6 h-5"
+                                                                            >
+                                                                                <path
+                                                                                    fill-rule="evenodd"
+                                                                                    d="M7.502 6h7.128A3.375 3.375 0 0 1 18 9.375v9.375a3 3 0 0 0 3-3V6.108c0-1.505-1.125-2.811-2.664-2.94a48.972 48.972 0 0 0-.673-.05A3 3 0 0 0 15 1.5h-1.5a3 3 0 0 0-2.663 1.618c-.225.015-.45.032-.673.05C8.662 3.295 7.554 4.542 7.502 6ZM13.5 3A1.5 1.5 0 0 0 12 4.5h4.5A1.5 1.5 0 0 0 15 3h-1.5Z"
+                                                                                    clip-rule="evenodd"
+                                                                                />
+                                                                                <path
+                                                                                    fill-rule="evenodd"
+                                                                                    d="M3 9.375C3 8.339 3.84 7.5 4.875 7.5h9.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875 0 0 1 3 20.625V9.375ZM6 12a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75H6.75a.75.75 0 0 1-.75-.75V12Zm2.25 0a.75.75 0 0 1 .75-.75h3.75a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75ZM6 15a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75H6.75a.75.75 0 0 1-.75-.75V15Zm2.25 0a.75.75 0 0 1 .75-.75h3.75a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75ZM6 18a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75H6.75a.75.75 0 0 1-.75-.75V18Zm2.25 0a.75.75 0 0 1 .75-.75h3.75a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75Z"
+                                                                                    clip-rule="evenodd"
+                                                                                />
+                                                                            </svg>
+                                                                        )}
+                                                                    </span>
+                                                                ) : (
+                                                                    ""
+                                                                )}
+                                                            </span>
+                                                        </td>
+                                                        <td>
+                                                            <span
+                                                                className={`${
+                                                                    key.status ===
+                                                                    "inactive"
+                                                                        ? "bg-yellow-400"
+                                                                        : key.status ===
+                                                                          "active"
+                                                                        ? "bg-green-400"
+                                                                        : "bg-red-400"
+                                                                } rounded-lg px-5 py-2 text-white`}
+                                                            >
+                                                                {key.status}
+                                                            </span>{" "}
+                                                        </td>
+                                                        <td>
+                                                            {key.procurement_date
+                                                                ? key.procurement_date
+                                                                : "Not Available"}
+                                                        </td>
+                                                        <td>
+                                                            {key.expiry_date
+                                                                ? key.expiry_date
+                                                                : "Not Available"}
+                                                        </td>
+                                                        <td className="relative">
+                                                            <svg
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                viewBox="0 0 24 24"
+                                                                fill="currentColor"
+                                                                className="w-6 h-6 cursor-pointer relative"
+                                                                onClick={() =>
+                                                                    handleImageClick(
+                                                                        key.key_tag
+                                                                    )
+                                                                }
+                                                            >
+                                                                <path
+                                                                    fill-rule="evenodd"
+                                                                    d="M10.5 6a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Zm0 6a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Zm0 6a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Z"
+                                                                    clip-rule="evenodd"
+                                                                />
+                                                            </svg>
+                                                            {key.key_tag ===
+                                                                selectedkeyTag && (
+                                                                <div className="absolute top-5 right-5 bg-[#121b33] text-white rounded-lg w-[80%] z-50">
+                                                                    <button className="block text-white py-2 hover:bg-[#000000] rounded-md w-full">
+                                                                        Revoke
+                                                                    </button>
+                                                                    <button className="block text-white py-2 px-3 hover:bg-[#000000] rounded-md w-full">
+                                                                        Delete
+                                                                    </button>
+                                                                </div>
                                                             )}
-                                                        </span>
-                                                    </td>
-                                                    <td>
-                                                        <span
-                                                            className={`${
-                                                                key.status ===
-                                                                "inactive"
-                                                                    ? "bg-yellow-400"
-                                                                    : key.status ===
-                                                                      "active"
-                                                                    ? "bg-green-400"
-                                                                    : "bg-red-400"
-                                                            } rounded-lg px-5 py-2 text-white`}
-                                                        >
-                                                            {key.status}
-                                                        </span>{" "}
-                                                    </td>
-                                                    <td>
-                                                        {key.procurement_date
-                                                            ? key.procurement_date
-                                                            : "Not Available"}
-                                                    </td>
-                                                    <td>
-                                                        {key.expiry_date
-                                                            ? key.expiry_date
-                                                            : "Not Available"}
-                                                    </td>
-                                                    <td>
-                                                        <svg
-                                                            xmlns="http://www.w3.org/2000/svg"
-                                                            viewBox="0 0 24 24"
-                                                            fill="currentColor"
-                                                            className="w-6 h-6 cursor-pointer relative"
-                                                            onClick={() =>
-                                                                handleImageClick(
-                                                                    key.key_tag
-                                                                )
-                                                            }
-                                                        >
-                                                            <path
-                                                                fill-rule="evenodd"
-                                                                d="M10.5 6a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Zm0 6a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Zm0 6a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Z"
-                                                                clip-rule="evenodd"
-                                                            />
-                                                        </svg>
-                                                    </td>
-                                                </tr>
-                                            </React.Fragment>
-                                        ))}
+                                                        </td>
+                                                    </tr>
+                                                </React.Fragment>
+                                            )
+                                        )}
                                     {keys && keys.length === 0 && (
                                         <tr>
                                             <td
@@ -243,7 +274,9 @@ const ManageKeys = () => {
                         </div>
                     )}
                 </main>
-                <Footer />
+                <span className="bg-red-600">
+                    <Footer />
+                </span>
             </div>
         </>
     );
