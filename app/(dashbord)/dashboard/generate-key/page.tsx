@@ -1,16 +1,16 @@
 "use client";
 
 import React from "react";
-import Footer from "@/app/components/Footer";
+import Footer from "@/components/Footer";
 import Image from "next/image";
 import LaptopLock from "@/public/laptop lock new.png";
 import { useState } from "react";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 import { TailSpin } from "react-loader-spinner";
-import Modal from "@/app/components/Modal";
+import StatusIndicator from "@/components/StatusIndicator";
 
-const baseUrl = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
+const baseURL = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
 
 const GenerateKey = () => {
     const [formData, setFormData] = useState({
@@ -18,6 +18,7 @@ const GenerateKey = () => {
         validity_duration_days: "",
     });
     const [isLoading, setIsLoading] = useState(false);
+    const [_isLoading, _setIsLoading] = useState(false);
     const access_token = Cookies.get("access_token");
 
     const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,7 +41,7 @@ const GenerateKey = () => {
         setIsLoading(true);
 
         try {
-            const response = await fetch(`${baseUrl}/access-key/`, {
+            const response = await fetch(`${baseURL}/access-key/`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -75,7 +76,11 @@ const GenerateKey = () => {
     };
     return (
         <>
-            <div className="container py-12 px-8 flex flex-col max-h-screen">
+            <StatusIndicator
+                isLoading={_isLoading}
+                setIsLoading={_setIsLoading}
+            />
+            <div className="container py-12 px-8 mt-[30px] flex flex-col max-h-screen">
                 <main className="h-[60vh] flex-grow">
                     <div className="flex flex-row font-bold text-3xl text-[#393b3f]">
                         Generate Key
