@@ -1,9 +1,9 @@
-import React from "react";
+import Link from "next/link";
 
 const Footer = () => {
     return (
         <>
-            <footer className="footer items-center bg-neutral text-neutral-content text-center mt-[50px]">
+            <footer className="footer items-center bg-neutral text-neutral-content mt-[50px]">
                 <aside className="items-center grid-flow-col">
                     <svg
                         width="36"

@@ -24,6 +24,11 @@ const ManageKeys = () => {
     const accessToken = Cookies.get("access_token");
     const [swicthCopiedImage, setSwicthCopiedImage] = useState(false);
     const { keys, setKeys } = useAppContext();
+    const [showOptions, setShowOptions] = useState(false);
+
+    const handleImageClick = (keyTag: string) => {
+        setShowOptions(!showOptions);
+    };
 
     useEffect(() => {
         loadKeys();
@@ -63,7 +68,7 @@ const ManageKeys = () => {
             setSwicthCopiedImage(false); // Set back to false after 2 seconds
         }, 2000);
     };
-    console.log(keys);
+
     return (
         <>
             <StatusIndicator
@@ -206,7 +211,12 @@ const ManageKeys = () => {
                                                             xmlns="http://www.w3.org/2000/svg"
                                                             viewBox="0 0 24 24"
                                                             fill="currentColor"
-                                                            className="w-6 h-6 cursor-pointer"
+                                                            className="w-6 h-6 cursor-pointer relative"
+                                                            onClick={() =>
+                                                                handleImageClick(
+                                                                    key.key_tag
+                                                                )
+                                                            }
                                                         >
                                                             <path
                                                                 fill-rule="evenodd"

@@ -13,7 +13,6 @@ const SearchUI = () => {
         );
         setKeys(filteredKeys || []);
     };
-    console.log(keys);
 
     return (
         <>
