@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { Archivo } from "next/font/google";
+import { Archivo, Kanit } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 
-const inter = Archivo({ subsets: ["latin"] });
+const inter = Kanit({ subsets: ["latin"], weight: ["100", "600", "700"] });
 
 export const metadata: Metadata = {
     title: "Access Portal",
