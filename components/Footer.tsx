@@ -1,9 +1,16 @@
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const Footer = () => {
+    const pathName = usePathname();
+    const _generateKeysPage = pathName.includes("generate-key");
     return (
         <>
-            <footer className="footer items-center bg-neutral text-neutral-content mt-[50px]">
+            <footer
+                className={`footer items-center bg-neutral text-neutral-content mt-[50px] ${
+                    _generateKeysPage ? "px-8 pt-[1.5px]" : ""
+                }`}
+            >
                 <aside className="items-center grid-flow-col">
                     <svg
                         width="36"
