@@ -1,22 +1,17 @@
 import { withAuth } from "next-auth/middleware";
-
 import { NextResponse } from "next/server";
 
 export default withAuth(
     async function middleware(req) {
         const pathname = req.nextUrl.pathname;
-
         const isAuth = req.cookies.get("access_token");
-
         const sensitiveRoutes = [
             "/",
             "/dashboard",
             "/dashboard/generate-key",
             "/dashboard/manage-keys",
         ];
-
         const isAccessingSensitiveRoute = sensitiveRoutes.includes(pathname);
-
         const sensitiveRoutesAfterLogin = [
             "/login",
             "/signup",
