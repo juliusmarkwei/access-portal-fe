@@ -2,17 +2,17 @@ import React from "react";
 
 interface InputUIProps {
     handleOnChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    formData: {
-        key_tag: string;
-    };
+    formDataProperty: string;
     inputType: string;
+    inputName: string;
     svg: React.ReactNode;
 }
 
 const InputUI = ({
     handleOnChange,
-    formData,
+    formDataProperty,
     inputType,
+    inputName,
     svg,
 }: InputUIProps) => {
     return (
@@ -23,9 +23,9 @@ const InputUI = ({
                 <input
                     type={inputType}
                     className="grow border-none bg-transparent focus:outline-none"
-                    placeholder="Key tag"
-                    name="key_tag"
-                    value={formData.key_tag}
+                    placeholder={inputName}
+                    name={inputName}
+                    value={formDataProperty}
                     onChange={handleOnChange}
                 />
             </label>

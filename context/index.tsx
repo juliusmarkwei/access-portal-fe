@@ -75,7 +75,7 @@ export const AppWrapper: React.FC<{ children: React.ReactNode }> = ({
 
     const refreshAccessToken = async () => {
         if (refreshToken) {
-            const response = await fetch(`${baseURL}/auth/token/refresh/`, {
+            const response = await fetch(`${baseURL}/auth/refresh/`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -85,6 +85,7 @@ export const AppWrapper: React.FC<{ children: React.ReactNode }> = ({
             if (response.ok) {
                 const data = await response.json();
                 Cookies.set("access_token", data.access);
+                Cookies.set("refresh_token", data.refresh);
                 Cookies.set(
                     "access_token_expiry",
                     (new Date().getTime() + 3600000 * 24).toString(),

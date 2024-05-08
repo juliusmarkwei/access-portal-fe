@@ -61,6 +61,16 @@ const Login = () => {
                 const data = await response.json();
                 Cookies.set("access_token", data.access);
                 Cookies.set("refresh_token", data.refresh);
+                Cookies.set(
+                    "access_token_expiry",
+                    (new Date().getTime() + 3600000 * 24).toString(),
+                    { expires: new Date(Date.now() + 3600000 * 24) }
+                );
+                Cookies.set(
+                    "refresh_token_expiry",
+                    (new Date().getTime() + 3600000 * 24 * 30).toString(),
+                    { expires: new Date(Date.now() + 3600000 * 24 * 30) }
+                );
                 const checkuserdata = Cookies.get("_se7_wer_") as string;
                 if (!checkuserdata) await getUserData(data.access);
                 toast.success("Login successful", { duration: 4000 });

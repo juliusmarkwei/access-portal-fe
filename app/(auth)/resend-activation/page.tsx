@@ -58,7 +58,6 @@ const ResendActivation = () => {
                 <h1 className="text-[#121b33] text-[3.5rem]">
                     Resend activation link
                 </h1>
-                {/* <Image src={} alt="resend-activation" /> */}
                 <p className="text-black m-8">
                     The link will be active for 1 day
                 </p>
