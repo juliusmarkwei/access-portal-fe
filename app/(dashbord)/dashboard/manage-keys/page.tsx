@@ -276,8 +276,8 @@ const ManageKeys = () => {
                                                                             ? "bg-yellow-400"
                                                                             : key.status ===
                                                                               "active"
-                                                                            ? "bg-green-400"
-                                                                            : "bg-red-400"
+                                                                            ? "bg-green-400 px-[28.5px]"
+                                                                            : "bg-red-400 px-[25.5px]"
                                                                     } rounded-lg px-5 py-2 text-white`}
                                                                 >
                                                                     {key.status}

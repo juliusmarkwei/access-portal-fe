@@ -4,8 +4,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
 import shieldImage from "@/public/shield.gif";
-import Spinner from "@/public/Spinner@1x-1.0s-200px-200px.svg";
-import activationFailed from "@/public/activation failed.png";
+import activationFailed from "@/public/accountActicvationFailed.svg";
 import Image from "next/image";
 
 const baseURL = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
@@ -37,12 +36,12 @@ const UserActivate = () => {
                     duration: 4000,
                 });
                 setIsLoading(false);
-                setAccountActicated(false);
+                // setAccountActicated(false);
             }
         } catch (error) {
             console.error(error);
             setIsLoading(false);
-            setAccountActicated(false);
+            // setAccountActicated(false);
         }
     };
 
@@ -54,12 +53,7 @@ const UserActivate = () => {
         <>
             {isLoading ? (
                 <div className="flex justify-center items-center min-h-screen">
-                    <Image
-                        src={Spinner}
-                        alt="loading spinner"
-                        width={200}
-                        height={200}
-                    />
+                    <span className="loading loading-spinner loading-lg h-[70vh] px-[10%] bg-green-400"></span>
                 </div>
             ) : accountActicated ? (
                 <div className="flex flex-col justify-center items-center m-20">
@@ -69,24 +63,25 @@ const UserActivate = () => {
                         width={300}
                         height={300}
                     />
-                    <h1 className="pt-8 font-bold text-2xl font-serif text-teal-500">
+                    <h1 className="pt-8 text-xl text-[#121b33]">
                         Congratulations, your account has been activated!
                     </h1>
                     <button
                         type="button"
                         onClick={() => router.push("/login")}
-                        className="h-14 w-32 rounded mt-8 bg-teal-700 hover:bg-teal-800 text-white font-medium"
+                        className="h-14 w-32 rounded mt-8 bg-[#06b96f] hover:bg-[#2d7d5c] text-white"
                     >
                         LOGIN
                     </button>
                 </div>
             ) : (
-                <div className="flex flex-col gap-5 justify-center items-center min-h-screen">
+                <div className="flex flex-col gap-4 justify-center items-center max-h-[80dvh]">
                     <Image
                         src={activationFailed}
                         alt="activation failed"
-                        width={300}
+                        width={600}
                         height={300}
+                        className="mb-[-10%]"
                     />
 
                     <h1 className="pt-8 font-bold text-[2rem] font-serif text-[#121b33]">
@@ -94,7 +89,7 @@ const UserActivate = () => {
                     </h1>
                     <button
                         onClick={() => router.push("resend-activation")}
-                        className="p-5 mt-4 text-white bg-[#06b96f] rounded-md hover:bg-[#00ff95]"
+                        className="p-5 mt-4 text-white bg-[#06b96f] rounded-lg hover:bg-[#2d7d5c]"
                     >
                         Resend Activation
                     </button>

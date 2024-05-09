@@ -28,7 +28,7 @@ const SearchUI = () => {
 
     return (
         <>
-            <label className="border-[1px] border-[#121b33] h-12 p-4 rounded-lg items-center gap-2 flex w-[40%] focus:border-[#121b33] focus:outline-none focus:ring-1 focus:ring-[#121b33]">
+            <label className="border-[1.8px] border-[#121b33] h-12 p-4 rounded-lg items-center gap-2 flex w-[40%] focus:border-[#121b33] focus:ring-[#121b33] focus:outline-none focus:ring-2 focus:border-transparent">
                 <input
                     type="text"
                     className="grow border-none bg-transparent w-full focus:outline-none"

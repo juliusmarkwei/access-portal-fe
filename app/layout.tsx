@@ -3,7 +3,11 @@ import { Archivo, Kanit } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 
-const inter = Kanit({ subsets: ["latin"], weight: ["100", "600", "700"] });
+const inter = Archivo({
+    subsets: ["latin"],
+    weight: ["300", "600", "700"],
+    fallback: ["Kanit"],
+});
 
 export const metadata: Metadata = {
     title: "Access Portal",

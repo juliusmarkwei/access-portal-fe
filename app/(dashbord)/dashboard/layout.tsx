@@ -25,9 +25,6 @@ const Layout = ({ children }: LayoutProps) => {
     const router = useRouter();
     const [fullName, setFullName] = useState<string>();
     const [email, setEmail] = useState<string>();
-    const [isLoading, setIsLoading] = useState(false);
-    const [keys, setKeys] = useState<Keys[]>();
-    const access_token = Cookies.get("access_token");
 
     useLayoutEffect(() => {
         // Retrieve the full_name and email from Cookies

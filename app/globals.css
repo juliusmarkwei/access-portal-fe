@@ -58,7 +58,7 @@
 }
 
 .f1-button {
-    width: 250px;
+    width: 200px;
     height: 55px;
     background-color: #06b96f;
     color: white;
@@ -73,7 +73,7 @@
 }
 
 .f1-button:hover {
-    background-color: #00ff95;
+    background-color: #2d7d5c;
     transition: 0.5s ease;
 }
 
@@ -127,7 +127,7 @@
 }
 
 .forgotPassword:hover {
-    color: #00ff95;
+    color: #2d7d5c;
     text-decoration: underline;
 }
 
@@ -148,7 +148,7 @@
 
 .signUpButton-Loginpage:hover,
 .signInButton-Loginpage:hover {
-    background-color: #00ff95;
+    background-color: #2d7d5c;
 }
 
 .login-signUpBox {
@@ -229,7 +229,7 @@
 }
 
 .changePasswrdButton:hover {
-    background-color: #00ff95;
+    background-color: #2d7d5c;
 }
 
 .passwordLabel {
@@ -273,7 +273,7 @@
 .signUpPasswordField,
 .signUpUsernameField {
     width: 50%;
-    height: 45px;
+    height: 47px;
     margin-bottom: 15px;
     border: 1px solid #06b96f;
     border-radius: 5px;
@@ -302,7 +302,7 @@
 
 .signInButton-SignUpPage:hover,
 .signUpButton-SignUpPage:hover {
-    background-color: #00ff95;
+    background-color: #2d7d5c;
 }
 
 .signInBox {

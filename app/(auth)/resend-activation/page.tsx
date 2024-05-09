@@ -55,7 +55,7 @@ const ResendActivation = () => {
     return (
         <>
             <main className="flex flex-col justify-center items-center min-h-screen">
-                <h1 className="text-[#121b33] text-[3.5rem]">
+                <h1 className="text-[#121b33] text-[3rem] mb-14">
                     Resend activation link
                 </h1>
                 <p className="text-black m-8">
@@ -73,17 +73,18 @@ const ResendActivation = () => {
                             Email
                         </label>
                         <input
+                            required
                             onChange={handleOnChange}
                             type="email"
                             placeholder="Email"
                             value={email}
-                            className="h-12 w-80 border-2 border-[#06b96f] rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-[#06b96f] focus:border-transparent"
+                            className="h-14 w-[450px] border-2 border-[#06b96f] rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-[#06b96f] focus:border-transparent"
                         />
                     </div>
                     <button
                         disabled={isLoading || disableBtn()}
                         type="submit"
-                        className="p-5 mt-5 w-32 text-white bg-[#06b96f] rounded-md hover:bg-[#00ff95]"
+                        className="p-5 mt-5 w-32 text-white bg-[#06b96f] rounded-md hover:bg-[#2d7d5c]"
                     >
                         Resend
                     </button>

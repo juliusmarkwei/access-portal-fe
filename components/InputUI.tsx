@@ -27,6 +27,7 @@ const InputUI = ({
                     name={inputName}
                     value={formDataProperty}
                     onChange={handleOnChange}
+                    required
                 />
             </label>
         </>
