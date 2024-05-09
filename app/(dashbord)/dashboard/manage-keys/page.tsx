@@ -180,8 +180,8 @@ const ManageKeys = () => {
                                             <th>Key Tag</th>
                                             <th>Key</th>
                                             <th>Status</th>
-                                            <th>Procurement Date</th>
-                                            <th>Expiry Date</th>
+                                            <th>Date of Procurement</th>
+                                            <th>Valid Until</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
