@@ -82,7 +82,7 @@ const Login = () => {
                 setLoading(false);
             }
         } catch (error) {
-            console.log(error);
+            toast.error("An error occured, try again!", { duration: 4000 });
             setLoading(false);
         }
     };

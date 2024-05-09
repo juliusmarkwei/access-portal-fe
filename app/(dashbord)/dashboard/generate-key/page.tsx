@@ -65,7 +65,6 @@ const GenerateKey = () => {
             }
         } catch (error) {
             toast.error("Something went wrong, try again!");
-            console.log(error);
             setIsLoading(false);
         }
     };

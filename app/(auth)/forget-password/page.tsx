@@ -36,7 +36,10 @@ const ForgotPassword = () => {
                 body: JSON.stringify({ email: formData.email }),
             });
             if (response.ok) {
-                toast.success("Hey, check your mail for a password rest link!");
+                toast.success(
+                    "Hey, check your mail for a password rest link!",
+                    { duration: 4000 }
+                );
                 setIsLoading(false);
                 router.push("/login");
             } else {
@@ -45,7 +48,7 @@ const ForgotPassword = () => {
                 setIsLoading(false);
             }
         } catch (error) {
-            console.log(error);
+            toast.error("An error occured", { duration: 4000 });
             setIsLoading(false);
         }
     };

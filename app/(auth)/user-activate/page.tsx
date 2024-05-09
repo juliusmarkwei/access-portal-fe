@@ -36,12 +36,12 @@ const UserActivate = () => {
                     duration: 4000,
                 });
                 setIsLoading(false);
-                // setAccountActicated(false);
+                setAccountActicated(false);
             }
         } catch (error) {
-            console.error(error);
+            toast.error("An error occured", { duration: 4000 });
             setIsLoading(false);
-            // setAccountActicated(false);
+            setAccountActicated(false);
         }
     };
 

@@ -118,7 +118,6 @@ const ManageKeys = () => {
             }
         } catch (error) {
             toast.error("An error occured", { duration: 4000 });
-            console.log(error);
             _setIsLoading(false);
         }
     };
