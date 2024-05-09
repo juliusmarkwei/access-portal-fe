@@ -13,7 +13,6 @@ import {
 } from "chart.js";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
-import NoData from "@/public/9264885.jpg";
 
 interface KeysInfoType {
     key: string;
@@ -265,31 +264,29 @@ const Dashbaord = () => {
                         <canvas id="barChart" className="p-8"></canvas>
                     </div>
                     <div className="rounded-lg border-2 border-green-300">
-                        <div className="stats">
-                            <div className="stat">
-                                <div className="stat-figure text-orange-300 hover:text-orange-400 transition-colors duration-500 ease-in-out py-14 bg-slate-500 ">
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        className="inline-block w-8 h-8 stroke-current"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth="2"
-                                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                                        ></path>
-                                    </svg>
-                                </div>
-                                <div className="stat-title">
-                                    Previous key created at
-                                </div>
-                                <div className="font-bold text-[2rem] bg-slate-600 w-[100%] ">
-                                    {getLastAccessKeyCreationDate() === null
-                                        ? "Not availble"
-                                        : getLastAccessKeyCreationDate()}
-                                </div>
+                        <div className="stat">
+                            <div className="stat-figure text-orange-300 hover:text-orange-400 transition-colors duration-500 ease-in-out py-14">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    className="inline-block w-8 h-8 stroke-current"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth="2"
+                                        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                                    ></path>
+                                </svg>
+                            </div>
+                            <div className="stat-title">
+                                Previous key created at
+                            </div>
+                            <div className="font-bold text-[2rem] h-[100px] flex items-center">
+                                {getLastAccessKeyCreationDate() === null
+                                    ? "Not availble"
+                                    : getLastAccessKeyCreationDate()}
                             </div>
                         </div>
                     </div>
