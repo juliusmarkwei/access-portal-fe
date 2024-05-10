@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 export default withAuth(
     async function middleware(req) {
         const pathname = req.nextUrl.pathname;
-        const isAuth = req.cookies.get("access_token");
+        const isAuth = req.cookies.get("access-token");
         const sensitiveRoutes = [
             "/",
             "/dashboard",

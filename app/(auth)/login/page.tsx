@@ -59,22 +59,24 @@ const Login = () => {
             });
             if (response.ok) {
                 const data = await response.json();
-                Cookies.set("access_token", data.access);
-                Cookies.set("refresh_token", data.refresh);
-                Cookies.set(
-                    "access_token_expiry",
-                    (new Date().getTime() + 3600000 * 24).toString(),
-                    { expires: new Date(Date.now() + 3600000 * 24) }
-                );
-                Cookies.set(
-                    "refresh_token_expiry",
-                    (new Date().getTime() + 3600000 * 24 * 30).toString(),
-                    { expires: new Date(Date.now() + 3600000 * 24 * 30) }
-                );
+
+                const access_expires = new Date();
+                access_expires.setTime(access_expires.getTime() + 3600000);
+
+                const refresh_expires = new Date();
+                refresh_expires.setTime(refresh_expires.getTime() + 86400000);
+
+                Cookies.set("access-token", data.access, {
+                    expires: access_expires,
+                });
+                Cookies.set("refresh-token", data.refresh, {
+                    expires: refresh_expires,
+                });
+
+                route.push("/dashboard");
                 const checkuserdata = Cookies.get("_se7_wer_") as string;
                 if (!checkuserdata) await getUserData(data.access);
                 toast.success("Login successful", { duration: 4000 });
-                route.push("/");
                 setLoading(false);
             } else {
                 const data = await response.json();

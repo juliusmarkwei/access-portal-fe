@@ -35,8 +35,10 @@ const Layout = ({ children }: LayoutProps) => {
     }, []);
 
     const handleLogout = () => {
-        Cookies.remove("access_token");
-        Cookies.remove("refresh_token");
+        Cookies.remove("access-token");
+        Cookies.remove("refresh-token");
+        // Cookies.remove("access_token_expiry");
+        // Cookies.remove("refresh_token_expiry");
         Cookies.remove("_se7_wer_");
         Cookies.remove("hg63_#6y0");
         Cookies.remove("bty3_35=");

@@ -1,6 +1,8 @@
 // context.tsx
 import React, { createContext, useState, useContext, useEffect } from "react";
 import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 interface Keystype {
     key: string;
@@ -17,9 +19,6 @@ interface AppContextType {
     setFilteredKeys: React.Dispatch<
         React.SetStateAction<Keystype[] | undefined>
     >;
-    checkAccessTokenExpiry: () => void;
-    checkRefreshTokenExpiry: () => void;
-    refreshAccessToken: () => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -33,47 +32,19 @@ export const AppWrapper: React.FC<{ children: React.ReactNode }> = ({
     const [filteredKeys, setFilteredKeys] = useState<Keystype[] | undefined>(
         undefined
     );
-    const accessTokenExpiry = Cookies.get("access_token_expiry");
-    const refreshTokenExpiry = Cookies.get("refresh_token_expiry");
-    const refreshToken = Cookies.get("refresh_token");
+    const router = useRouter();
 
     useEffect(() => {
-        // run every 5 minutes
         const interval = setInterval(() => {
-            checkAccessTokenExpiry();
-            checkRefreshTokenExpiry();
-            refreshAccessToken();
-        }, 300000);
+            handleRefreshAccessToken();
+        }, 588000);
         return () => clearInterval(interval);
-    });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
-    const checkAccessTokenExpiry = () => {
-        if (accessTokenExpiry) {
-            const expiry = new Date(accessTokenExpiry);
-            const now = new Date();
-            if (expiry < now) {
-                Cookies.remove("access_token");
-                Cookies.remove("access_token_expiry");
-                Cookies.remove("refresh_token");
-                Cookies.remove("refresh_token_expiry");
-            }
-        }
-    };
-
-    const checkRefreshTokenExpiry = () => {
-        if (refreshTokenExpiry) {
-            const expiry = new Date(refreshTokenExpiry);
-            const now = new Date();
-            if (expiry < now) {
-                Cookies.remove("access_token");
-                Cookies.remove("access_token_expiry");
-                Cookies.remove("refresh_token");
-                Cookies.remove("refresh_token_expiry");
-            }
-        }
-    };
-
-    const refreshAccessToken = async () => {
+    const handleRefreshAccessToken = async () => {
+        const refreshToken = Cookies.get("refresh-token");
+        console.log("Refresh token: ", refreshToken);
         if (refreshToken) {
             const response = await fetch(`${baseURL}/auth/refresh/`, {
                 method: "POST",
@@ -84,14 +55,19 @@ export const AppWrapper: React.FC<{ children: React.ReactNode }> = ({
             });
             if (response.ok) {
                 const data = await response.json();
-                Cookies.set("access_token", data.access);
-                Cookies.set("refresh_token", data.refresh);
-                Cookies.set(
-                    "access_token_expiry",
-                    (new Date().getTime() + 3600000 * 24).toString(),
-                    { expires: new Date(Date.now() + 3600000 * 24) }
-                );
+
+                const access_expires = new Date();
+                access_expires.setTime(access_expires.getTime() + 60000);
+                Cookies.set("access-token", data.access, {
+                    expires: access_expires,
+                });
             }
+        } else {
+            Cookies.remove("access-token");
+            Cookies.remove("refresh-token");
+            Cookies.remove("_se7_wer_");
+            toast.error("Session expired. Please login again.");
+            router.push("/login");
         }
     };
 
@@ -102,9 +78,6 @@ export const AppWrapper: React.FC<{ children: React.ReactNode }> = ({
                 setKeys,
                 filteredKeys,
                 setFilteredKeys,
-                checkAccessTokenExpiry,
-                checkRefreshTokenExpiry,
-                refreshAccessToken,
             }}
         >
             {children}

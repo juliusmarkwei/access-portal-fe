@@ -29,7 +29,7 @@ const Dashbaord = () => {
     const [isLoading, setisLoading] = useState(false);
     const [_isLoading, _setisLoading] = useState(false);
     const [keysInfo, setKeysInfo] = useState<KeysInfoType[]>([]);
-    const accessToken = Cookies.get("access_token");
+    const accessToken = Cookies.get("access-token");
 
     useEffect(() => {
         getKeysInfo();

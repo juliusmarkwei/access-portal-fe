@@ -20,7 +20,7 @@ const GenerateKey = () => {
     });
     const [isLoading, setIsLoading] = useState(false);
     const [_isLoading, _setIsLoading] = useState(false);
-    const access_token = Cookies.get("access_token");
+    const access_token = Cookies.get("access-token");
 
     const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const name = e.target.name;

@@ -27,7 +27,7 @@ const StatusIndicator = ({
     SearchUI,
 }: StatusIndicatorProps) => {
     const [keys, setKeys] = useState<KeysType[]>();
-    const access_token = Cookies.get("access_token");
+    const access_token = Cookies.get("access-token");
     const pathName = usePathname();
     const _manageKeys = pathName.includes("manage-keys");
 

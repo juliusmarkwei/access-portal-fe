@@ -22,7 +22,7 @@ interface KeysType {
 const ManageKeys = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [_isLoading, _setIsLoading] = useState(false);
-    const accessToken = Cookies.get("access_token");
+    const accessToken = Cookies.get("access-token");
     const [swicthCopiedImage, setSwicthCopiedImage] = useState(false);
     const { keys, setKeys } = useAppContext();
     const { filteredKeys } = useAppContext();
