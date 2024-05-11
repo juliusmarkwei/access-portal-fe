@@ -285,7 +285,7 @@ const Dashbaord = () => {
                             </div>
                             <div className="font-bold text-[2rem] h-[100px] flex items-center">
                                 {getLastAccessKeyCreationDate() === null
-                                    ? "Not availble"
+                                    ? "Not available"
                                     : getLastAccessKeyCreationDate()}
                             </div>
                         </div>

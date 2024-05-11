@@ -73,7 +73,11 @@ const Login = () => {
                     expires: refresh_expires,
                 });
 
-                route.push("/dashboard");
+                if (data.is_admin) {
+                    route.push("/admin/dashboard");
+                } else {
+                    route.push("/dashboard");
+                }
                 const checkuserdata = Cookies.get("_se7_wer_") as string;
                 if (!checkuserdata) await getUserData(data.access);
                 toast.success("Login successful", { duration: 4000 });

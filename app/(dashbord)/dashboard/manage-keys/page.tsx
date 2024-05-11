@@ -166,7 +166,7 @@ const ManageKeys = () => {
                     <span className="loading loading-spinner loading-lg h-[70vh] px-[10%] ml-[40%] bg-green-400"></span>
                 )}
                 {!_isLoading && (
-                    <main className="h-[70dvh] ">
+                    <main className="h-[70dvh]">
                         {isLoading ? (
                             <span className="loading loading-spinner loading-lg h-[70vh] px-[10%] ml-[40%] bg-green-400"></span>
                         ) : (
@@ -186,7 +186,6 @@ const ManageKeys = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {/* row 1 */}
                                         {filteredKeys &&
                                             filteredKeys.map(
                                                 (key: any, index: number) => (
@@ -285,12 +284,12 @@ const ManageKeys = () => {
                                                             <td>
                                                                 {key.procurement_date
                                                                     ? key.procurement_date
-                                                                    : "Not Available"}
+                                                                    : "N/A"}
                                                             </td>
                                                             <td>
                                                                 {key.expiry_date
                                                                     ? key.expiry_date
-                                                                    : "Not Available"}
+                                                                    : "N/A"}
                                                             </td>
                                                             <td
                                                                 className="relative"

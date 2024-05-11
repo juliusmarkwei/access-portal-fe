@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ReactNode, useState, useLayoutEffect } from "react";
+import { ReactNode, useEffect, useLayoutEffect } from "react";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
@@ -13,17 +13,51 @@ interface LayoutProps {
     children: ReactNode;
 }
 
+const baseURL = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
+
 const Layout = ({ children }: LayoutProps) => {
     const router = useRouter();
-    const [fullName, setFullName] = useState<string>();
-    const [email, setEmail] = useState<string>();
+    const fullNameCookie = Cookies.get("hg63_#6y0");
+    const emailCookie = Cookies.get("bty3_35=");
+
+    let fullName = "";
+    let email = "";
+
+    if (fullNameCookie)
+        try {
+            fullName = JSON.parse(fullNameCookie);
+        } catch (error) {}
+
+    if (emailCookie)
+        try {
+            email = JSON.parse(emailCookie);
+        } catch (error) {}
 
     useLayoutEffect(() => {
-        // Retrieve the full_name and email from Cookies
-        const retrievedFullName = Cookies.get("hg63_#6y0") as string;
-        const retrievedEmail = Cookies.get("bty3_35=") as string;
-        setFullName(JSON.parse(retrievedFullName));
-        setEmail(JSON.parse(retrievedEmail));
+        const isAdmin = async () => {
+            const accessToken = Cookies.get("access-token");
+            try {
+                const response = await fetch(`${baseURL}/auth/users/me/`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `JWT ${accessToken}`,
+                    },
+                });
+                if (response.ok) {
+                    const data = await response.json();
+                    const adminStatus = data.is_admin;
+                    return adminStatus;
+                }
+                return false;
+            } catch (error) {
+                return false;
+            }
+        };
+        const adminStatus = isAdmin() as unknown as boolean;
+        console.log("adminStatus", adminStatus);
+        if (!adminStatus) router.push("/dashboard");
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handleLogout = () => {
@@ -38,8 +72,8 @@ const Layout = ({ children }: LayoutProps) => {
 
     const pathName = usePathname();
     const _dashboard = /^\/dashboard$/.test(pathName);
-    const _generateKey = pathName.includes("generate-key");
     const _manageKeys = pathName.includes("manage-keys");
+    const _schools = pathName.includes("schools");
 
     return (
         <div className="w-full flex h-screen">
@@ -62,7 +96,7 @@ const Layout = ({ children }: LayoutProps) => {
                                 className="flex flex-col justify-between -mx-2 space-y-4"
                             >
                                 <Link
-                                    href="/dashboard"
+                                    href="/admin/dashboard"
                                     className={`${
                                         _dashboard
                                             ? "bg-[#06b96f] border-[3px] border-[#06b96f] text-white"
@@ -81,9 +115,9 @@ const Layout = ({ children }: LayoutProps) => {
                                     Dashboard
                                 </Link>
                                 <Link
-                                    href="/dashboard/generate-key"
+                                    href="/dashboard/manage-keys"
                                     className={`${
-                                        _generateKey
+                                        _manageKeys
                                             ? "bg-[#06b96f] border-[3px] border-[#06b96f] text-white"
                                             : "text-[#06b96f] border-[3px] border-[#06b96f] hover:text-white hover:bg-[#06b96f]"
                                     } flex items-center gap-x-2 px-2 py-2 mb-4 rounded-md text-sm font-semibold leading-6 transition-colors duration-500 ease-in-out`}
@@ -100,29 +134,31 @@ const Layout = ({ children }: LayoutProps) => {
                                             clipRule="evenodd"
                                         />
                                     </svg>
-                                    Generate Access Key
+                                    Manage Keys
                                 </Link>
                                 <Link
-                                    href="/dashboard/manage-keys"
+                                    href="/dashboard/schools"
                                     className={`${
-                                        _manageKeys
+                                        _schools
                                             ? "bg-[#06b96f] border-[3px] border-[#06b96f] text-white"
                                             : "text-[#06b96f] border-[3px] border-[#06b96f] hover:text-white hover:bg-[#06b96f]"
                                     } flex items-center gap-x-2 px-2 py-2 rounded-md text-sm font-semibold leading-6 transition-colors duration-500 ease-in-out`}
                                 >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
                                         viewBox="0 0 24 24"
-                                        fill="currentColor"
-                                        className="w-5 h-5 pb-1"
+                                        strokeWidth="1.5"
+                                        stroke="currentColor"
+                                        className="w-6 h-6"
                                     >
                                         <path
-                                            fillRule="evenodd"
-                                            d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm0 8.625a1.125 1.125 0 1 0 0 2.25 1.125 1.125 0 0 0 0-2.25ZM15.375 12a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0ZM7.5 10.875a1.125 1.125 0 1 0 0 2.25 1.125 1.125 0 0 0 0-2.25Z"
-                                            clipRule="evenodd"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5"
                                         />
                                     </svg>
-                                    Manage Keys
+                                    Schools
                                 </Link>
                             </ul>
                         </li>
