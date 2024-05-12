@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 import Footer from "@/components/Footer";
 import StatusIndicator from "@/components/StatusIndicator";
-import SearchUI from "@/components/SearchUI";
+import SearchUI from "@/components/KeySearchUI";
 import { useAppContext } from "@/context";
 import { useRouter } from "next/navigation";
 import Paginator from "@/components/Paginator";
@@ -252,13 +252,13 @@ const ManageKeys = () => {
                     <>
                         <main className="h-[70dvh]">
                             {isLoading ? (
-                                <span className="loading loading-spinner loading-lg h-[60vh] px-[10%] ml-[40%] bg-green-400"></span>
+                                <span className="loading loading-spinner loading-lg h-[59vh] px-[10%] ml-[40%] bg-green-400"></span>
                             ) : (
                                 <div className="overflow-x-auto h-[60dvh]">
                                     <table className="table ">
                                         {/* head */}
                                         <thead>
-                                            <tr>
+                                            <tr className="sticky top-0 bg-[#121b33] text-white border-2 rounded-xl border-[#121b33]">
                                                 <th></th>
                                                 <th>Key Tag</th>
                                                 <th>Key</th>

@@ -244,7 +244,7 @@ const AdminManageKeys = () => {
                             <table className="table">
                                 {/* head */}
                                 <thead>
-                                    <tr>
+                                    <tr className="sticky top-0 bg-[#121b33] text-white border-2 rounded-xl border-[#121b33]">
                                         <th></th>
                                         <th>School Email</th>
                                         <th>Key Tag</th>
@@ -348,8 +348,8 @@ const AdminManageKeys = () => {
                         )}
                     </div>
                 </main>
-                {!isLoading && schoolKeysInfo?.length !== 0 && (
-                    <footer>
+                {schoolKeysInfo?.length !== 0 && (
+                    <footer className="pt-4">
                         <Paginator
                             disableNext={disableNext}
                             disablePrevious={disablePrevious}

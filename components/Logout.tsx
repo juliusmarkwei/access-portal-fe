@@ -37,7 +37,7 @@ const Logout = ({ handleLogout, userData }: LogoutProps) => {
                     </span>
                 </div>
             </div>
-            <button onClick={handleLogout}>
+            <button onClick={handleLogout} title="Logout">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"

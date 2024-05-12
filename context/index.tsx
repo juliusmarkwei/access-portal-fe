@@ -38,12 +38,13 @@ export const AppWrapper: React.FC<{ children: React.ReactNode }> = ({
     useEffect(() => {
         const interval = setInterval(() => {
             handleRefreshAccessToken();
-        }, 58 * 60 * 1000); // 58 minutes * 60 seconds/minute * 1000 milliseconds/second
+        }, 56 * 60 * 1000); // 58 minutes * 60 seconds/minute * 1000 milliseconds/second
         return () => clearInterval(interval);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []); // Run only on mount
 
     const handleRefreshAccessToken = async () => {
+        console.log("Checking refresh token");
         if (refreshToken) {
             const response = await fetch(`${baseURL}/auth/refresh/`, {
                 method: "POST",
