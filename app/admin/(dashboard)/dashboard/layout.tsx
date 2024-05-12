@@ -17,11 +17,11 @@ const baseURL = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
 
 const Layout = ({ children }: LayoutProps) => {
     const router = useRouter();
-    const fullNameCookie = Cookies.get("hg63_#6y0");
-    const emailCookie = Cookies.get("bty3_35=");
-
     let fullName = "";
     let email = "";
+
+    const fullNameCookie = Cookies.get("hg63_#6y0");
+    const emailCookie = Cookies.get("bty3_35=");
 
     if (fullNameCookie)
         try {
@@ -55,7 +55,6 @@ const Layout = ({ children }: LayoutProps) => {
             }
         };
         const adminStatus = isAdmin() as unknown as boolean;
-        console.log("adminStatus", adminStatus);
         if (!adminStatus) router.push("/dashboard");
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -115,7 +114,7 @@ const Layout = ({ children }: LayoutProps) => {
                                     Dashboard
                                 </Link>
                                 <Link
-                                    href="/dashboard/manage-keys"
+                                    href="/admin/dashboard/manage-keys"
                                     className={`${
                                         _manageKeys
                                             ? "bg-[#06b96f] border-[3px] border-[#06b96f] text-white"
@@ -137,7 +136,7 @@ const Layout = ({ children }: LayoutProps) => {
                                     Manage Keys
                                 </Link>
                                 <Link
-                                    href="/dashboard/schools"
+                                    href="/admin/dashboard/schools"
                                     className={`${
                                         _schools
                                             ? "bg-[#06b96f] border-[3px] border-[#06b96f] text-white"

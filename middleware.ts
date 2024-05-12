@@ -10,6 +10,9 @@ export default withAuth(
             "/dashboard",
             "/dashboard/generate-key",
             "/dashboard/manage-keys",
+            "/admin/dashboard",
+            "/admin/dashboard/manage-keys",
+            "/admin/dashboard/schools",
         ];
         const isAccessingSensitiveRoute = sensitiveRoutes.includes(pathname);
         const sensitiveRoutesAfterLogin = [
@@ -57,5 +60,8 @@ export const config = {
         "/dashboard",
         "/dashboard/generate-key",
         "/dashboard/manage-keys",
+        "/admin/dashboard",
+        "/admin/dashboard/manage-keys",
+        "/admin/dashboard/schools",
     ],
 };

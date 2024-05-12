@@ -78,7 +78,9 @@ const Login = () => {
                 } else {
                     route.push("/dashboard");
                 }
-                const checkuserdata = Cookies.get("_se7_wer_") as string;
+                const checkuserdata: string | undefined = Cookies.get(
+                    "_se7_wer_"
+                ) as string;
                 if (!checkuserdata) await getUserData(data.access);
                 toast.success("Login successful", { duration: 4000 });
                 setLoading(false);

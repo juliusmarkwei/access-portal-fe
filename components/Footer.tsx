@@ -7,7 +7,7 @@ const Footer = () => {
     return (
         <>
             <footer
-                className={`footer items-center bg-neutral text-neutral-content mt-[50px] ${
+                className={`footer items-center bg-neutral text-neutral-content ${
                     _generateKeysPage ? "px-8 pt-[1.5px]" : ""
                 }`}
             >

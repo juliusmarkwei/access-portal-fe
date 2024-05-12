@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 interface SchoolKeysInfo {
     owner: string;
@@ -18,10 +20,37 @@ const AdminManageKeys = () => {
     const [schoolKeysInfo, setSchoolKeysInfo] = useState<SchoolKeysInfo[]>();
     const [selectedSchoolKeyTag, setSelectedSchoolKeyTag] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const [_isLoading, _setIsLoading] = useState(false);
     const accessToken = Cookies.get("access-token");
+    const router = useRouter();
+
+    useEffect(() => {
+        const handleClickOutside = (e: MouseEvent) => {
+            // Check if selectedkeyTag is truthy and the target is not inside a td element
+            const sanitizedTag = selectedSchoolKeyTag.replace(/\s+/g, ""); // Remove whitespace
+            if (
+                selectedSchoolKeyTag &&
+                !(
+                    e.target instanceof HTMLElement &&
+                    e.target.closest(sanitizedTag) &&
+                    e.target.closest("td")
+                )
+            ) {
+                setSelectedSchoolKeyTag("");
+            }
+        };
+
+        document.addEventListener("click", handleClickOutside);
+
+        // Cleanup function to remove event listener when component unmounts
+        return () => {
+            document.removeEventListener("click", handleClickOutside);
+        };
+    }, [selectedSchoolKeyTag]);
 
     useEffect(() => {
         handleGetSchoolKeysInfo();
+        setSelectedSchoolKeyTag("");
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -39,39 +68,85 @@ const AdminManageKeys = () => {
                 const data = await response.json();
                 setSchoolKeysInfo(data);
             }
-        } catch (error) {
-            console.error(error);
-        }
+        } catch (error) {}
         setIsLoading(false);
     };
 
-    const handleImageClick = (keyTag: string) => {
+    const handleOptionClick = (keyTag: string) => {
         setSelectedSchoolKeyTag(keyTag);
     };
 
-    const handleRevokeAccessKey = async (owner: string) => {
-        {
+    const handleRevokeAccessKey = async (owner: string, keyTag: string) => {
+        _setIsLoading(true);
+        try {
+            const response = await fetch(`${baseURL}/admin/access-key/`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `JWT ${accessToken}`,
+                },
+                body: JSON.stringify({ email: owner, key_tag: keyTag }),
+            });
+            if (response.ok) {
+                handleGetSchoolKeysInfo();
+                router.refresh();
+                toast.success(`Access Key ${selectedSchoolKeyTag} revoked!`, {
+                    duration: 4000,
+                });
+            } else {
+                const data = await response.json();
+                toast.error(data.error, { duration: 4000 });
+            }
+        } catch (error) {
+            toast.error("An error occurred", { duration: 4000 });
         }
+        _setIsLoading(false);
     };
 
-    const handleActivateAccessKey = async (owner: string) => {};
+    const handleActivateAccessKey = async (owner: string, keyTag: string) => {
+        _setIsLoading(true);
+        try {
+            const response = await fetch(`${baseURL}/admin/access-key/`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `JWT ${accessToken}`,
+                },
+                body: JSON.stringify({ email: owner, key_tag: keyTag }),
+            });
+            if (response.ok) {
+                handleGetSchoolKeysInfo();
+                router.refresh();
+                toast.success(`Access Key ${selectedSchoolKeyTag} activated!`, {
+                    duration: 4000,
+                });
+            } else {
+                const data = await response.json();
+                toast.error(data.error, { duration: 4000 });
+            }
+        } catch (error) {
+            toast.error("An error occurred", { duration: 4000 });
+        }
+        _setIsLoading(false);
+        setSelectedSchoolKeyTag("");
+    };
 
     return (
         <>
-            <div className="container py-12 h-[90dvh] px-8">
-                <h1 className="font-bold text-3xl mb-8 text-[#393b3f]">
+            <div className="container pb-12 h-[90dvh] px-8">
+                <h1 className="font-bold text-3xl mb-3 text-[#393b3f]">
                     {" "}
                     Manage School&apos;s Access Keys{" "}
                     <hr className="mt-3 border-b-2 border-[#2f2f37]" />
                 </h1>
                 <main>
-                    <div className="overflow-x-auto h-[62dvh]">
+                    <div className="overflow-x-auto h-[70dvh]">
                         {isLoading ? (
                             <div className="flex justify-center items-center">
-                                <span className="loading loading-ring loading-lg h-[62vh] px-[10%] bg-green-400"></span>
+                                <span className="loading loading-ring loading-lg h-[70vh] px-[10%] bg-green-400"></span>
                             </div>
                         ) : schoolKeysInfo?.length === 0 ? (
-                            <div className="flex justify-center items-center h-[62vh]">
+                            <div className="flex justify-center items-center h-[70vh]">
                                 <span className="text-[#2f2f37]">
                                     No data available
                                 </span>
@@ -95,7 +170,7 @@ const AdminManageKeys = () => {
                                     {/* row 1 */}
                                     {schoolKeysInfo?.map((schoolKey, index) => (
                                         <tr key={index}>
-                                            <th>{index}</th>
+                                            <th>{index + 1}</th>
                                             <td>{schoolKey.owner}</td>
                                             <td>{schoolKey.key_tag}</td>
                                             <td className="w-[20px]">
@@ -128,14 +203,17 @@ const AdminManageKeys = () => {
                                                     ? schoolKey.expiry_date
                                                     : "N/A"}
                                             </td>
-                                            <td>
+                                            <td
+                                                className="relative"
+                                                id={selectedSchoolKeyTag}
+                                            >
                                                 <svg
                                                     xmlns="http://www.w3.org/2000/svg"
                                                     viewBox="0 0 24 24"
                                                     fill="currentColor"
                                                     className="w-6 h-6 cursor-pointer relative"
                                                     onClick={() =>
-                                                        handleImageClick(
+                                                        handleOptionClick(
                                                             schoolKey.key_tag
                                                         )
                                                     }
@@ -148,12 +226,13 @@ const AdminManageKeys = () => {
                                                 </svg>
                                                 {schoolKey.key_tag ===
                                                     selectedSchoolKeyTag && (
-                                                    <div className="absolute top-5 right-5 bg-[#121b33] text-white rounded-lg w-[80%] z-50">
+                                                    <div className="absolute top-5 right-5 bg-[#121b33] text-white rounded-lg w-[100px] z-50">
                                                         <button
                                                             className="block text-white py-2 hover:bg-[#000000] rounded-md w-full"
                                                             onClick={() =>
                                                                 handleRevokeAccessKey(
-                                                                    schoolKey.owner
+                                                                    schoolKey.owner,
+                                                                    schoolKey.key_tag
                                                                 )
                                                             }
                                                         >
@@ -163,11 +242,12 @@ const AdminManageKeys = () => {
                                                             className="block text-white py-2 px-3 hover:bg-[#000000] rounded-md w-full"
                                                             onClick={() =>
                                                                 handleActivateAccessKey(
-                                                                    schoolKey.owner
+                                                                    schoolKey.owner,
+                                                                    schoolKey.key_tag
                                                                 )
                                                             }
                                                         >
-                                                            Delete
+                                                            Activate
                                                         </button>
                                                     </div>
                                                 )}
@@ -181,13 +261,13 @@ const AdminManageKeys = () => {
                 </main>
                 {!isLoading && schoolKeysInfo?.length !== 0 && (
                     <footer>
-                        <div className="join flex justify-center items-center py-2">
-                            <button className="join-item btn btn-xs">1</button>
-                            <button className="join-item btn btn-xs btn-active">
-                                2
+                        <div className="join grid grid-cols-2 justify-center items-center px-[30%]">
+                            <button className="join-item btn btn-outline">
+                                Previous page
                             </button>
-                            <button className="join-item btn btn-xs">3</button>
-                            <button className="join-item btn btn-xs">4</button>
+                            <button className="join-item btn btn-outline">
+                                Next
+                            </button>
                         </div>
                     </footer>
                 )}

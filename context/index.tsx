@@ -33,20 +33,18 @@ export const AppWrapper: React.FC<{ children: React.ReactNode }> = ({
         undefined
     );
     const router = useRouter();
+    const refreshToken = Cookies.get("refresh-token");
 
     useEffect(() => {
         const interval = setInterval(() => {
             handleRefreshAccessToken();
-        }, 3500000);
+        }, 58 * 60 * 1000); // 58 minutes * 60 seconds/minute * 1000 milliseconds/second
         return () => clearInterval(interval);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, []); // Run only on mount
 
     const handleRefreshAccessToken = async () => {
-        const refreshToken = Cookies.get("refresh-token");
-        console.log("Refresh token: ", refreshToken);
         if (refreshToken) {
-            console.log("Requesting for new access token");
             const response = await fetch(`${baseURL}/auth/refresh/`, {
                 method: "POST",
                 headers: {
@@ -58,16 +56,19 @@ export const AppWrapper: React.FC<{ children: React.ReactNode }> = ({
                 const data = await response.json();
 
                 const access_expires = new Date();
-                access_expires.setTime(access_expires.getTime() + 3600000);
+                access_expires.setTime(
+                    access_expires.getTime() + 60 * 60 * 1000
+                );
                 Cookies.set("access-token", data.access, {
                     expires: access_expires,
                 });
             }
         } else {
-            console.log("No refresh token found.");
+            console.log("Refresh token expired");
             Cookies.remove("access-token");
-            Cookies.remove("refresh-token");
             Cookies.remove("_se7_wer_");
+            Cookies.remove("hg63_#6y0");
+            Cookies.remove("bty3_35=");
             toast.error("Session expired. Please login again.");
             router.push("/login");
         }
