@@ -48,7 +48,7 @@ const StatusIndicator = ({
             });
             if (response.ok) {
                 const data = await response.json();
-                setKeys(data);
+                setKeys(data.results);
                 setIsLoading(false);
             } else {
                 const data = await response.json();

@@ -50,7 +50,7 @@ const Dashbaord = () => {
             });
             if (response.ok) {
                 const data = await response.json();
-                setKeysInfo(data);
+                setKeysInfo(data.results);
                 _setisLoading(false);
             } else {
                 toast.error("Failed to fetch data");

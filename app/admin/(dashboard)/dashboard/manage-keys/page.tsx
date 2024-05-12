@@ -4,8 +4,9 @@ import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import Paginator from "@/components/Paginator";
 
-interface SchoolKeysInfo {
+interface SchoolKeysInfoType {
     owner: string;
     key_tag: string;
     validity_duration_days: number;
@@ -14,13 +15,23 @@ interface SchoolKeysInfo {
     expiry_date: string;
 }
 
+interface ResponseOptionsType {
+    next: string;
+    previous: string;
+}
+
 const baseURL = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
 
 const AdminManageKeys = () => {
-    const [schoolKeysInfo, setSchoolKeysInfo] = useState<SchoolKeysInfo[]>();
+    const [schoolKeysInfo, setSchoolKeysInfo] =
+        useState<SchoolKeysInfoType[]>();
+    const [responseOptions, setResponseOptions] =
+        useState<ResponseOptionsType>();
     const [selectedSchoolKeyTag, setSelectedSchoolKeyTag] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [_isLoading, _setIsLoading] = useState(false);
+    const [disableNext, setDisableNext] = useState(false);
+    const [disablePrevious, setDisablePrevious] = useState(false);
     const accessToken = Cookies.get("access-token");
     const router = useRouter();
 
@@ -66,7 +77,17 @@ const AdminManageKeys = () => {
             });
             if (response.ok) {
                 const data = await response.json();
-                setSchoolKeysInfo(data);
+                setSchoolKeysInfo(data.results);
+                setResponseOptions({
+                    next: data.next,
+                    previous: data.previous,
+                });
+                if (data.next === null) {
+                    setDisableNext(true);
+                }
+                if (data.previous === null) {
+                    setDisablePrevious(true);
+                }
             }
         } catch (error) {}
         setIsLoading(false);
@@ -129,6 +150,74 @@ const AdminManageKeys = () => {
         }
         _setIsLoading(false);
         setSelectedSchoolKeyTag("");
+    };
+
+    const handlePreviousPage = async () => {
+        if (!responseOptions?.previous) return;
+        setIsLoading(true);
+        try {
+            const response = await fetch(responseOptions?.previous, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `JWT ${accessToken}`,
+                },
+            });
+            if (response.ok) {
+                const data = await response.json();
+                setSchoolKeysInfo(data.results);
+                setResponseOptions({
+                    next: data.next,
+                    previous: data.previous,
+                });
+                if (data.next === null) {
+                    setDisableNext(true);
+                } else {
+                    setDisableNext(false);
+                }
+                if (data.previous === null) {
+                    setDisablePrevious(true);
+                } else {
+                    setDisablePrevious(false);
+                }
+                console.log(disableNext, disablePrevious);
+            }
+        } catch (error) {}
+        setIsLoading(false);
+    };
+
+    const handleNextPage = async () => {
+        if (!responseOptions?.next) return;
+        setIsLoading(true);
+        try {
+            const response = await fetch(responseOptions?.next, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `JWT ${accessToken}`,
+                },
+            });
+            if (response.ok) {
+                const data = await response.json();
+                setSchoolKeysInfo(data.results);
+                setResponseOptions({
+                    next: data.next,
+                    previous: data.previous,
+                });
+                if (data.next === null) {
+                    setDisableNext(true);
+                } else {
+                    setDisableNext(false);
+                }
+                if (data.previous === null) {
+                    setDisablePrevious(true);
+                } else {
+                    setDisablePrevious(false);
+                }
+                console.log(disableNext, disablePrevious);
+            }
+        } catch (error) {}
+        setIsLoading(false);
     };
 
     return (
@@ -261,14 +350,12 @@ const AdminManageKeys = () => {
                 </main>
                 {!isLoading && schoolKeysInfo?.length !== 0 && (
                     <footer>
-                        <div className="join grid grid-cols-2 justify-center items-center px-[30%]">
-                            <button className="join-item btn btn-outline">
-                                Previous page
-                            </button>
-                            <button className="join-item btn btn-outline">
-                                Next
-                            </button>
-                        </div>
+                        <Paginator
+                            disableNext={disableNext}
+                            disablePrevious={disablePrevious}
+                            handleNextPage={handleNextPage}
+                            handlePreviousPage={handlePreviousPage}
+                        />
                     </footer>
                 )}
             </div>

@@ -8,6 +8,7 @@ import StatusIndicator from "@/components/StatusIndicator";
 import SearchUI from "@/components/SearchUI";
 import { useAppContext } from "@/context";
 import { useRouter } from "next/navigation";
+import Paginator from "@/components/Paginator";
 
 const baseURL = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
 
@@ -19,15 +20,24 @@ interface KeysType {
     expiry_date: string;
 }
 
+interface ResponseOptionsType {
+    next: string;
+    previous: string;
+}
+
 const ManageKeys = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [_isLoading, _setIsLoading] = useState(false);
-    const accessToken = Cookies.get("access-token");
     const [swicthCopiedImage, setSwicthCopiedImage] = useState(false);
+    const [selectedkeyTag, setSelectedKeyTag] = useState("");
+    const [responseOptions, setResponseOptions] =
+        useState<ResponseOptionsType>();
+    const accessToken = Cookies.get("access-token");
     const { keys, setKeys } = useAppContext();
     const { filteredKeys } = useAppContext();
-    const [selectedkeyTag, setSelectedKeyTag] = useState("");
     const route = useRouter();
+    const [disableNext, setDisableNext] = useState(false);
+    const [disablePrevious, setDisablePrevious] = useState(false);
 
     const handleImageClick = (keyTag: string) => {
         setSelectedKeyTag(keyTag);
@@ -74,17 +84,25 @@ const ManageKeys = () => {
             });
             if (response.ok) {
                 const data = await response.json();
-                setKeys(data);
-                setIsLoading(false);
+                setKeys(data.results);
+                setResponseOptions({
+                    next: data.next,
+                    previous: data.previous,
+                });
+                if (data.next === null) {
+                    setDisableNext(true);
+                }
+                if (data.previous === null) {
+                    setDisablePrevious(true);
+                }
             } else {
                 const data = await response.json();
                 toast.error(data.error, { duration: 4000 });
-                setIsLoading(false);
             }
         } catch (error) {
             toast.error("An error occured", { duration: 4000 });
-            setIsLoading(false);
         }
+        setIsLoading(false);
     };
 
     const handelCopied = (textTOCopy: string) => {
@@ -109,18 +127,16 @@ const ManageKeys = () => {
             if (response.ok) {
                 setSelectedKeyTag(""); // Clear selected key tag
                 loadKeys();
-                _setIsLoading(false);
                 route.refresh();
                 toast.success("Key revoked successfully", { duration: 4000 });
             } else {
                 const data = await response.json();
                 toast.error(data.error, { duration: 4000 });
-                _setIsLoading(false);
             }
         } catch (error) {
             toast.error("An error occured", { duration: 4000 });
-            _setIsLoading(false);
         }
+        _setIsLoading(false);
     };
 
     const handleDeleteInactiveAccessKey = async (keyTag: string) => {
@@ -136,18 +152,84 @@ const ManageKeys = () => {
             if (response.ok) {
                 setSelectedKeyTag(""); // Clear selected key tag
                 loadKeys();
-                _setIsLoading(false);
                 route.refresh();
                 toast.success("Key deleted successfully", { duration: 4000 });
             } else {
                 const data = await response.json();
                 toast.error(data.error, { duration: 4000 });
-                _setIsLoading(false);
             }
         } catch (error) {
             toast.error("An error occured", { duration: 4000 });
-            _setIsLoading(false);
         }
+        _setIsLoading(false);
+    };
+
+    const handlePreviousPage = async () => {
+        if (!responseOptions?.previous) return;
+        setIsLoading(true);
+        try {
+            const response = await fetch(responseOptions?.previous, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `JWT ${accessToken}`,
+                },
+            });
+            if (response.ok) {
+                const data = await response.json();
+                setKeys(data.results);
+                setResponseOptions({
+                    next: data.next,
+                    previous: data.previous,
+                });
+                if (data.next === null) {
+                    setDisableNext(true);
+                } else {
+                    setDisableNext(false);
+                }
+                if (data.previous === null) {
+                    setDisablePrevious(true);
+                } else {
+                    setDisablePrevious(false);
+                }
+                console.log(disableNext, disablePrevious);
+            }
+        } catch (error) {}
+        setIsLoading(false);
+    };
+
+    const handleNextPage = async () => {
+        if (!responseOptions?.next) return;
+        setIsLoading(true);
+        try {
+            const response = await fetch(responseOptions?.next, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `JWT ${accessToken}`,
+                },
+            });
+            if (response.ok) {
+                const data = await response.json();
+                setKeys(data.results);
+                setResponseOptions({
+                    next: data.next,
+                    previous: data.previous,
+                });
+                if (data.next === null) {
+                    setDisableNext(true);
+                } else {
+                    setDisableNext(false);
+                }
+                if (data.previous === null) {
+                    setDisablePrevious(true);
+                } else {
+                    setDisablePrevious(false);
+                }
+                console.log(disableNext, disablePrevious);
+            }
+        } catch (error) {}
+        setIsLoading(false);
     };
 
     return (
@@ -164,15 +246,14 @@ const ManageKeys = () => {
                 </h1>
                 <hr className="mt-3 border-b-2 border-[#2f2f37]" />
                 {_isLoading && (
-                    <span className="loading loading-spinner loading-lg h-[70vh] px-[10%] ml-[40%] bg-green-400"></span>
+                    <span className="loading loading-spinner loading-lg h-[70vh] px-[10%] ml-[60%] bg-green-400"></span>
                 )}
                 {!_isLoading && (
                     <>
                         <main className="h-[70dvh]">
                             {isLoading ? (
-                                <span className="loading loading-spinner loading-lg h-[70vh] px-[10%] ml-[40%] bg-green-400"></span>
+                                <span className="loading loading-spinner loading-lg h-[60vh] px-[10%] ml-[40%] bg-green-400"></span>
                             ) : (
-                                // <span className="loading loading-spinner loading-lg flex justify-center items-center text-[#32ffa9] mt-10 border-[5px] border-[#32ffa9] p-2"></span>
                                 <div className="overflow-x-auto h-[60dvh]">
                                     <table className="table ">
                                         {/* head */}
@@ -372,20 +453,18 @@ const ManageKeys = () => {
                                 </div>
                             )}
                         </main>
-                        <div>
-                            <div className="join grid grid-cols-2 justify-center items-center px-[30%]">
-                                <button className="join-item btn btn-outline">
-                                    Previous page
-                                </button>
-                                <button className="join-item btn btn-outline">
-                                    Next
-                                </button>
-                            </div>
-                        </div>
                     </>
                 )}
+                <>
+                    <Paginator
+                        disableNext={disableNext}
+                        disablePrevious={disablePrevious}
+                        handleNextPage={handleNextPage}
+                        handlePreviousPage={handlePreviousPage}
+                    />
 
-                <Footer />
+                    <Footer />
+                </>
             </div>
         </>
     );
