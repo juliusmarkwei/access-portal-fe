@@ -73,6 +73,9 @@ const Layout = ({ children }: LayoutProps) => {
     const _dashboard = /^\/dashboard$/.test(pathName);
     const _manageKeys = pathName.includes("manage-keys");
     const _schools = pathName.includes("schools");
+    const _schoolActiveKeyLookup = pathName.includes(
+        "school-active-key-lookup"
+    );
 
     return (
         <div className="w-full flex h-screen">
@@ -158,6 +161,30 @@ const Layout = ({ children }: LayoutProps) => {
                                         />
                                     </svg>
                                     Schools
+                                </Link>
+                                <Link
+                                    href="/admin/dashboard/school-active-key-lookup"
+                                    className={`${
+                                        _schoolActiveKeyLookup
+                                            ? "bg-[#06b96f] border-[3px] border-[#06b96f] text-white"
+                                            : "text-[#06b96f] border-[3px] border-[#06b96f] hover:text-white hover:bg-[#06b96f]"
+                                    } flex items-center gap-x-2 px-2 py-2 rounded-md text-sm font-semibold leading-6 transition-colors duration-500 ease-in-out`}
+                                >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke-width="1.5"
+                                        stroke="currentColor"
+                                        className="w-6 h-6"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+                                        />
+                                    </svg>
+                                    School&apos;s Active Key Lookup
                                 </Link>
                             </ul>
                         </li>
