@@ -3,7 +3,9 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import QeuryInfoImage from "@/public/query info.png";
+import Error404Image from "@/public/error-404.png";
 import Cookies from "js-cookie";
+import toast from "react-hot-toast";
 
 const baseURL = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
 
@@ -11,11 +13,23 @@ const SchoolActiveKeyLookup = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [schoolEmail, setSchoolEmail] = useState("");
     const [schoolActiveKey, setSchoolActiveKey] = useState({} as any);
+    const [_404, set404] = useState(false);
     const accessToken = Cookies.get("access-token");
 
-    const handleQuerySchoolActiveKey = async () => {
-        setIsLoading(true);
+    const handleShowModal = () => {
+        const modal = document.getElementById(
+            "my_modal_1"
+        ) as HTMLDialogElement;
+        if (modal) {
+            modal.showModal();
+        }
+    };
+
+    const handleQuerySchoolActiveKey = async (e: any) => {
+        e.preventDefault();
         try {
+            handleShowModal();
+            setIsLoading(true);
             const response = await fetch(
                 `${baseURL}/admin/school-active-key-lookup/`,
                 {
@@ -32,9 +46,16 @@ const SchoolActiveKeyLookup = () => {
             if (response.ok) {
                 const data = await response.json();
                 setSchoolActiveKey(data);
+            } else {
+                set404(true);
             }
-        } catch (error) {}
+        } catch (error) {
+            toast.error("An error occurred. Please try again later.", {
+                duration: 4000,
+            });
+        }
         setIsLoading(false);
+        setSchoolEmail("");
     };
     return (
         <>
@@ -64,24 +85,28 @@ const SchoolActiveKeyLookup = () => {
                 </div>
                 <main className="h-[75dvh]">
                     <div className="grid grid-cols-2 grid-rows-1 h-full">
-                        <div className="flex flex-col justify-center items-center gap-5 border-r-2 border-black">
+                        <form
+                            className="flex flex-col justify-center items-center gap-5 border-r-2 border-black"
+                            onSubmit={handleQuerySchoolActiveKey}
+                        >
                             <input
-                                type="text"
+                                type="email"
                                 placeholder="Enter school email..."
                                 className="w-[400px] h-[60px] px-4 py-2 border border-[#2f2f37] rounded-md focus:outline-none focus:ring-2 focus:ring-[#2f2f37] focus:ring-opacity-50"
                                 value={schoolEmail}
                                 onChange={(e) => setSchoolEmail(e.target.value)}
+                                required
                             />
                             <button
                                 className={`w-32 h-14 px-4 py-2 flex justify-center items-center border-2 border-[#121b33] text-[#121b33] transition ease-in rounded-md hover:bg-[#121b33] hover:text-white ${
                                     schoolEmail === "" && "cursor-not-allowed"
                                 }`}
                                 disabled={schoolEmail === ""}
-                                onClick={handleQuerySchoolActiveKey}
+                                type="submit"
                             >
                                 Query
                             </button>
-                        </div>
+                        </form>
                         <div className="flex justify-center items-center">
                             <Image
                                 src={QeuryInfoImage.src}
@@ -92,6 +117,38 @@ const SchoolActiveKeyLookup = () => {
                         </div>
                     </div>
                 </main>
+                <dialog id="my_modal_1" className="modal">
+                    <div className="modal-box">
+                        {isLoading ? (
+                            <div className="flex justify-center items-center">
+                                <span className="loading loading-ring loading-lg h-[45vh] px-[10%] bg-green-400"></span>
+                            </div>
+                        ) : _404 ? (
+                            <span className="flex justify-center items-center h-[45vh]">
+                                <Image
+                                    src={Error404Image.src}
+                                    alt="404"
+                                    width={300}
+                                    height={300}
+                                />
+                            </span>
+                        ) : (
+                            ""
+                        )}
+
+                        <div className="modal-action">
+                            <form method="dialog">
+                                {/* if there is a button in form, it will close the modal */}
+                                <button
+                                    className="btn"
+                                    onClick={() => set404(false)}
+                                >
+                                    Close
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </dialog>
             </div>
         </>
     );
