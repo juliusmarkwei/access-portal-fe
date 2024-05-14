@@ -25,14 +25,9 @@ const Dashbaord = () => {
                 </h1>
                 {/* Analytics on user Access Keys */}
 
-                <div className="grid grid-cols-2 grid-rows-1 gap-5 px-10 h-[84%]">
-                    <div className="rounded-lg border-2 border-green-300 stats shadow flex justify-center items-center flex-col gap-5">
-                        <h1 className="font-bold text-xl text-[#393b3f]">
-                            Access Key Analytics
-                        </h1>
-                        <div className="w-[65%] h-[75%]">
-                            <AdminPieChart />
-                        </div>
+                <div className="grid grid-cols-2 grid-rows-1 gap-5 px-10 h-[90%]">
+                    <div className="rounded-lg border-2 border-green-300 stats">
+                        <AdminPieChart />
                     </div>
                     <div className="rounded-lg border-2 border-green-300"></div>
                 </div>

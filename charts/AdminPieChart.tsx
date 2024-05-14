@@ -1,5 +1,12 @@
 import { color } from "chart.js/helpers";
-import { Chart, Colors, DoughnutController, ArcElement } from "chart.js";
+import {
+    Chart,
+    Colors,
+    DoughnutController,
+    ArcElement,
+    Tooltip,
+    Legend,
+} from "chart.js";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 
@@ -52,7 +59,7 @@ const AdminPieChart = () => {
         ],
     };
 
-    Chart.register(DoughnutController, ArcElement, Colors);
+    Chart.register(DoughnutController, ArcElement, Colors, Tooltip, Legend);
     const config: any = {
         type: "doughnut",
         data: data,
@@ -71,7 +78,14 @@ const AdminPieChart = () => {
         new Chart(ctx, config);
     }
 
-    return <canvas id="myChart"></canvas>;
+    return (
+        <div className="flex flex-col justify-center items-center">
+            <h1 className="font-bold text-2xl mb-4 px-8 text-[#393b3f]">
+                Key Status Proportion
+            </h1>
+            <canvas id="myChart"></canvas>
+        </div>
+    );
 };
 
 export default AdminPieChart;
