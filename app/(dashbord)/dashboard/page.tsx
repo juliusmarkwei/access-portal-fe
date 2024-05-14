@@ -10,6 +10,7 @@ import {
     LinearScale,
     BarElement,
     Legend,
+    Tooltip,
 } from "chart.js";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
@@ -111,7 +112,8 @@ const Dashbaord = () => {
         CategoryScale,
         LinearScale,
         BarElement,
-        Legend
+        Legend,
+        Tooltip
     );
     const barChartData = {
         labels: keyStatusLabels,

@@ -9,6 +9,7 @@
         "lint": "next lint"
     },
     "dependencies": {
+        "@types/chart.js": "^2.9.41",
         "@types/js-cookie": "^3.0.6",
         "chart.js": "^4.4.2",
         "daisyui": "^4.10.2",

@@ -70,7 +70,7 @@ const Layout = ({ children }: LayoutProps) => {
     };
 
     const pathName = usePathname();
-    const _dashboard = /^\/dashboard$/.test(pathName);
+    const _dashboard = /^\/admin\/dashboard$/.test(pathName);
     const _manageKeys = pathName.includes("manage-keys");
     const _schools = pathName.includes("schools");
     const _schoolActiveKeyLookup = pathName.includes(

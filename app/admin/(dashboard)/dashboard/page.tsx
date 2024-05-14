@@ -1,13 +1,20 @@
 "use client";
 
-import { useState } from "react";
-import AdminPieChart from "@/charts/AdminPieChart";
-
-const baseURL = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
+import { useEffect, useState } from "react";
+import PieChart from "@/charts/PieChart";
+import BarChart from "@/charts/BarChart";
 
 const Dashbaord = () => {
-    const [isLoading, setisLoading] = useState(false);
-    const [_isLoading, _setisLoading] = useState(false);
+    const [_isLoading, _setisLoading] = useState(true);
+    const [showChart, setShowChart] = useState(true);
+
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            setShowChart(false);
+        }, 2000);
+
+        return () => clearInterval(intervalId);
+    }, []);
 
     const loadingUI = (
         <div className="flex justify-center items-center">
@@ -24,13 +31,20 @@ const Dashbaord = () => {
                     <hr className="mt-3 border-b-2 border-[#2f2f37]" />
                 </h1>
                 {/* Analytics on user Access Keys */}
-
-                <div className="grid grid-cols-2 grid-rows-1 gap-5 px-10 h-[90%]">
-                    <div className="rounded-lg border-2 border-green-300 stats">
-                        <AdminPieChart />
-                    </div>
-                    <div className="rounded-lg border-2 border-green-300"></div>
-                </div>
+                {showChart ? (
+                    loadingUI
+                ) : (
+                    <>
+                        <div className="grid grid-cols-2 grid-rows-1 gap-5 px-10 h-[90%]">
+                            <div className="rounded-lg border-2 border-green-300 stats">
+                                <PieChart />
+                            </div>
+                            <div className="rounded-lg border-2 border-green-300">
+                                <BarChart />
+                            </div>
+                        </div>
+                    </>
+                )}
             </div>
         </>
     );
