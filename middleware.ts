@@ -13,6 +13,7 @@ export default withAuth(
             "/admin/dashboard",
             "/admin/dashboard/manage-keys",
             "/admin/dashboard/schools",
+            "/admin/dashboard/school-active-key-lookup",
         ];
         const isAccessingSensitiveRoute = sensitiveRoutes.includes(pathname);
         const sensitiveRoutesAfterLogin = [
@@ -63,5 +64,6 @@ export const config = {
         "/admin/dashboard",
         "/admin/dashboard/manage-keys",
         "/admin/dashboard/schools",
+        "/admin/dashboard/school-active-key-lookup",
     ],
 };

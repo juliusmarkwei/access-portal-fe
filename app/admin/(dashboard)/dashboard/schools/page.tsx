@@ -37,7 +37,7 @@ const Schools = () => {
     const fetchSchoolsInfo = async () => {
         setIsLoading(true);
         try {
-            const response = await fetch(`${baseURl}/admin/school-info/`, {
+            const response = await fetch(`${baseURl}/admin/schools/`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

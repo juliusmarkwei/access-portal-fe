@@ -61,10 +61,14 @@ const Login = () => {
                 const data = await response.json();
 
                 const access_expires = new Date();
-                access_expires.setTime(access_expires.getTime() + 3600000);
+                access_expires.setTime(
+                    access_expires.getTime() + 60 * 60 * 1000 // 1 hour * 60 minutes/hour * 60 seconds/minute * 1000 milliseconds/second
+                );
 
                 const refresh_expires = new Date();
-                refresh_expires.setTime(refresh_expires.getTime() + 86400000);
+                refresh_expires.setTime(
+                    refresh_expires.getTime() + 24 * 60 * 60 * 1000 // 24 hours * 60 minutes/hour * 60 seconds/minute * 1000 milliseconds/second
+                );
 
                 Cookies.set("access-token", data.access, {
                     expires: access_expires,
