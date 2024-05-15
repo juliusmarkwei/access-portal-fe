@@ -1,29 +1,31 @@
 "use client";
 
-import Link from "next/link";
-import { ReactNode, useState, useLayoutEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 import { usePathname } from "next/navigation";
 import Logout from "@/components/Logout";
 import { AppWrapper } from "@/context";
+import Link from "next/link";
 
 interface LayoutProps {
-    children: ReactNode;
+    children: React.ReactNode;
 }
 
 const Layout = ({ children }: LayoutProps) => {
     const router = useRouter();
-    const [fullName, setFullName] = useState<string>();
-    const [email, setEmail] = useState<string>();
 
-    useLayoutEffect(() => {
+    const isAdmin = Cookies.get("AGhd783=#");
+    const [fullName, setFullName] = useState<string | undefined>();
+    const [email, setEmail] = useState<string | undefined>();
+
+    useEffect(() => {
         // Retrieve the full_name and email from Cookies
-        const retrievedFullName = Cookies.get("hg63_#6y0") as string;
-        const retrievedEmail = Cookies.get("bty3_35=") as string;
-        setFullName(JSON.parse(retrievedFullName));
-        setEmail(JSON.parse(retrievedEmail));
+        const retrievedFullName = JSON.parse(Cookies.get("hg63_#6y0") || "{}");
+        const retrievedEmail = JSON.parse(Cookies.get("bty3_35=") || "{}");
+        setFullName(retrievedFullName);
+        setEmail(retrievedEmail);
     }, []);
 
     const handleLogout = () => {
@@ -32,6 +34,7 @@ const Layout = ({ children }: LayoutProps) => {
         Cookies.remove("_se7_wer_");
         Cookies.remove("hg63_#6y0");
         Cookies.remove("bty3_35=");
+        Cookies.remove("AGhd783=#");
         router.push("/login");
         toast.success("Logout successful", { duration: 5000 });
     };
@@ -54,7 +57,31 @@ const Layout = ({ children }: LayoutProps) => {
                     >
                         <li>
                             <div className="text-xs font-semibold leading-6 mb-8 text-[#ffffff]">
-                                Overview
+                                <h1 className="pl-7">Overview</h1>
+                                {isAdmin === "true" ? (
+                                    <Link
+                                        href="/admin/dashboard"
+                                        className="cursor-pointer flex gap-3 items-center"
+                                    >
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            strokeWidth="1.5"
+                                            stroke="currentColor"
+                                            className="w-4 h-4 hover:text-[#06b96f]"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                d="m15 15 6-6m0 0-6-6m6 6H9a6 6 0 0 0 0 12h3"
+                                            />
+                                        </svg>
+                                        <h1 className="hover:text-[#06b96f] hover:underline">
+                                            Go to admin panel
+                                        </h1>
+                                    </Link>
+                                ) : null}
                             </div>
 
                             <ul
@@ -96,7 +123,7 @@ const Layout = ({ children }: LayoutProps) => {
                                     >
                                         <path
                                             fillRule="evenodd"
-                                            d="M15.75 1.5a6.75 6.75 0 0 0-6.651 7.906c.067.39-.032.717-.221.906l-6.5 6.499a3 3 0 0 0-.878 2.121v2.818c0 .414.336.75.75.75H6a.75.75 0 0 0 .75-.75v-1.5h1.5A.75.75 0 0 0 9 19.5V18h1.5a.75.75 0 0 0 .53-.22l2.658-2.658c.19-.189.517-.288.906-.22A6.75 6.75 0 1 0 15.75 1.5Zm0 3a.75.75 0 0 0 0 1.5A2.25 2.25 0 0 1 18 8.25a.75.75 0 0 0 1.5 0 3.75 3.75 0 0 0-3.75-3.75Z"
+                                            d="M15.75 1.5a6.75 6.75 0 0 0-6.651 7.906c.067.39-.032.717-.221.906l-6.5 6.499a.75.75 0 0 0-.878 2.121v2.818c0 .414.336.75.75.75H6a.75.75 0 0 0 .75-.75v-1.5h1.5A.75.75 0 0 0 9 19.5V18h1.5a.75.75 0 0 0 .53-.22l2.658-2.658c.19-.189.517-.288.906-.22A6.75 6.75 0 1 0 15.75 1.5Zm0 3a.75.75 0 0 0 0 1.5A2.25 2.25 0 0 1 18 8.25a.75.75 0 0 0 1.5 0 3.75 3.75 0 0 0-3.75-3.75Z"
                                             clipRule="evenodd"
                                         />
                                     </svg>

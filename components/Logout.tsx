@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Cookies from "js-cookie";
 
 interface LogoutProps {
     handleLogout: any;

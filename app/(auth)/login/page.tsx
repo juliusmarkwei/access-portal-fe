@@ -77,6 +77,9 @@ const Login = () => {
                     expires: refresh_expires,
                 });
 
+                // setting a value in cookies to hold is_admin
+                Cookies.set("AGhd783=#", data.is_admin);
+
                 if (data.is_admin) {
                     route.push("/admin/dashboard");
                 } else {

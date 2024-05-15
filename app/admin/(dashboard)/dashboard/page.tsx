@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import PieChart from "@/charts/PieChart";
-import SchoolStatistics from "@/components/SchoolStatistics";
+import SchoolStatistics from "@/components/AdminDashboardSchoolStatistics";
 import AnalyticsIllustration from "@/public/Report-rafiki.svg";
 import Image from "next/image";
 

@@ -2,10 +2,9 @@
 
 import Link from "next/link";
 import { ReactNode, useEffect, useLayoutEffect } from "react";
-import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation"; // Changed from "next/navigation"
 import Logout from "@/components/Logout";
 import { AppWrapper } from "@/context";
 
@@ -20,18 +19,20 @@ const Layout = ({ children }: LayoutProps) => {
     let fullName = "";
     let email = "";
 
-    const fullNameCookie = Cookies.get("hg63_#6y0");
-    const emailCookie = Cookies.get("bty3_35=");
+    const fullNameCookie = Cookies.get("hg63_#6y0") || "{}"; // Provide default empty object if cookie is not present
+    const emailCookie = Cookies.get("bty3_35=") || "{}"; // Provide default empty object if cookie is not present
 
-    if (fullNameCookie)
-        try {
-            fullName = JSON.parse(fullNameCookie);
-        } catch (error) {}
+    try {
+        fullName = JSON.parse(fullNameCookie);
+    } catch (error) {
+        console.error("Error parsing fullName cookie:", error);
+    }
 
-    if (emailCookie)
-        try {
-            email = JSON.parse(emailCookie);
-        } catch (error) {}
+    try {
+        email = JSON.parse(emailCookie);
+    } catch (error) {
+        console.error("Error parsing email cookie:", error);
+    }
 
     useLayoutEffect(() => {
         const isAdmin = async () => {
@@ -51,11 +52,16 @@ const Layout = ({ children }: LayoutProps) => {
                 }
                 return false;
             } catch (error) {
+                console.error("Error checking admin status:", error);
                 return false;
             }
         };
-        const adminStatus = isAdmin() as unknown as boolean;
-        if (!adminStatus) router.push("/dashboard");
+
+        isAdmin().then((adminStatus) => {
+            if (!adminStatus) router.push("/dashboard");
+            console.log(adminStatus);
+        });
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -65,6 +71,7 @@ const Layout = ({ children }: LayoutProps) => {
         Cookies.remove("_se7_wer_");
         Cookies.remove("hg63_#6y0");
         Cookies.remove("bty3_35=");
+        Cookies.remove("AGhd783=#");
         router.push("/login");
         toast.success("Logout successful", { duration: 5000 });
     };
@@ -99,19 +106,19 @@ const Layout = ({ children }: LayoutProps) => {
                                         xmlns="http://www.w3.org/2000/svg"
                                         fill="none"
                                         viewBox="0 0 24 24"
-                                        stroke-width="1.5"
+                                        strokeWidth="1.5"
                                         stroke="currentColor"
                                         className="w-4 h-4 hover:text-[#06b96f]"
                                     >
                                         <path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
                                             d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"
                                         />
                                     </svg>
-                                    <span className="hover:text-[#06b96f] hover:underline">
+                                    <h1 className="hover:text-[#06b96f] hover:underline">
                                         Go to school dashboard
-                                    </span>
+                                    </h1>
                                 </Link>
                             </div>
 
@@ -213,8 +220,8 @@ const Layout = ({ children }: LayoutProps) => {
                         <Logout
                             handleLogout={handleLogout}
                             userData={{
-                                fullName: fullName ?? "",
-                                email: email ?? "",
+                                fullName: fullName,
+                                email: email,
                             }}
                         />
                     </ul>

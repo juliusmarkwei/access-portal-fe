@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 import Footer from "@/components/Footer";
@@ -38,6 +38,8 @@ const ManageKeys = () => {
     const route = useRouter();
     const [disableNext, setDisableNext] = useState(false);
     const [disablePrevious, setDisablePrevious] = useState(false);
+    const [showDropdown, setShowDropdown] = useState(false);
+    const dropdownRef = useRef<HTMLDivElement>(null);
 
     const handleImageClick = (keyTag: string) => {
         setSelectedKeyTag(keyTag);
@@ -56,6 +58,16 @@ const ManageKeys = () => {
                 )
             ) {
                 setSelectedKeyTag(""); // Clear selected key tag
+            }
+            const dropdown = dropdownRef.current;
+            if (
+                dropdown &&
+                !dropdown.contains(e.target as Node) &&
+                e.target instanceof HTMLElement &&
+                !e.target.closest(".status")
+            ) {
+                setSelectedKeyTag("");
+                setShowDropdown(false); // Close the dropdown
             }
         };
 
@@ -103,6 +115,7 @@ const ManageKeys = () => {
             toast.error("An error occured", { duration: 4000 });
         }
         setIsLoading(false);
+        setShowDropdown(false);
     };
 
     const handelCopied = (textTOCopy: string) => {
@@ -125,9 +138,9 @@ const ManageKeys = () => {
                 },
             });
             if (response.ok) {
+                route.refresh();
                 setSelectedKeyTag(""); // Clear selected key tag
                 loadKeys();
-                route.refresh();
                 toast.success("Key revoked successfully", { duration: 4000 });
             } else {
                 const data = await response.json();
@@ -150,9 +163,9 @@ const ManageKeys = () => {
                 },
             });
             if (response.ok) {
+                route.refresh();
                 setSelectedKeyTag(""); // Clear selected key tag
                 loadKeys();
-                route.refresh();
                 toast.success("Key deleted successfully", { duration: 4000 });
             } else {
                 const data = await response.json();
@@ -232,6 +245,48 @@ const ManageKeys = () => {
         setIsLoading(false);
     };
 
+    const handleShowDropdown = () => {
+        setShowDropdown(true);
+    };
+
+    const handleSelectAllByStatus = async (status: string) => {
+        setIsLoading(true);
+        setShowDropdown(false);
+        try {
+            const response = await fetch(
+                `${baseURL}/access-key/?status=${status}`,
+                {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `JWT ${accessToken}`,
+                    },
+                }
+            );
+            if (response.ok) {
+                const data = await response.json();
+                setKeys(data.results);
+                setResponseOptions({
+                    next: data.next,
+                    previous: data.previous,
+                });
+                if (data.next === null) {
+                    setDisableNext(true);
+                }
+                if (data.previous === null) {
+                    setDisablePrevious(true);
+                }
+            }
+            if (response.status === 404) {
+                setKeys([]);
+            }
+        } catch (error) {
+            toast.error("Failed to fetch data", { duration: 4000 });
+            console.log(error);
+        }
+        setIsLoading(false);
+    };
+
     return (
         <>
             <StatusIndicator
@@ -262,7 +317,103 @@ const ManageKeys = () => {
                                                 <th></th>
                                                 <th>Key Tag</th>
                                                 <th>Key</th>
-                                                <th>Status</th>
+                                                <th
+                                                    id="status"
+                                                    title="Filter keys by status"
+                                                >
+                                                    <span
+                                                        className="flex items-center gap-2 justify-center"
+                                                        ref={dropdownRef}
+                                                    >
+                                                        Status
+                                                        <svg
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            fill="none"
+                                                            viewBox="0 0 24 24"
+                                                            stroke-width="1.5"
+                                                            stroke="currentColor"
+                                                            className="w-3 h-3 cursor-pointer"
+                                                            onClick={
+                                                                handleShowDropdown
+                                                            }
+                                                        >
+                                                            <path
+                                                                stroke-linecap="round"
+                                                                stroke-linejoin="round"
+                                                                d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 0 1-.659 1.591l-5.432 5.432a2.25 2.25 0 0 0-.659 1.591v2.927a2.25 2.25 0 0 1-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 0 0-.659-1.591L3.659 7.409A2.25 2.25 0 0 1 3 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0 1 12 3Z"
+                                                            />
+                                                        </svg>
+                                                        {showDropdown && (
+                                                            <div className="absolute top-8 right-[29rem] bg-[#121b33] text-white rounded-lg w-[100px] z-50">
+                                                                <button
+                                                                    className="block text-white py-2 hover:bg-[#000000] rounded-md w-full"
+                                                                    onClick={() =>
+                                                                        handleSelectAllByStatus(
+                                                                            "inactive"
+                                                                        )
+                                                                    }
+                                                                >
+                                                                    Inactive
+                                                                </button>
+                                                                <button
+                                                                    className="block text-white py-2 px-3 hover:bg-[#000000] rounded-md w-full"
+                                                                    onClick={() =>
+                                                                        handleSelectAllByStatus(
+                                                                            "active"
+                                                                        )
+                                                                    }
+                                                                >
+                                                                    Active
+                                                                </button>
+                                                                <button
+                                                                    className="block text-white py-2 px-3 hover:bg-[#000000] rounded-md w-full"
+                                                                    onClick={() =>
+                                                                        handleSelectAllByStatus(
+                                                                            "revoked"
+                                                                        )
+                                                                    }
+                                                                >
+                                                                    Revoked
+                                                                </button>
+                                                                <button
+                                                                    className="block text-white py-2 px-3 hover:bg-[#000000] rounded-md w-full"
+                                                                    onClick={() =>
+                                                                        handleSelectAllByStatus(
+                                                                            "expired"
+                                                                        )
+                                                                    }
+                                                                >
+                                                                    Expired
+                                                                </button>
+                                                                <button
+                                                                    className="block text-white py-2 px-3 hover:bg-[#000000] rounded-md w-full"
+                                                                    onClick={
+                                                                        loadKeys
+                                                                    }
+                                                                >
+                                                                    <span className="flex justify-center items-center gap-1">
+                                                                        <svg
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            fill="none"
+                                                                            viewBox="0 0 24 24"
+                                                                            stroke-width="1.5"
+                                                                            stroke="currentColor"
+                                                                            className="w-6 h-6"
+                                                                        >
+                                                                            <path
+                                                                                stroke-linecap="round"
+                                                                                stroke-linejoin="round"
+                                                                                d="M6 18 18 6M6 6l12 12"
+                                                                            />
+                                                                        </svg>
+                                                                        Clear
+                                                                        Filter
+                                                                    </span>
+                                                                </button>
+                                                            </div>
+                                                        )}
+                                                    </span>
+                                                </th>
                                                 <th>Date of Procurement</th>
                                                 <th>Valid Until</th>
                                                 <th>Actions</th>

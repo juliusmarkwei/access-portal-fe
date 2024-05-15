@@ -70,6 +70,7 @@ export const AppWrapper: React.FC<{ children: React.ReactNode }> = ({
             Cookies.remove("_se7_wer_");
             Cookies.remove("hg63_#6y0");
             Cookies.remove("bty3_35=");
+            Cookies.remove("AGhd783=#");
             toast.error("Session expired. Please login again.");
             router.push("/login");
         }
