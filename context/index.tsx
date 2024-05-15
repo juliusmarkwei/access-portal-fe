@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 // context.tsx
 import React, { createContext, useState, useContext, useEffect } from "react";
 import Cookies from "js-cookie";
@@ -40,29 +41,41 @@ export const AppWrapper: React.FC<{ children: React.ReactNode }> = ({
             handleRefreshAccessToken();
         }, 55 * 60 * 1000); // 58 minutes * 60 seconds/minute * 1000 milliseconds/second
         return () => clearInterval(interval);
-    }); // Run only on mount
+    }, []);
 
     const handleRefreshAccessToken = async () => {
         console.log("Checking refresh token");
         if (refreshToken) {
-            const response = await fetch(`${baseURL}/auth/refresh/`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ refresh: refreshToken }),
-            });
-            if (response.ok) {
-                const data = await response.json();
-
-                const access_expires = new Date();
-                access_expires.setTime(
-                    access_expires.getTime() + 60 * 60 * 1000
-                );
-                console.log("--------------Updated access token--------------");
-                Cookies.set("access-token", data.access, {
-                    expires: access_expires,
+            try {
+                const response = await fetch(`${baseURL}/auth/refresh/`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ refresh: refreshToken }),
                 });
+                if (response.ok) {
+                    const data = await response.json();
+
+                    const access_expires = new Date();
+                    access_expires.setTime(
+                        access_expires.getTime() + 60 * 60 * 1000
+                    );
+                    console.log(
+                        "--------------Updated access token--------------"
+                    );
+                    Cookies.set("access-token", data.access, {
+                        expires: access_expires,
+                    });
+                } else {
+                    console.error(
+                        "Failed to refresh access token:",
+                        response.status,
+                        response.statusText
+                    );
+                }
+            } catch (error) {
+                console.error("Error while refreshing access token:", error);
             }
         } else {
             console.log("Refresh token expired");

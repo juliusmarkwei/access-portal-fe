@@ -94,7 +94,6 @@ const Schools = () => {
                 } else {
                     setDisablePrevious(false);
                 }
-                console.log(disableNext, disablePrevious);
             }
         } catch (error) {}
         setIsLoading(false);
@@ -128,7 +127,6 @@ const Schools = () => {
                 } else {
                     setDisablePrevious(false);
                 }
-                console.log(disableNext, disablePrevious);
             }
         } catch (error) {}
         setIsLoading(false);

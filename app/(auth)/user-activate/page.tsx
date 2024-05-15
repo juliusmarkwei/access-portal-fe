@@ -58,7 +58,7 @@ const UserActivate = () => {
             ) : accountActicated ? (
                 <div className="flex flex-col justify-center items-center m-20">
                     <Image
-                        src={shieldImage.src}
+                        src={shieldImage}
                         alt="shield"
                         width={300}
                         height={300}

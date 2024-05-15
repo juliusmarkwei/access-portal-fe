@@ -8,6 +8,7 @@ import {
 } from "chart.js";
 import Cookies from "js-cookie";
 import { useEffect, useState, useRef } from "react";
+import toast from "react-hot-toast";
 
 const baseURL = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
 
@@ -97,7 +98,7 @@ const AdminPieChart = () => {
                 setSchoolKeyStatus(data.results);
             }
         } catch (error) {
-            console.error("Error fetching data:", error);
+            toast.error("Failed to fetch data", { duration: 4000 });
         }
     };
 

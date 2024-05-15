@@ -78,7 +78,6 @@ const SchoolActiveKeyLookup = () => {
             setSwicthCopiedImage(false); // Set back to false after 2 seconds
         }, 2000);
     };
-    console.log(_404);
     return (
         <>
             <div className="container pb-12 h-[90dvh] px-8">
@@ -131,7 +130,7 @@ const SchoolActiveKeyLookup = () => {
                         </form>
                         <div className="flex justify-center items-center">
                             <Image
-                                src={QeuryInfoImage.src}
+                                src={QeuryInfoImage}
                                 alt="School Logo"
                                 width={450}
                                 height={400}
@@ -148,7 +147,7 @@ const SchoolActiveKeyLookup = () => {
                         ) : _404 ? (
                             <span className="flex justify-center items-center h-[45vh]">
                                 <Image
-                                    src={Error404Image.src}
+                                    src={Error404Image}
                                     alt="404"
                                     width={300}
                                     height={300}

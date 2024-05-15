@@ -109,7 +109,7 @@ const BarChart = ({ keysInfo }) => {
                 </div>
             ) : (
                 <Image
-                    src={NoDataIllustration.src}
+                    src={NoDataIllustration}
                     alt="no data"
                     height={300}
                     width={300}

@@ -31,7 +31,7 @@ const Dashbaord = () => {
 
         const intervalId = setInterval(() => {
             setShowChart(false);
-        }, 1500);
+        }, 1000);
 
         return () => clearInterval(intervalId);
         // eslint-disable-next-line react-hooks/exhaustive-deps

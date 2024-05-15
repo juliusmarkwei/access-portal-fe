@@ -60,8 +60,6 @@ const SchoolStatistics = () => {
         }
     };
 
-    console.log(newUsersStatistics.percentageIncrease);
-
     return (
         <>
             <div className="stat h-[30%]">
