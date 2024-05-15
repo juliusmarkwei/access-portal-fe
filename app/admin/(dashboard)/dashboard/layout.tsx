@@ -90,7 +90,29 @@ const Layout = ({ children }: LayoutProps) => {
                     >
                         <li>
                             <div className="text-xs font-semibold leading-6 mb-8 text-[#ffffff]">
-                                Overview
+                                <h1 className="pl-7">Overview</h1>
+                                <Link
+                                    href="/dashboard"
+                                    className="cursor-pointer flex gap-3 items-center"
+                                >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke-width="1.5"
+                                        stroke="currentColor"
+                                        className="w-4 h-4 hover:text-[#06b96f]"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"
+                                        />
+                                    </svg>
+                                    <span className="hover:text-[#06b96f] hover:underline">
+                                        Go to school dashboard
+                                    </span>
+                                </Link>
                             </div>
 
                             <ul

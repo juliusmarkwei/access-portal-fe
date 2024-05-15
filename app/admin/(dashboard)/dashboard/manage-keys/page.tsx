@@ -89,7 +89,9 @@ const AdminManageKeys = () => {
                     setDisablePrevious(true);
                 }
             }
-        } catch (error) {}
+        } catch (error) {
+            toast.error("Failed to fetch data", { duration: 4000 });
+        }
         setIsLoading(false);
     };
 
@@ -180,7 +182,6 @@ const AdminManageKeys = () => {
                 } else {
                     setDisablePrevious(false);
                 }
-                console.log(disableNext, disablePrevious);
             }
         } catch (error) {}
         setIsLoading(false);
@@ -214,7 +215,6 @@ const AdminManageKeys = () => {
                 } else {
                     setDisablePrevious(false);
                 }
-                console.log(disableNext, disablePrevious);
             }
         } catch (error) {}
         setIsLoading(false);
@@ -249,7 +249,9 @@ const AdminManageKeys = () => {
                                         <th>School Email</th>
                                         <th>Key Tag</th>
                                         <th>Status</th>
-                                        <th>Active Days</th>
+                                        <th title="Key active days as at date of procurement">
+                                            Active Days
+                                        </th>
                                         <th>Date of Procurement</th>
                                         <th>Expiry Date</th>
                                         <th>Action</th>

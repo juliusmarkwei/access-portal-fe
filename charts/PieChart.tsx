@@ -52,12 +52,12 @@ const AdminPieChart = () => {
                         keyStatusCounts.expired,
                     ],
                     backgroundColor: [
-                        "#c5d629",
-                        "#21de32",
-                        "#dd2289",
-                        "#fb0409",
+                        "#8EAC53",
+                        "#53AC9E",
+                        "#7153AC",
+                        "#AC5361",
                     ],
-                    hoverOffset: 4,
+                    hoverOffset: 5,
                 },
             ],
         };
@@ -101,14 +101,7 @@ const AdminPieChart = () => {
         }
     };
 
-    return (
-        <div className="flex flex-col justify-center items-center mt-10 h-[75%] w-[82%]">
-            <h1 className="font-bold text-2xl mb-4 px-8 text-[#393b3f]">
-                Key Status Proportion
-            </h1>
-            <canvas id="myChart"></canvas>
-        </div>
-    );
+    return <canvas id="myChart" className="h-[120%]"></canvas>;
 };
 
 export default AdminPieChart;
