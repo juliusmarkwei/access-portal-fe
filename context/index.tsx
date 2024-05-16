@@ -39,7 +39,7 @@ export const AppWrapper: React.FC<{ children: React.ReactNode }> = ({
     useEffect(() => {
         const interval = setInterval(() => {
             handleRefreshAccessToken();
-        }, 55 * 60 * 1000); // 58 minutes * 60 seconds/minute * 1000 milliseconds/second
+        }, 24 * 55 * 60 * 1000); // 24 hours * 58 minutes * 60 seconds/minute * 1000 milliseconds/second
         return () => clearInterval(interval);
     }, []);
 
@@ -58,7 +58,7 @@ export const AppWrapper: React.FC<{ children: React.ReactNode }> = ({
 
                     const access_expires = new Date();
                     access_expires.setTime(
-                        access_expires.getTime() + 60 * 60 * 1000
+                        access_expires.getTime() + 24 * 60 * 60 * 1000
                     );
 
                     Cookies.set("access-token", data.access, {

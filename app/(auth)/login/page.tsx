@@ -62,12 +62,12 @@ const Login = () => {
 
                 const access_expires = new Date();
                 access_expires.setTime(
-                    access_expires.getTime() + 60 * 60 * 1000 // 1 hour * 60 minutes/hour * 60 seconds/minute * 1000 milliseconds/second
+                    access_expires.getTime() + 24 * 60 * 60 * 1000 // 24 hour2 * 60 minutes/hour * 60 seconds/minute * 1000 milliseconds/second
                 );
 
                 const refresh_expires = new Date();
                 refresh_expires.setTime(
-                    refresh_expires.getTime() + 24 * 60 * 60 * 1000 // 24 hours * 60 minutes/hour * 60 seconds/minute * 1000 milliseconds/second
+                    refresh_expires.getTime() + 7 * 24 * 60 * 60 * 1000 // 7 dyas * 24 hours * 60 minutes/hour * 60 seconds/minute * 1000 milliseconds/second
                 );
 
                 Cookies.set("access-token", data.access, {

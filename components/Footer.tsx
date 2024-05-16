@@ -26,7 +26,10 @@ const Footer = () => {
                     <p>Copyright © 2024 - All right reserved</p>
                 </aside>
                 <nav className="grid-flow-col gap-4 md:place-self-center md:justify-self-end">
-                    <Link href="https://twitter.com/juliusmarkwei">
+                    <Link
+                        href="https://twitter.com/juliusmarkwei"
+                        title="Follow us on X.com"
+                    >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="24"
