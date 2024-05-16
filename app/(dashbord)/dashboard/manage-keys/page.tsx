@@ -127,31 +127,6 @@ const ManageKeys = () => {
         }, 2000);
     };
 
-    const handleRevokeAccessKey = async (keyTag: string) => {
-        _setIsLoading(true);
-        try {
-            const response = await fetch(`${baseURL}/access-key/${keyTag}`, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `JWT ${accessToken}`,
-                },
-            });
-            if (response.ok) {
-                route.refresh();
-                setSelectedKeyTag(""); // Clear selected key tag
-                loadKeys();
-                toast.success("Key revoked successfully", { duration: 4000 });
-            } else {
-                const data = await response.json();
-                toast.error(data.error, { duration: 4000 });
-            }
-        } catch (error) {
-            toast.error("An error occured", { duration: 4000 });
-        }
-        _setIsLoading(false);
-    };
-
     const handleDeleteInactiveAccessKey = async (keyTag: string) => {
         _setIsLoading(true);
         try {
@@ -558,17 +533,7 @@ const ManageKeys = () => {
                                                                     </svg>
                                                                     {key.key_tag ===
                                                                         selectedkeyTag && (
-                                                                        <div className="absolute top-5 right-5 bg-[#121b33] text-white rounded-lg w-[80%] z-50">
-                                                                            <button
-                                                                                className="block text-white py-2 hover:bg-[#000000] rounded-md w-full"
-                                                                                onClick={() =>
-                                                                                    handleRevokeAccessKey(
-                                                                                        key.key_tag
-                                                                                    )
-                                                                                }
-                                                                            >
-                                                                                Revoke
-                                                                            </button>
+                                                                        <div className="absolute top-9 right-9 bg-[#121b33] text-white rounded-lg w-[80%] z-50">
                                                                             <button
                                                                                 className="block text-white py-2 px-3 hover:bg-[#000000] rounded-md w-full"
                                                                                 onClick={() =>

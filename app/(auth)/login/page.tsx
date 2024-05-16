@@ -92,8 +92,7 @@ const Login = () => {
                 toast.success("Login successful", { duration: 4000 });
                 setLoading(false);
             } else {
-                const data = await response.json();
-                toast.error(data.detail, { duration: 5000 });
+                toast.error("Wrong credentials", { duration: 5000 });
                 setLoading(false);
             }
         } catch (error) {

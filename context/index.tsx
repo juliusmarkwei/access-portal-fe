@@ -44,7 +44,6 @@ export const AppWrapper: React.FC<{ children: React.ReactNode }> = ({
     }, []);
 
     const handleRefreshAccessToken = async () => {
-        console.log("Checking refresh token");
         if (refreshToken) {
             try {
                 const response = await fetch(`${baseURL}/auth/refresh/`, {
@@ -61,24 +60,13 @@ export const AppWrapper: React.FC<{ children: React.ReactNode }> = ({
                     access_expires.setTime(
                         access_expires.getTime() + 60 * 60 * 1000
                     );
-                    console.log(
-                        "--------------Updated access token--------------"
-                    );
+
                     Cookies.set("access-token", data.access, {
                         expires: access_expires,
                     });
-                } else {
-                    console.error(
-                        "Failed to refresh access token:",
-                        response.status,
-                        response.statusText
-                    );
                 }
-            } catch (error) {
-                console.error("Error while refreshing access token:", error);
-            }
+            } catch (error) {}
         } else {
-            console.log("Refresh token expired");
             Cookies.remove("access-token");
             Cookies.remove("_se7_wer_");
             Cookies.remove("hg63_#6y0");
