@@ -1,4 +1,5 @@
 import Image from "next/image";
+import PropTypes from "prop-types";
 
 interface LogoutProps {
     handleLogout: any;
@@ -55,6 +56,14 @@ const Logout = ({ handleLogout, userData }: LogoutProps) => {
             </button>
         </li>
     );
+};
+
+Logout.propTypes = {
+    handleLogout: PropTypes.func.isRequired,
+    userData: PropTypes.shape({
+        fullName: PropTypes.string.isRequired,
+        email: PropTypes.string.isRequired,
+    }).isRequired,
 };
 
 export default Logout;

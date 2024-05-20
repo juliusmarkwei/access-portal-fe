@@ -16,13 +16,13 @@ const baseURL = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
 
 const Layout = ({ children }: LayoutProps) => {
     const router = useRouter();
-    const [fullName, setFullName] = useState<string | undefined>();
-    const [email, setEmail] = useState<string | undefined>();
+    const [fullName, setFullName] = useState<string | undefined>("");
+    const [email, setEmail] = useState<string | undefined>("");
 
     useEffect(() => {
         // Retrieve the full_name and email from Cookies
-        const retrievedFullName = JSON.parse(Cookies.get("hg63_#6y0") || "{}");
-        const retrievedEmail = JSON.parse(Cookies.get("bty3_35=") || "{}");
+        const retrievedFullName = JSON.parse(Cookies.get("hg63_#6y0") || "");
+        const retrievedEmail = JSON.parse(Cookies.get("bty3_35=") || "");
         setFullName(retrievedFullName);
         setEmail(retrievedEmail);
     }, []);

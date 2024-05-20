@@ -17,13 +17,13 @@ const Layout = ({ children }: LayoutProps) => {
     const router = useRouter();
 
     const isAdmin = Cookies.get("AGhd783=#");
-    const [fullName, setFullName] = useState<string | undefined>();
-    const [email, setEmail] = useState<string | undefined>();
+    const [fullName, setFullName] = useState<string | undefined>("");
+    const [email, setEmail] = useState<string | undefined>("");
 
     useEffect(() => {
         // Retrieve the full_name and email from Cookies
-        const retrievedFullName = JSON.parse(Cookies.get("hg63_#6y0") || "{}");
-        const retrievedEmail = JSON.parse(Cookies.get("bty3_35=") || "{}");
+        const retrievedFullName = JSON.parse(Cookies.get("hg63_#6y0") || "");
+        const retrievedEmail = JSON.parse(Cookies.get("bty3_35=") || "");
         setFullName(retrievedFullName);
         setEmail(retrievedEmail);
     }, []);
