@@ -12,7 +12,7 @@ const SearchUI = () => {
 
         // Filter the keys based on the search query and update filteredKeys in context
         if (keys) {
-            const filteredKeys = keys.filter((key: any) =>
+            const filteredKeys = keys?.filter((key: any) =>
                 key.key_tag
                     .toLowerCase()
                     .includes(updatedSearchQuery.toLowerCase())

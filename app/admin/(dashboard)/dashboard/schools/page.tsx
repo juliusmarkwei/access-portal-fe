@@ -234,7 +234,7 @@ const Schools = () => {
                         )}
                     </div>
                 </main>
-                {setSchoolsInfo?.length !== 0 && (
+                {schoolsInfo?.length !== 0 && (
                     <footer className="pt-4">
                         <Paginator
                             disableNext={disableNext}

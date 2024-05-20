@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
 import toast from "react-hot-toast";
 import { TailSpin } from "react-loader-spinner";
 import { useRouter } from "next/navigation";
@@ -128,4 +128,16 @@ const ResetPassword = () => {
     );
 };
 
-export default ResetPassword;
+const ResetPasswordFallback = () => {
+    return <div>placeholder</div>;
+};
+
+const ResetPasswordWithSuspense = () => {
+    return (
+        <Suspense fallback={<ResetPasswordFallback />}>
+            <ResetPassword />
+        </Suspense>
+    );
+};
+
+export default ResetPasswordWithSuspense;

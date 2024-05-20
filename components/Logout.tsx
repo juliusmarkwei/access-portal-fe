@@ -19,6 +19,7 @@ const Logout = ({ handleLogout, userData }: LogoutProps) => {
                         className="rounded-full"
                         src="https://imgs.search.brave.com/AsI6A-l4zfAgyTpKazw0KEe1yTEfs0I1USKOfWVg-Ew/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9jZG4u/ZHJpYmJibGUuY29t/L3VzZXJzLzE2MzMy/NS9zY3JlZW5zaG90/cy82Mzg1NTUwL3Rv/cF9waWN0dXJlXzF4/LnBuZz9yZXNpemU9/NDAweDA"
                         alt="Your profile picture"
+                        sizes="100px"
                     />
                 </div>
 

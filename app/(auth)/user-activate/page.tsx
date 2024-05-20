@@ -3,7 +3,7 @@
 
 import { useSearchParams, useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import shieldImage from "@/public/shield.gif";
 import activationFailed from "@/public/accountActicvationFailed.svg";
 import Image from "next/image";
@@ -100,4 +100,16 @@ const UserActivate = () => {
     );
 };
 
-export default UserActivate;
+const UserActivateFallback = () => {
+    return <div>placeholder</div>;
+};
+
+export const UserActivateWithSuspense = () => {
+    return (
+        <Suspense fallback={<UserActivateFallback />}>
+            <UserActivate />
+        </Suspense>
+    );
+};
+
+export default UserActivateWithSuspense;

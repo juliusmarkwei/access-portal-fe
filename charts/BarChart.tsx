@@ -31,7 +31,7 @@ const BarChart = ({ keysInfo }) => {
     const keyStatusCounts = Array.from(keyStatusLabelsSet).reduce(
         (acc: { [key: string]: number }, key: number) => {
             const count = keysInfo.filter(
-                (keyInfo) => keyInfo.status === key
+                (keyInfo: any) => keyInfo.status === key
             ).length;
             acc[key] = count;
             return acc;

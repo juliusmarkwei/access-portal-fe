@@ -49,16 +49,14 @@ const StatusIndicator = ({
             if (response.ok) {
                 const data = await response.json();
                 setKeys(data.results);
-                setIsLoading(false);
             } else {
                 const data = await response.json();
                 toast.error(data.error, { duration: 4000 });
-                setIsLoading(false);
             }
         } catch (error) {
             toast.error("An error occured", { duration: 4000 });
-            setIsLoading(false);
         }
+        setIsLoading(false);
     };
     return (
         <>

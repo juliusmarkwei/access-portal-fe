@@ -2,7 +2,7 @@ import React from "react";
 
 const DashboaardLastKeyCreationDate = ({ keysInfo }) => {
     const getLastAccessKeyCreationDate = () => {
-        const sortedKeys = keysInfo.sort((a, b) => {
+        const sortedKeys = keysInfo.sort((a: any, b: any) => {
             const dateA = new Date(a.created_at).getTime(); // Convert to timestamp
             const dateB = new Date(b.created_at).getTime(); // Convert to timestamp
             return dateB - dateA; // Compare timestamps
@@ -12,6 +12,8 @@ const DashboaardLastKeyCreationDate = ({ keysInfo }) => {
             sortedKeys.length > 0 ? sortedKeys[0].created_at : null;
         return lastAccessKeyCreationDate;
     };
+
+    const lastAccessKeyCreationDate = getLastAccessKeyCreationDate();
 
     return (
         <>
@@ -33,9 +35,9 @@ const DashboaardLastKeyCreationDate = ({ keysInfo }) => {
                 </div>
                 <div className="stat-title">Previous key created at</div>
                 <div className="font-bold text-[2rem] h-[100px] flex items-center">
-                    {getLastAccessKeyCreationDate() === null
+                    {lastAccessKeyCreationDate === null
                         ? "Not available"
-                        : getLastAccessKeyCreationDate()}
+                        : lastAccessKeyCreationDate.toString()}
                 </div>
             </div>
         </>

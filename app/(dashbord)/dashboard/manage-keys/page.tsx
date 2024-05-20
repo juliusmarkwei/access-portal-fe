@@ -528,7 +528,7 @@ const ManageKeys = () => {
                                             )
                                         )
                                     )}
-                                    {keys && keys.length === 0 && (
+                                    {keys && keys?.length === 0 && (
                                         <tr>
                                             <td
                                                 colSpan={7}

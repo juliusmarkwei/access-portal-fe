@@ -40,17 +40,15 @@ const ForgotPassword = () => {
                     "Hey, check your mail for a password rest link!",
                     { duration: 4000 }
                 );
-                setIsLoading(false);
                 router.push("/login");
             } else {
                 const data = await response.json();
                 toast.error(data[0]);
-                setIsLoading(false);
             }
         } catch (error) {
             toast.error("An error occured", { duration: 4000 });
-            setIsLoading(false);
         }
+        setIsLoading(false);
     };
 
     return (

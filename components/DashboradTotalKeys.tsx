@@ -1,7 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 
-const DashboradTotalKeys = ({ getKeysInfo, keysInfo }) => {
+interface DashboradTotalKeysPropType {
+    getKeysInfo: () => void;
+    keysInfo: any;
+}
+
+const DashboradTotalKeys = ({
+    getKeysInfo,
+    keysInfo,
+}: DashboradTotalKeysPropType) => {
     const [_isLoading, _setisLoading] = useState(false);
 
     useEffect(() => {
@@ -13,12 +21,12 @@ const DashboradTotalKeys = ({ getKeysInfo, keysInfo }) => {
         let lastYear = thisYear - 1;
 
         // Filter keys generated in last year and this year
-        let keysGeneratedThisYear = keysInfo.filter((key) => {
+        let keysGeneratedThisYear = keysInfo.filter((key: any) => {
             let keyYear = new Date(key.created_at).getFullYear();
             return keyYear === thisYear;
         });
 
-        let keysGeneratedLastYear = keysInfo.filter((key) => {
+        let keysGeneratedLastYear = keysInfo.filter((key: any) => {
             let keyYear = new Date(key.created_at).getFullYear();
             return keyYear === lastYear;
         });
@@ -35,7 +43,8 @@ const DashboradTotalKeys = ({ getKeysInfo, keysInfo }) => {
         return percentageDifference;
     };
 
-    const calculateTotalKeys = () => keysInfo.length;
+    const calculateTotalKeys = keysInfo.length;
+
     return (
         <>
             <div className="stat">
@@ -56,8 +65,8 @@ const DashboradTotalKeys = ({ getKeysInfo, keysInfo }) => {
                 </div>
                 <div className="stat-title">Total key generated</div>
                 <div className="stat-value text-secondary">
-                    {calculateTotalKeys() > 0 ? calculateTotalKeys() : "Zero"}
-                    {`${calculateTotalKeys() > 1 ? " keys" : " key"}`}
+                    {calculateTotalKeys > 0 ? calculateTotalKeys : "Zero"}
+                    {`${calculateTotalKeys > 1 ? " keys" : " key"}`}
                 </div>
                 <div className="stat-desc">
                     {`${
