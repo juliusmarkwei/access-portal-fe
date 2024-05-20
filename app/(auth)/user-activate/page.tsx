@@ -104,7 +104,7 @@ const UserActivateFallback = () => {
     return <div>placeholder</div>;
 };
 
-export const UserActivateWithSuspense = () => {
+const UserActivateWithSuspense = () => {
     return (
         <Suspense fallback={<UserActivateFallback />}>
             <UserActivate />
