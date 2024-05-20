@@ -1,24 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
-import Cookies from "js-cookie";
-import toast from "react-hot-toast";
-
-interface KeysInfoType {
-    key: string;
-    key_tag: string;
-    status: string;
-    procurement_date: string;
-    expiry_date: string;
-    created_at: string;
-}
-
-const baseURL = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
 
 const DashboradTotalKeys = ({ getKeysInfo, keysInfo }) => {
     const [_isLoading, _setisLoading] = useState(false);
 
     useEffect(() => {
         getKeysInfo();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const percentageDifferenceLastYear = () => {

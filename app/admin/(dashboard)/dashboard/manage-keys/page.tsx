@@ -1,9 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
 import Paginator from "@/components/Paginator";
 
 interface SchoolKeysInfoType {
@@ -29,14 +29,11 @@ const AdminManageKeys = () => {
         useState<ResponseOptionsType>();
     const [selectedSchoolKeyTag, setSelectedSchoolKeyTag] = useState("");
     const [isLoading, setIsLoading] = useState(false);
-    const [_isLoading, _setIsLoading] = useState(false);
     const [disableNext, setDisableNext] = useState(false);
     const [disablePrevious, setDisablePrevious] = useState(false);
     const [showDropdown, setShowDropdown] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
     const accessToken = Cookies.get("access-token");
-
-    const router = useRouter();
 
     useEffect(() => {
         const handleClickOutside = (e: MouseEvent) => {
@@ -76,7 +73,6 @@ const AdminManageKeys = () => {
     useEffect(() => {
         handleGetSchoolKeysInfo();
         setSelectedSchoolKeyTag("");
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handleShowDropdown = () => {
@@ -118,7 +114,7 @@ const AdminManageKeys = () => {
     };
 
     const handleRevokeAccessKey = async (owner: string, keyTag: string) => {
-        _setIsLoading(true);
+        setIsLoading(true);
         try {
             const response = await fetch(`${baseURL}/admin/access-key/`, {
                 method: "PUT",
@@ -129,7 +125,6 @@ const AdminManageKeys = () => {
                 body: JSON.stringify({ email: owner, key_tag: keyTag }),
             });
             if (response.ok) {
-                router.refresh();
                 handleGetSchoolKeysInfo();
                 toast.success(`Access Key ${selectedSchoolKeyTag} revoked!`, {
                     duration: 4000,
@@ -141,11 +136,11 @@ const AdminManageKeys = () => {
         } catch (error) {
             toast.error("An error occurred", { duration: 4000 });
         }
-        _setIsLoading(false);
+        setIsLoading(false);
     };
 
     const handleActivateAccessKey = async (owner: string, keyTag: string) => {
-        _setIsLoading(true);
+        setIsLoading(true);
         try {
             const response = await fetch(`${baseURL}/admin/access-key/`, {
                 method: "POST",
@@ -156,7 +151,6 @@ const AdminManageKeys = () => {
                 body: JSON.stringify({ email: owner, key_tag: keyTag }),
             });
             if (response.ok) {
-                router.refresh();
                 handleGetSchoolKeysInfo();
                 toast.success(`Access Key ${selectedSchoolKeyTag} activated!`, {
                     duration: 4000,
@@ -168,7 +162,7 @@ const AdminManageKeys = () => {
         } catch (error) {
             toast.error("An error occurred", { duration: 4000 });
         }
-        _setIsLoading(false);
+        setIsLoading(false);
         setSelectedSchoolKeyTag("");
     };
 

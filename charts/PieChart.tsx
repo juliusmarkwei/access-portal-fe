@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {
     Chart,
     Colors,
@@ -19,7 +20,6 @@ const AdminPieChart = () => {
 
     useEffect(() => {
         fetchSchoolAccessKeyData();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
@@ -27,7 +27,6 @@ const AdminPieChart = () => {
             chartRef.current.destroy(); // Destroy the existing Chart instance
         }
         initializeChart();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [schoolKeyStatus]);
 
     const initializeChart = () => {

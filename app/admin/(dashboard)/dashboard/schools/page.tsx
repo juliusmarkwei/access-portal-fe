@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -31,7 +32,6 @@ const Schools = () => {
 
     useEffect(() => {
         fetchSchoolsInfo();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const fetchSchoolsInfo = async () => {
@@ -139,7 +139,7 @@ const Schools = () => {
                     <span className="flex flex-row items-center gap-4">
                         {" "}
                         Registered School&apos;s Info{" "}
-                        <span title="List of all active school accounts">
+                        <span title="List of all active school accounts excluding admins!">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"

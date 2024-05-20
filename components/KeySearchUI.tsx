@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useAppContext } from "@/context";
 import { useState, useEffect } from "react";
 
@@ -23,7 +24,6 @@ const SearchUI = () => {
         if (searchQuery === "") {
             setFilteredKeys(keys);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchQuery, keys]);
 
     return (

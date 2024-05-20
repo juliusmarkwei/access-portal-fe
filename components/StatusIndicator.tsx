@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { FC, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -33,7 +34,6 @@ const StatusIndicator = ({
 
     useEffect(() => {
         loadKeys();
-        //  eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const loadKeys = async () => {

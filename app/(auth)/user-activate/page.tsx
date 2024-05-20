@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import { useSearchParams, useRouter } from "next/navigation";
@@ -47,13 +48,12 @@ const UserActivate = () => {
 
     useEffect(() => {
         activateAccount();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     return (
         <>
             {isLoading ? (
                 <div className="flex justify-center items-center min-h-screen">
-                    <span className="loading loading-spinner loading-lg h-[70vh] px-[10%] bg-green-400"></span>
+                    <span className="loading loading-ring loading-lg h-[70vh] px-[10%] bg-green-400"></span>
                 </div>
             ) : accountActicated ? (
                 <div className="flex flex-col justify-center items-center m-20">
@@ -62,6 +62,7 @@ const UserActivate = () => {
                         alt="shield"
                         width={300}
                         height={300}
+                        unoptimized
                     />
                     <h1 className="pt-8 text-xl text-[#121b33]">
                         Congratulations, your account has been activated!

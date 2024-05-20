@@ -13,7 +13,7 @@ const Dashbaord = () => {
     useEffect(() => {
         const intervalId = setInterval(() => {
             setShowChart(false);
-        }, 1000);
+        }, 1200);
 
         return () => clearInterval(intervalId);
     }, []);

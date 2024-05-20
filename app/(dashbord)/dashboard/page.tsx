@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import StatusIndicator from "@/components/StatusIndicator";
@@ -31,10 +32,9 @@ const Dashbaord = () => {
 
         const intervalId = setInterval(() => {
             setShowChart(false);
-        }, 1000);
+        }, 1200);
 
         return () => clearInterval(intervalId);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const getKeysInfo = async () => {
