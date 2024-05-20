@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ReactNode, useEffect, useLayoutEffect } from "react";
+import { ReactNode, useEffect, useLayoutEffect, useState } from "react";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 import { usePathname, useRouter } from "next/navigation"; // Changed from "next/navigation"
@@ -16,19 +16,16 @@ const baseURL = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
 
 const Layout = ({ children }: LayoutProps) => {
     const router = useRouter();
-    let fullName = "";
-    let email = "";
+    const [fullName, setFullName] = useState<string | undefined>();
+    const [email, setEmail] = useState<string | undefined>();
 
-    const fullNameCookie = Cookies.get("hg63_#6y0") || "{}"; // Provide default empty object if cookie is not present
-    const emailCookie = Cookies.get("bty3_35=") || "{}"; // Provide default empty object if cookie is not present
-
-    try {
-        fullName = JSON.parse(fullNameCookie);
-    } catch (error) {}
-
-    try {
-        email = JSON.parse(emailCookie);
-    } catch (error) {}
+    useEffect(() => {
+        // Retrieve the full_name and email from Cookies
+        const retrievedFullName = JSON.parse(Cookies.get("hg63_#6y0") || "{}");
+        const retrievedEmail = JSON.parse(Cookies.get("bty3_35=") || "{}");
+        setFullName(retrievedFullName);
+        setEmail(retrievedEmail);
+    }, []);
 
     useLayoutEffect(() => {
         const isAdmin = async () => {
@@ -233,8 +230,8 @@ const Layout = ({ children }: LayoutProps) => {
                         <Logout
                             handleLogout={handleLogout}
                             userData={{
-                                fullName: fullName,
-                                email: email,
+                                fullName: fullName ?? "",
+                                email: email ?? "",
                             }}
                         />
                     </ul>
