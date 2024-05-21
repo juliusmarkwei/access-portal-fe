@@ -80,25 +80,23 @@ const Login = () => {
                 // setting a value in cookies to hold is_admin
                 Cookies.set("AGhd783=#", data.is_admin);
 
+                if (!Cookies.get("_se7_wer_")) {
+                    await getUserData(data.access);
+                }
+
+                toast.success("Login successful", { duration: 4000 });
                 if (data.is_admin) {
                     route.push("/admin/dashboard");
                 } else {
                     route.push("/dashboard");
                 }
-                const checkuserdata: string | undefined = Cookies.get(
-                    "_se7_wer_"
-                ) as string;
-                if (!checkuserdata) await getUserData(data.access);
-                toast.success("Login successful", { duration: 4000 });
-                setLoading(false);
             } else {
                 toast.error("Wrong credentials", { duration: 5000 });
-                setLoading(false);
             }
         } catch (error) {
             toast.error("An error occured, try again!", { duration: 4000 });
-            setLoading(false);
         }
+        setLoading(false);
     };
 
     return (

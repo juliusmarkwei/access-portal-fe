@@ -22,10 +22,16 @@ const Layout = ({ children }: LayoutProps) => {
 
     useEffect(() => {
         // Retrieve the full_name and email from Cookies
-        const retrievedFullName = JSON.parse(Cookies.get("hg63_#6y0") || "");
-        const retrievedEmail = JSON.parse(Cookies.get("bty3_35=") || "");
-        setFullName(retrievedFullName);
-        setEmail(retrievedEmail);
+        const retrievedFullName = Cookies.get("hg63_#6y0");
+        const retrievedEmail = Cookies.get("bty3_35=");
+
+        if (retrievedFullName) {
+            setFullName(JSON.parse(retrievedFullName));
+        }
+
+        if (retrievedEmail) {
+            setEmail(JSON.parse(retrievedEmail));
+        }
     }, []);
 
     const handleLogout = () => {
