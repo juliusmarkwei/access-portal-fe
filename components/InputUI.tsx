@@ -17,7 +17,7 @@ const InputUI = ({
 }: InputUIProps) => {
     return (
         <>
-            <label className="flex items-center gap-2 mx-auto border-[1px] border-[#121b33] h-14 rounded-lg px-4 mt-4">
+            <label className="flex items-center gap-2 mx-auto border-[1.5px] border-[#121b33] h-14 rounded-lg px-4 mt-4">
                 {svg}
 
                 <input

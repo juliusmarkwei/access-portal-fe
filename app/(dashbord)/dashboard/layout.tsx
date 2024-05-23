@@ -83,7 +83,7 @@ const Layout = ({ children }: LayoutProps) => {
                                                 d="m15 15 6-6m0 0-6-6m6 6H9a6 6 0 0 0 0 12h3"
                                             />
                                         </svg>
-                                        <h1 className="hover:text-[#06b96f] hover:underline">
+                                        <h1 className="hover:text-[#06b96f] hover:underline text-sm">
                                             Go to admin panel
                                         </h1>
                                     </Link>

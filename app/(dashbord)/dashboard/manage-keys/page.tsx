@@ -13,14 +13,6 @@ import Paginator from "@/components/Paginator";
 
 const baseURL = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
 
-interface KeysType {
-    key: string;
-    key_tag: string;
-    status: string;
-    procurement_date: string;
-    expiry_date: string;
-}
-
 interface ResponseOptionsType {
     next: string;
     previous: string;
@@ -48,7 +40,7 @@ const ManageKeys = () => {
     useEffect(() => {
         const handleClickOutside = (e: MouseEvent) => {
             // Check if selectedkeyTag is truthy and the target is not inside a td element
-            const sanitizedTag = selectedkeyTag.replace(/\s+/g, ""); // Remove whitespace
+            const sanitizedTag = selectedkeyTag.replace(/[\s']/g, ""); // Remove whitespace
             if (
                 selectedkeyTag &&
                 !(
@@ -137,9 +129,9 @@ const ManageKeys = () => {
                 },
             });
             if (response.ok) {
-                route.refresh();
                 setSelectedKeyTag(""); // Clear selected key tag
-                loadKeys();
+                await loadKeys();
+                route.refresh();
                 toast.success("Key deleted successfully", { duration: 4000 });
             } else {
                 const data = await response.json();

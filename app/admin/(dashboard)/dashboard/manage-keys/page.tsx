@@ -38,7 +38,7 @@ const AdminManageKeys = () => {
     useEffect(() => {
         const handleClickOutside = (e: MouseEvent) => {
             // Check if selectedkeyTag is truthy and the target is not inside a td element
-            const sanitizedTag = selectedSchoolKeyTag.replace(/\s+/g, ""); // Remove whitespace
+            const sanitizedTag = selectedSchoolKeyTag.replace(/[\s']/g, ""); // Remove whitespace
             if (
                 selectedSchoolKeyTag &&
                 !(
