@@ -47,6 +47,10 @@ export function middleware(req) {
 	if (pathname === "/" && isAuth) {
 		return NextResponse.redirect(new URL("/dashboard", req.url));
 	}
+
+	if (pathname === "/") {
+		return NextResponse.redirect(new URL("/login", req.url));
+	}
 }
 
 export const config = {
